@@ -5,7 +5,6 @@
 #include <stdio.h>
 
 char currentChar;
-boolean EOP;
 
 static FILE *pita;
 static int retval;
@@ -34,9 +33,4 @@ void ADV()
 
     /* Algoritma */
     retval = fscanf(pita, "%c", &currentChar);
-    EOP = (currentChar == MARK);
-    if (EOP)
-    {
-        fclose(pita);
-    }
 }
