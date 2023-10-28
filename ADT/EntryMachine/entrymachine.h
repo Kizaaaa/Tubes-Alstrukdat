@@ -3,7 +3,7 @@
 #ifndef __ENTRYMACHINE_H__
 #define __ENTRYMACHINE_H__
 
-#include "boolean.h"
+#include "../../boolean.h"
 #include "charmachine.h"
 
 #define NMax 280
