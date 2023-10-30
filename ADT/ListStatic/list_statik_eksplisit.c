@@ -4,7 +4,6 @@
 /* Banyaknya elemen didefinisikan secara implisit, memori list statik */
 
 #include <stdio.h>
-#include "boolean.h"
 #include "list_statik_eksplisit.h"
 
 /* ********** KONSTRUKTOR ********** */
@@ -135,33 +134,20 @@ ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
     int i;
     ListStatik l3;
     CreateListStatik(&l3);
-
-    if (isEmpty(l1))
+    NEFF(l3) = listLength(l1);
+    for (i = getFirstIdx(l1); i <= getLastIdx(l1); i++)
     {
-        return (l2);
-    }
-
-    else if (isEmpty(l2))
-    {
-        return (l1);
-    }
-
-    else
-    {
-        for (i = getFirstIdx(l1); i <= getLastIdx(l1); i++)
+        if (plus)
         {
-            if (plus)
-            {
-                ELMT(l3, i) = ELMT(l1, i) + ELMT(l2, i);
-            }
-
-            else
-            {
-                ELMT(l3, i) = ELMT(l1, i) - ELMT(l2, i);
-            }
+            ELMT(l3, i) = ELMT(l1, i) + ELMT(l2, i);
         }
-        return l3;
+
+        else
+        {
+            ELMT(l3, i) = ELMT(l1, i) - ELMT(l2, i);
+        }
     }
+    return l3;
 }
 
 /* ********** OPERATOR RELASIONAL ********** */
