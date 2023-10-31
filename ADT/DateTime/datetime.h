@@ -1,11 +1,7 @@
-/* File: datetime.h */
-/* Tanggal: 30 Agustus 2023 */
-/* Definisi ADT DATETIME */
-
 #ifndef DATETIME_H
 #define DATETIME_H
 
-#include "boolean.h"
+#include "../../boolean.h"
 #include "time.h"
 
 /* *** Definisi TYPE DATETIME <DD/MM/YY HH:MM:SS> *** */

@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <math.h>
+<<<<<<< HEAD:ADT/datetime.c
 #include <time.h>
+=======
+>>>>>>> 922d14c14d70a4b6b18a62f46682c76b7458ad14:ADT/DateTime/datetime.c
 #include "datetime.h"
 
 /* ***************************************************************** */
