@@ -51,6 +51,12 @@ boolean CHECKVALIDUNP(Entry n);
     Mengembalikan nilai true jika tweet valid (Length <= 20 dan Length != 0)
     dan false jika tweet tidak valid */
 
+boolean CHECKVALIDBIO(Entry n);
+
 void printEntry(Entry n);
+
+boolean isSame(Entry n1, Entry n2);
+
+Entry cleansedEntry(Entry n);
 
 #endif
