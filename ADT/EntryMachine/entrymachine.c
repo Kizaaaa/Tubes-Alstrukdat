@@ -95,6 +95,35 @@ boolean CHECKVALIDUNP(Entry n)
     return (n.Length <= 20 && n.Length != 0);
 }
 
+boolean CHECKVALIDBIO(Entry n)
+{
+    return (n.Length <= 135 && n.Length != 0);
+}
+
+boolean isSame(Entry n1, Entry n2)
+{
+    if (n1.Length != n2.Length)
+    {
+        return false;
+    }
+    else
+    {
+        int j = 0;
+        boolean same = true;
+        while (j < n1.Length)
+        {
+            if (n1.TabEntry[j] != n2.TabEntry[j])
+            {
+                printf("%d", n1.TabEntry[j] != n2.TabEntry[j]);
+                same = false;
+                return same;
+            }
+            j++;
+        }
+        return same;
+    }
+}
+
 void printEntry(Entry n)
 {
     int i = 0;
@@ -102,6 +131,20 @@ void printEntry(Entry n)
     {
         printf("%c", n.TabEntry[i]);
     }
+}
+
+Entry cleansedEntry(Entry n)
+{
+    if (n.TabEntry[0] == 10)
+    {
+        int i = 0;
+        for (i = 0; i < n.Length - 1; i++)
+        {
+            n.TabEntry[i] = n.TabEntry[i + 1];
+        }
+        n.Length -= 1;
+    }
+    return n;
 }
 
 /* USAGE */
