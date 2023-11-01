@@ -29,6 +29,15 @@ void COPYENTRY()
     currentEntry.Length = i;
 }
 
+Entry StringToEntry(char* input, int size){
+   Entry e;
+   e.Length = size;
+   for(int i=0;i<size;i++){
+      e.TabEntry[i] = input[i];
+   }
+   return e;
+}
+
 void IgnoreBlanks() // Tetap dibuat, by any chance bisa digunakan
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang

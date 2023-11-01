@@ -17,7 +17,7 @@ void CreateListStatik(ListStatik *l)
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListStatik l)
+int liststatLength(ListStatik l)
 /* Mengirimkan banyaknya elemen efektif List */
 /* Mengirimkan nol jika List kosong */
 {
@@ -34,7 +34,7 @@ IdxType getLastIdx(ListStatik l)
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 {
-    return listLength(l) - 1;
+    return liststatLength(l) - 1;
 }
 
 /* ********** Test Indeks yang valid ********** */

@@ -4,7 +4,6 @@
 // #ifndef QUEUE_H
 // #define QUEUE_H
 #include <stdio.h>
-#include "boolean.h"
 #include "queue.h"
 
 // #define IDX_UNDEF -1

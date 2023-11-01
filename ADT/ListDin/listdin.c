@@ -62,7 +62,7 @@ void dealocateList(ListDin *l){
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListDin l){
+int listdinLength(ListDin l){
    return NEFF(l);
 }
 /* Mengirimkan banyaknya elemen efektif list */

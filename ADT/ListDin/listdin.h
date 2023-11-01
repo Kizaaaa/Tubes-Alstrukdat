@@ -7,7 +7,7 @@
 #ifndef LISTDIN_H
 #define LISTDIN_H
 
-#include "boolean.h"
+#include "../../boolean.h"
 
 /*  Kamus Umum */
 #define IDX_MIN 0
@@ -54,7 +54,7 @@ void dealocateList(ListDin *l);
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListDin l);
+int listdinLength(ListDin l);
 /* Mengirimkan banyaknya elemen efektif list */
 /* Mengirimkan nol jika list l kosong */
 /* *** Daya tampung container *** */
