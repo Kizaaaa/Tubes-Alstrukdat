@@ -20,7 +20,7 @@ void COPYENTRY()
 {
     // IgnoreBlanks();
     int i = 0;
-    while (currentChar != MARK)
+    while (currentChar != MARK && i < NMax)
     {
         currentEntry.TabEntry[i] = currentChar;
         ADV();
