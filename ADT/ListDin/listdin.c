@@ -105,7 +105,7 @@ boolean isIdxEff(ListDin l, IdxType i){
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test list kosong *** */
-boolean isEmpty(ListDin l){
+boolean isEmptyListdin(ListDin l){
    if (NEFF(l) == 0){
       return true;
    }
@@ -115,7 +115,7 @@ boolean isEmpty(ListDin l){
 }
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
 /* *** Test list penuh *** */
-boolean isFull(ListDin l){
+boolean isFullListDin(ListDin l){
    if (NEFF(l) == CAPACITY(l)){
       return true;
    }
@@ -222,7 +222,7 @@ boolean isListEqual(ListDin l1, ListDin l2){
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOf(ListDin l, ElType val){
+IdxType indexlistdinOf(ListDin l, ElType val){
    IdxType ans,i;
    ans = IDX_UNDEF;
    for (i=getFirstIdx(l);i<NEFF(l);i++){
