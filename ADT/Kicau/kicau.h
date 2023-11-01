@@ -23,12 +23,12 @@ typedef struct kicau
 #define LIKE(k) (k).Like
 #define AUTHOR(k) (k).Author
 #define TEXT(k) (k).Text
-#define NEXT(k) (k).Next;
+#define NEXT(k) (k).Next
 #define WAKTU(k) (k).Waktu
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create Tweet */
-void CreateTweet(Kicau *k, int Id, int Like, Entry Author, Entry Text);
+void CreateTweet(Kicau *k, int id, Entry author, Entry text);
 
 void DisplayTweet(Kicau k);
 #endif

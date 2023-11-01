@@ -7,7 +7,7 @@
 #include "../../boolean.h"
 //UTAS linked list
 //TWEET LINKED LIST di struct nya ada pointer menuju linked list utas
-Address newNode(ElType val);
+Address newNodeLinked(UTAS val);
 
 /* Definisi Node : */
 typedef int ElType;
@@ -30,8 +30,13 @@ typedef struct node {
 #define INFOUTAS(p) (p)->infoutas
 #define NEXT(p) (p)->next
 
-void createUtas(List* l){
+typedef Address LINKEDUTAS;
 
+#define IDX_UNDEF (-1)
+#define FIRSTUTAS(p) (p)
+
+void createUtas(List* l){
+    FIRSTUTAS(*l) = NULL;
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
