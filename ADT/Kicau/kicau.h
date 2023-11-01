@@ -14,7 +14,7 @@ typedef struct kicau
     int Like;
     Entry Author;
     Entry Text;
-    UTAS Next;
+    LINKEDUTAS Next;
     DATETIME Waktu;
 } Kicau;
 

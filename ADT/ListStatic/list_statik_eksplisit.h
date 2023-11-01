@@ -45,7 +45,7 @@ void CreateListStatik(ListStatik *l);
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListStatik l);
+int liststatLength(ListStatik l);
 /* Mengirimkan banyaknya elemen efektif List */
 /* Mengirimkan nol jika List kosong */  
 

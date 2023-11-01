@@ -19,6 +19,8 @@ typedef struct
 extern boolean EndEntry;
 extern Entry currentEntry;
 
+Entry StringToEntry(char* input, int size);
+
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
