@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "boolean.h"
+#include "../../boolean.h"
 #include "entrymachine.h"
 
 boolean EndEntry;
@@ -93,6 +93,15 @@ boolean CHECKVALIDUNP(Entry n)
     dan false jika tweet tidak valid */
 {
     return (n.Length <= 20 && n.Length != 0);
+}
+
+void printEntry(Entry n)
+{
+    int i = 0;
+    for (i = 0; i < n.Length; i++)
+    {
+        printf("%c", n.TabEntry[i]);
+    }
 }
 
 /* USAGE */
