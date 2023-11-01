@@ -2,7 +2,9 @@
 
   "files.associations": {
     "boolean.h": "c",
-    "datetime.h": "c"
+    "datetime.h": "c",
+    "listlinier.h": "c",
+    "entrymachine.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
 
