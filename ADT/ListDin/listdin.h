@@ -77,10 +77,10 @@ boolean isIdxEff(ListDin l, IdxType i);
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test list kosong *** */
-boolean isEmpty(ListDin l);
+boolean isEmptyListdin(ListDin l);
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
 /* *** Test list penuh *** */
-boolean isFull(ListDin l);
+boolean isFullListDin(ListDin l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
@@ -118,7 +118,7 @@ boolean isListEqual(ListDin l1, ListDin l2);
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOf(ListDin l, ElType val);
+IdxType indexlistdinOf(ListDin l, ElType val);
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
