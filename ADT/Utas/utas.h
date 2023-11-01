@@ -51,11 +51,11 @@ void displayUtas(LINKEDUTAS l);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void insertUtas(LINKEDUTAS *l, ElType id_utas, ElType idx);
+void insertUtas(LINKEDUTAS *l, ElType idx, ElType id_utas, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
-void deleteUtas(LINKEDUTAS *l, ElType id_utas, ElType idx);
+void deleteUtas(LINKEDUTAS *l, ElType idx, ElType id_utas, UTAS *val);
 /* I.S list l tidak kosong */
 /* F.S Melakukan penghapusan elemen bertipe UTAS  */
 
