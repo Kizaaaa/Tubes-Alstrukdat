@@ -2,6 +2,7 @@
 #include "../DateTime/datetime.h"
 #include "../ListDin/listdin.h"
 #include "../EntryMachine/entrymachine.h"
+#include "../Kicau/kicau.h"
 #include "../../boolean.h"
 
 #include <stdio.h>
@@ -32,80 +33,71 @@ typedef struct node {
 #define NEXT(p) (p)->next
 
 
-Address newNode(ElType val){
+Address newNodeLinked(UTAS val){
     Address p;
     p = (Address) malloc(sizeof(Node));
     if (p!=NULL) {
-        INFO(p) = val;
+        INFOUTAS(p) = val;
         NEXT(p) = NULL;
     }
     return p;
 }
 
-void createUtas(List* l){
-    FIRST(*l) = NULL;
+typedef Address LINKEDUTAS;
+
+#define IDX_UNDEF (-1)
+#define FIRSTUTAS(p) (p)
+
+void createUtas(LINKEDUTAS* l){
+    FIRSTUTAS(*l) = NULL;
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void readUtas(List l){
+void readUtas(LINKEDUTAS l){
     printf("Utas berhasil dibuat!\n");
     printf("\n");
+    printf("Masukkan kicauan:\n");
+    Entry A;
+    STARTENTRY();
+    //adt var adt entry
+    A = currentEntry;
+    
+    if (CHECKVALIDTWEET(A))
+    {
+        // proses jika tweet valid
+        CLOSEENTRY();   
+    }
+    else
+    {
+        // proses jika tweet tidak valid
+    }
+    printf("Apakah Anda ingin melanjutkan kicauan ini? (YA/TIDAK)\n");
+    STARTENTRY();
+
     
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void displayUtas(List l){
+void displayUtas(LINKEDUTAS l){
     Address p;
+    
     
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void insertUtas(List* l , ElType idx, UTAS val){
-    Address p;
-    Address idx2;
-    if (idx==0){
-        insertFirst(l,val);
-    }
-    else{
-        p = newNode(val);
-        if (p!=NULL){
-            idx2=FIRST(*l);
-            int count=0;
-            while (count<idx-1){
-                count++;
-                idx2 = NEXT(idx2);
-            }
-            NEXT(p) = NEXT(idx2);
-            NEXT(idx2)=p;
-        }
-    }
+void insertUtas(LINKEDUTAS* l, ElType idx, ElType id_utas, UTAS val){
+    Address pointerlinked;
+
 }
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
-void deleteUtas(List* l ,ElType id_utas, UTAS* val){
-    Address p;
-    Address idx2;
-    p = FIRST(*l);
-    if (id_utas==0){
-        deleteFirst(l,val);
-    }
-    else{
-        int count=0;
-        idx2 = FIRST(*l);
-        while (count!=id_utas-1){
-            count++;
-            idx2 = NEXT(idx2);
-        }
-        p = NEXT(idx2);
-        *val = INFO(p);
-        NEXT(idx2) = NEXT(p);
-        free(p);
-        
-    }
+void deleteUtas(LINKEDUTAS* l, ElType idx, ElType id_utas, UTAS* val){
+    Address pointerlinked;
+    
 }
 /* I.S List l tidak kosong */
 /* F.S Melakukan penghapusan elemen bertipe UTAS  */
