@@ -51,4 +51,6 @@ boolean CHECKVALIDUNP(Entry n);
     Mengembalikan nilai true jika tweet valid (Length <= 20 dan Length != 0)
     dan false jika tweet tidak valid */
 
+void printEntry(Entry n);
+
 #endif

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 #include "datetime.h"
 
 /* ***************************************************************** */
@@ -257,4 +258,21 @@ long int DATETIMEDurasi(DATETIME DAw, DATETIME DAkh)
     }
 
     return durasi;
+}
+
+/**** Mengirimkan DATETIME local ****/
+DATETIME GetLocalTime()
+{
+    /* KAMUS */
+    DATETIME D;
+    time_t t;
+    struct tm *tmp;
+
+    /* ALGORITMA */
+    t = time(NULL);
+    tmp = localtime(&t);
+
+    CreateDATETIME(&D, tmp->tm_mday, tmp->tm_mon + 1, tmp->tm_year + 1900, tmp->tm_hour, tmp->tm_min, tmp->tm_sec);
+
+    return D;
 }
