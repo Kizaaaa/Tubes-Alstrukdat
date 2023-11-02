@@ -37,7 +37,7 @@ void CreateQueue(Queue *q){
 /* Proses : Melakukan alokasi, membuat sebuah q kosong */
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q){
+boolean isEmptyQueue(Queue q){
     if ((IDX_TAIL(q) == IDX_UNDEF)&&(IDX_HEAD(q)==IDX_UNDEF)){
         // printf("--trueee\n");
         return true;
@@ -48,7 +48,7 @@ boolean isEmpty(Queue q){
     }
 }
 /* Mengirim true jika q kosong: lihat definisi di atas */
-boolean isFull(Queue q){
+boolean isFullQueue(Queue q){
     // return ((IDX_HEAD(q)==0) && (IDX_TAIL(q)==CAPACITY-1));
     boolean ans=false;
     if (((IDX_TAIL(q)==CAPACITY-1)&&(IDX_HEAD(q)==0))||(IDX_HEAD(q)==IDX_TAIL(q)+1)){
@@ -59,10 +59,10 @@ boolean isFull(Queue q){
 /* Mengirim true jika tabel penampung elemen q sudah penuh */
 /* yaitu IDX_TAIL akan selalu di belakang IDX_HEAD dalam buffer melingkar*/
 
-int length(Queue q){
+int lengthQueue(Queue q){
     int len = 0;
     int i;
-    if (isEmpty(q)){
+    if (isEmptyQueue(q)){
         return 0;
     }
     // else{
@@ -78,7 +78,7 @@ int length(Queue q){
 
 /* *** Primitif Add/Delete *** */
 void enqueue(Queue *q, ElType val){
-    if(isEmpty(*q)){
+    if(isEmptyQueue(*q)){
         IDX_HEAD(*q)=0;
         IDX_TAIL(*q)=0;
     }
@@ -98,7 +98,7 @@ void enqueue(Queue *q, ElType val){
 
 void dequeue(Queue *q, ElType *val){
     *val = HEAD(*q);
-    if (length(*q)==1){
+    if (lengthQueue(*q)==1){
         IDX_HEAD(*q)=IDX_UNDEF;
         IDX_TAIL(*q)=IDX_UNDEF;
     }
@@ -119,10 +119,10 @@ void dequeue(Queue *q, ElType *val){
 /* *** Display Queue *** */
 void displayQueue(Queue q){
     int val=0;
-    if (isEmpty(q)){
+    if (isEmptyQueue(q)){
         printf("[]\n");
     }
-    else if (length(q)==1){
+    else if (lengthQueue(q)==1){
         printf("[");
         printf("%d",q.buffer[IDX_TAIL(q)]);
         printf("]\n");
@@ -165,8 +165,8 @@ Queue reverseQueue(Queue q){
     CreateQueue(&hasil);
     Q1=q;
     int i,j,val;
-    int len = length(q);
-    int pjg = length(q);
+    int len = lengthQueue(q);
+    int pjg = lengthQueue(q);
     for (i=0;i<pjg;i++){
         j=0;
         while(j<len){

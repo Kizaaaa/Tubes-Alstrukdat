@@ -160,7 +160,7 @@ void printListDin(ListDin l){
    else{
       IdxType i;
       printf("[");
-      for (i=getFirstIdx(l);i<NEFF(l)-1;i++){
+      for (i=getFirstIdxListDin(l);i<NEFF(l)-1;i++){
          printf("%d,",ELMT(l,i));
       }
       printf("%d",ELMT(l,NEFF(l)-1));
@@ -183,12 +183,12 @@ ListDin plusMinusList(ListDin l1, ListDin l2, boolean plus){
    CreateListDin(&ln,CAPACITY(l1));
    NEFF(ln) = NEFF(l1);
    if (plus){ //dijumlahkan
-      for (i=getFirstIdx(l1);i<NEFF(l1);i++){
+      for (i=getFirstIdxListDin(l1);i<NEFF(l1);i++){
          ELMT(ln,i) = ELMT(l1,i) + ELMT(l2,i);
       }
    }
    else{ //dikurangkan
-      for (i=getFirstIdx(l1);i<NEFF(l1);i++){
+      for (i=getFirstIdxListDin(l1);i<NEFF(l1);i++){
          ELMT(ln,i) = ELMT(l1,i) - ELMT(l2,i);
       }
    }
@@ -207,7 +207,7 @@ boolean isListDinEqual(ListDin l1, ListDin l2){
       if (NEFF(l1)==0){
          return true;
       }
-      for (i=getFirstIdx(l1);i<NEFF(l1);i++){
+      for (i=getFirstIdxListDin(l1);i<NEFF(l1);i++){
          if (ELMT(l1,i)!=ELMT(l2,i)){
             return false;
          }
@@ -225,7 +225,7 @@ boolean isListDinEqual(ListDin l1, ListDin l2){
 IdxType indexlistdinOf(ListDin l, ElType val){
    IdxType ans,i;
    ans = IDX_UNDEF;
-   for (i=getFirstIdx(l);i<NEFF(l);i++){
+   for (i=getFirstIdxListDin(l);i<NEFF(l);i++){
       if (ELMT(l,i)==val){
          ans = i;
          break;
@@ -242,10 +242,10 @@ IdxType indexlistdinOf(ListDin l, ElType val){
 
 /* ********** NILAI EKSTREM ********** */
 void extremeValues(ListDin l, ElType *max, ElType *min){
-   *max = ELMT(l,getFirstIdx(l));
-   *min = ELMT(l,getFirstIdx(l));
+   *max = ELMT(l,getFirstIdxListDin(l));
+   *min = ELMT(l,getFirstIdxListDin(l));
    IdxType i;
-   for (i=getFirstIdx(l);i<NEFF(l);i++){
+   for (i=getFirstIdxListDin(l);i<NEFF(l);i++){
       if (*max<ELMT(l,i)){
          *max = ELMT(l,i);
       }
@@ -263,7 +263,7 @@ void copyListDin(ListDin lIn, ListDin *lOut){
    CreateListDin(lOut,NEFF(lIn));
    NEFF(*lOut) = NEFF(lIn);
    IdxType i;
-   for (i=getFirstIdx(lIn);i<NEFF(lIn);i++){
+   for (i=getFirstIdxListDin(lIn);i<NEFF(lIn);i++){
       ELMT(*lOut,i) = ELMT(lIn,i);
    }
    // printList(*lOut);
@@ -274,7 +274,7 @@ void copyListDin(ListDin lIn, ListDin *lOut){
 ElType sumListDin(ListDin l){
    ElType total = 0;
    IdxType i;
-   for (i=getFirstIdx(l);i<NEFF(l);i++){
+   for (i=getFirstIdxListDin(l);i<NEFF(l);i++){
       total = total + ELMT(l,i);
    }
    // printf("--total: %d",total);
@@ -288,7 +288,7 @@ int countVal(ListDin l, ElType val){
    if (NEFF(l)==0){
       return count;
    }
-   for (i=getFirstIdx(l);i<NEFF(l);i++){
+   for (i=getFirstIdxListDin(l);i<NEFF(l);i++){
       if (ELMT(l,i)==val){
          count++;
       }
@@ -302,7 +302,7 @@ int countVal(ListDin l, ElType val){
 /* ********** SORTING ********** */
 void sortListDin(ListDin *l, boolean asc){
    IdxType i;
-   if (isEmpty(*l)==false){
+   if (isEmptyListDin(*l)==false){
       if (asc){
          boolean bool = true;
          while (bool){
@@ -369,7 +369,7 @@ void sortListDin(ListDin *l, boolean asc){
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
 void insertLastListDin(ListDin *l, ElType val){
-   ELMT(*l,getLastIdx(*l)+1) = val;
+   ELMT(*l,getLastIdxListDin(*l)+1) = val;
    NEFF(*l)++;
 }
 /* Proses: Menambahkan val sebagai elemen terakhir list */
@@ -377,7 +377,7 @@ void insertLastListDin(ListDin *l, ElType val){
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
 void deleteLastListDin(ListDin *l, ElType *val){
-   *val = ELMT(*l,getLastIdx(*l));
+   *val = ELMT(*l,getLastIdxListDin(*l));
    NEFF(*l)--;
    // printList(*l);
 }

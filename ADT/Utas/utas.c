@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../Utas/utas.h"
-
+//bungkusnya listdin KICAUAN, ele listdin adalah link list, INFO link list adalah KICAU, NEXT di KICAU menunjuk ke UTAS. 
 Address newNodeLinked(UTAS val)
 {
     Address p;
@@ -15,7 +15,7 @@ Address newNodeLinked(UTAS val)
     return p;
 }
 
-void createUtas(LINKEDUTAS *l)
+void createUtas(LINKEDUTAS *l, Kicau Twt)
 {
     /* I.S sembarang */
     /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
@@ -28,29 +28,36 @@ void readUtas(LINKEDUTAS l)
     printf("Utas berhasil dibuat!\n");
     printf("\n");
     printf("Masukkan kicauan:\n");
-    Entry A;
+    // Entry A;
+    Entry input;
     STARTENTRY();
-    // adt var adt entry
-    A = currentEntry;
+    input = currentEntry;
+    if(isSame(input,StringToEntry("UTAS",4))){
 
-    if (CHECKVALIDTWEET(A))
-    {
-        // proses jika tweet valid
-        CLOSEENTRY();
     }
-    else
-    {
-        // proses jika tweet tidak valid
+    else{
+
     }
+    // adt var adt entry
+    // A = currentEntry;
+
+    // if (CHECKVALIDTWEET(A))
+    // {
+    //     // proses jika tweet valid
+    //     CLOSEENTRY();
+    // }
+    // else
+    // {
+    //     // proses jika tweet tidak valid
+    // }
     printf("Apakah Anda ingin melanjutkan kicauan ini? (YA/TIDAK)\n");
-    STARTENTRY();
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void displayUtas(LINKEDUTAS l)
-{
+void displayUtas(LINKEDUTAS l){
     Address p;
+
 }
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
