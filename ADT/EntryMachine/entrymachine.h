@@ -19,7 +19,7 @@ typedef struct
 extern boolean EndEntry;
 extern Entry currentEntry;
 
-Entry StringToEntry(char* input, int size);
+Entry StringToEntry(char *input, int size);
 
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
@@ -60,5 +60,33 @@ void printEntry(Entry n);
 boolean isSame(Entry n1, Entry n2);
 
 Entry cleansedEntry(Entry n);
+
+Entry cutBeforeEntry(Entry n, int k);
+
+Entry cutAfterEntry(Entry n, int k);
+
+int firstNumParam(Entry n);
+/*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
+    e.g.
+    BALAS 111 11;
+    firstNumParam(currentEntry) akan mengembalikan nilai 111
+    SUKA_KICAUAN 69420;
+    firstNumParam(currentEntry) akan mengembalikan nilai 69420
+    BALAS 86 -1;
+    firstNumParam(currentEntry) akan mengembalikan nilai 86
+    BALAS 76 -9;
+    firstNumParam(currentEntry) akan mengembalikan nilai 76 */
+
+int secondNumParam(Entry n);
+/*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
+    e.g.
+    BALAS 111 11;
+    secondNumParam(currentEntry) akan mengembalikan nilai 11
+    SUKA_KICAUAN 69420;
+    secondNumParam(currentEntry) akan mengembalikan nilai 0
+    BALAS 86 -1;
+    secondNumParam(currentEntry) akan mengembalikan nilai -1
+    BALAS 76 -9;
+    secondNumParam(currentEntry) akan mengembalikan nilai -1 */
 
 #endif
