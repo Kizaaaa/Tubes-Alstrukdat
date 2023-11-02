@@ -7,6 +7,7 @@
 #include "../DateTime/datetime.h"
 // #include "../ListDin/listdin.h"
 #include "../EntryMachine/entrymachine.h"
+#include "../Kicau/kicau.h"
 #include "../../boolean.h"
 
 /* Definisi Node : */
@@ -39,7 +40,7 @@ Address newNodeLinked(UTAS val);
 #define IDX_UNDEF (-1)
 #define FIRSTUTAS(p) (p)
 
-void createUtas(LINKEDUTAS *l);
+void createUtas(LINKEDUTAS *l,Kicau Twt);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
