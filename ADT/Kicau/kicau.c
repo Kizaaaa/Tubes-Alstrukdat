@@ -13,8 +13,8 @@ void CreateTweet(Kicau *k, int id, Entry author, Entry text){
 
 void DisplayTweet(Kicau k){
     printf("| ID = %d\n",ID(k));
-    printEntry(AUTHOR(k)); printf("\n");
-    TulisDATETIME(WAKTU(k)); printf("\n");
-    printEntry(TEXT(k)); printf("\n");
+    printf("| "); printEntry(AUTHOR(k)); printf("\n");
+    printf("| "); TulisDATETIME(WAKTU(k)); printf("\n");
+    printf("| "); printEntry(TEXT(k)); printf("\n");
     printf("| Disukai = %d\n",LIKE(k));
 }
