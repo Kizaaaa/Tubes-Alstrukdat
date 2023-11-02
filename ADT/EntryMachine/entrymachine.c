@@ -5,6 +5,18 @@
 boolean EndEntry;
 Entry currentEntry;
 
+int powerDifferentiated(int x, int y)
+// x^y
+{
+    int a = 1;
+    int fin = 1;
+    for (a = 1; a <= y; a++)
+    {
+        fin = fin * x;
+    }
+    return fin;
+}
+
 void CLOSEENTRY()
 /* Menutup Entry */
 {
@@ -29,13 +41,15 @@ void COPYENTRY()
     currentEntry.Length = i;
 }
 
-Entry StringToEntry(char* input, int size){
-   Entry e;
-   e.Length = size;
-   for(int i=0;i<size;i++){
-      e.TabEntry[i] = input[i];
-   }
-   return e;
+Entry StringToEntry(char *input, int size)
+{
+    Entry e;
+    e.Length = size;
+    for (int i = 0; i < size; i++)
+    {
+        e.TabEntry[i] = input[i];
+    }
+    return e;
 }
 
 void IgnoreBlanks() // Tetap dibuat, by any chance bisa digunakan
@@ -144,8 +158,10 @@ void printEntry(Entry n)
 
 Entry cleansedEntry(Entry n)
 {
-    if (n.TabEntry[0] == 10)
+    int j = 0;
+    while (n.TabEntry[j] == 10)
     {
+
         int i = 0;
         for (i = 0; i < n.Length - 1; i++)
         {
@@ -154,6 +170,122 @@ Entry cleansedEntry(Entry n)
         n.Length -= 1;
     }
     return n;
+}
+
+Entry cutBeforeEntry(Entry n, int k)
+{
+    Entry m;
+    m.Length = k;
+    for (int i = 0; i < k; i++)
+    {
+        m.TabEntry[i] = n.TabEntry[i];
+    }
+    return m;
+}
+
+Entry cutAfterEntry(Entry n, int k)
+{
+    Entry m;
+    m.Length = n.Length - k;
+    for (int i = 0; i < m.Length; i++)
+    {
+        m.TabEntry[i] = n.TabEntry[k + 1 + i];
+    }
+    return m;
+}
+
+int firstNumParam(Entry n)
+/*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
+    e.g.
+    BALAS 111 11;
+    firstNumParam(currentEntry) akan mengembalikan nilai 111
+    SUKA_KICAUAN 69420;
+    firstNumParam(currentEntry) akan mengembalikan nilai 69420
+    BALAS 86 -1;
+    firstNumParam(currentEntry) akan mengembalikan nilai 86
+    BALAS 76 -9;
+    firstNumParam(currentEntry) akan mengembalikan nilai 76 */
+{
+    Entry p;
+    p.Length = 0;
+    int k;
+    int i = 0;
+    int ret = 0;
+    boolean sev = false;
+    while (n.TabEntry[i] != 32)
+    {
+        n = cutAfterEntry(n, 0);
+    }
+    n = cutAfterEntry(n, 0);
+    while (n.TabEntry[i] != 32 && !sev)
+    {
+        p.Length += 1;
+        p.TabEntry[i] = n.TabEntry[i];
+        i++;
+        if (i == n.Length)
+        {
+            sev = true;
+        }
+    }
+    i = 0;
+    while (i < p.Length)
+    {
+        k = p.TabEntry[i] - '0';
+        ret += k * powerDifferentiated(10, p.Length - (i + 1));
+        i++;
+    }
+    return ret;
+}
+
+int secondNumParam(Entry n)
+/*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
+    e.g.
+    BALAS 111 11;
+    secondNumParam(currentEntry) akan mengembalikan nilai 11
+    SUKA_KICAUAN 69420;
+    secondNumParam(currentEntry) akan mengembalikan nilai 0
+    BALAS 86 -1;
+    secondNumParam(currentEntry) akan mengembalikan nilai -1
+    BALAS 76 -9;
+    secondNumParam(currentEntry) akan mengembalikan nilai -1 */
+{
+    Entry p;
+    p.Length = 0;
+    int k;
+    int i = 0;
+    int j = 0;
+    int ret = 0;
+    while (n.TabEntry[i] != 32)
+    {
+        n = cutAfterEntry(n, 0);
+    }
+    n = cutAfterEntry(n, 0);
+    while (n.TabEntry[i] != 32)
+    {
+        i++;
+    }
+    n = cutAfterEntry(n, i);
+    while (j < n.Length)
+    {
+        p.Length += 1;
+        p.TabEntry[j] = n.TabEntry[j];
+        j++;
+    }
+    if (p.TabEntry[0] == 45)
+    {
+        return -1;
+    }
+    else
+    {
+        j = 0;
+        while (j < p.Length)
+        {
+            k = p.TabEntry[j] - '0';
+            ret += k * powerDifferentiated(10, p.Length - (j + 1));
+            j++;
+        }
+        return ret;
+    }
 }
 
 /* USAGE */
