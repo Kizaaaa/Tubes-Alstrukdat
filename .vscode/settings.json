@@ -3,7 +3,10 @@
     "boolean.h": "c",
     "datetime.h": "c",
     "listlinier.h": "c",
-    "entrymachine.h": "c"
+    "entrymachine.h": "c",
+    "kicau.h": "c",
+    "stdio.h": "c",
+    "stdlib.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",
