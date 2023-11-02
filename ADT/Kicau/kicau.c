@@ -7,12 +7,14 @@ void CreateTweet(Kicau *k, int id, Entry author, Entry text){
     LIKE(*k) = 0;
     AUTHOR(*k) = author;
     TEXT(*k) = text;
-    NEXT(*k) = NULL;
+    // NEXT(*k) = NULL;
     WAKTU(*k) = GetLocalTime();
 }
 
 void DisplayTweet(Kicau k){
     printf("| ID = %d\n",ID(k));
-    TulisDATETIME(WAKTU(k));
+    printEntry(AUTHOR(k)); printf("\n");
+    TulisDATETIME(WAKTU(k)); printf("\n");
+    printEntry(TEXT(k)); printf("\n");
     printf("| Disukai = %d\n",LIKE(k));
 }
