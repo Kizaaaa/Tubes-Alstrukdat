@@ -14,7 +14,8 @@ typedef struct kicau
     int Like;
     Entry Author;
     Entry Text;
-    LINKEDUTAS Next;
+    LINKEDUTAS Utasan;
+    // LINKEDUTAS Next;
     DATETIME Waktu;
 } Kicau;
 
@@ -23,7 +24,7 @@ typedef struct kicau
 #define LIKE(k) (k).Like
 #define AUTHOR(k) (k).Author
 #define TEXT(k) (k).Text
-#define NEXT(k) (k).Next
+#define UTASAN(k) (k).Utasan
 #define WAKTU(k) (k).Waktu
 
 /* ********** KONSTRUKTOR ********** */

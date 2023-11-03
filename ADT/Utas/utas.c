@@ -88,13 +88,18 @@ void readUtas(LINKEDUTAS l){
     }
 }
 
-/* I.S sembarang */
-/* F.S Terbentuk list kosong l dengan elemen bertipe utas */
-UTAS takeUtas(LINKEDUTAS l, Address p){ //Mengembalikan elemen UTAS di LINKEDLIST yang ditunjuk oleh alamat p
-    UTAS u;
-    // createUtas(&u);
-    return INFOUTAS(p);
+//mengambil UTAS pada indeks tertentu
+UTAS getElmtUtas(LINKEDUTAS l,int idx){
+    Address p;
+    p = FIRSTUTAS(l);
+    int i=0;
+    while (i<=idx){
+        i++;
+        p = NEXT(p);
+    }
+    return(INFOUTAS(p));
 }
+
 
 void displayUtas(UTAS u,Kicau Twt){ //Display hanya 1 UTAS
     printf("    | INDEX = %d\n",INDEKS(u));
@@ -113,14 +118,17 @@ void displayLinkedUtas(LINKEDUTAS l, Kicau Twt){ //Display SELURUH LINKEDUTAS, a
     printf("\n");
 
     //coba print semua utas
-    Address p=l;
-    // p = FIRSTUTAS(l);
+    // Address p;
+    Address p = l;
+    int i = 0;
+    p = FIRSTUTAS(l);
     while (p!=NULL){
-        printf("    | INDEX = %d\n",INDEKS(p));
+        printf("    | INDEX = %d\n",i);
         printf("    | "); printEntry(AUTHOR(Twt)); printf("\n");
-        printf("    | "); TulisDATETIME(WAKTU(p)); printf("\n");
-        printf("    | "), printEntry(TEXT(p)); printf("\n");
+        printf("    | "); TulisDATETIME(TIME(p)); printf("\n");
+        printf("    | "), printEntry(TEXTUTAS(p)); printf("\n");
         printf("\n");
+        i++;
         p = NEXT(p);
     }
     
@@ -128,17 +136,79 @@ void displayLinkedUtas(LINKEDUTAS l, Kicau Twt){ //Display SELURUH LINKEDUTAS, a
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void insertUtas(LINKEDUTAS *l, ElType idx, ElType id_utas, UTAS val)
+
+//SAMBUNG_UTAS
+
+//getting the max indeks, indeks start from 1!
+int getLastIdxUtas(LINKEDUTAS l){
+    int res=1;
+    Address p;
+    p = FIRSTUTAS(l);
+    while (p!=NULL)
+    {
+        res++;
+        p = NEXT(p);
+    }
+    return res;
+}
+
+void sambungUtas(LINKEDUTAS *l,ElType idx){
+    if(idx>getLastIdxUtas(l)){
+        printf("Index terlalu tinggi!\n");
+    }
+    else{
+        
+    }
+}
+
+void insertFirstUtas(LINKEDUTAS *l, UTAS val){
+    Address p;
+    Address pointerlinked;
+    pointerlinked = FIRSTUTAS(*l);
+    p = newNodeLinked(val);
+    //penambahan di awal
+    if (p!=NULL){
+        NEXT(p) = FIRSTUTAS(*l); 
+        FIRSTUTAS(*l) = p;
+    }
+    //menambah 1 semua indeks UTAS hingga UTAS terakhir karena terjadi insert di awal
+    while (p!=NULL){
+        INDEKS(INFOUTAS(p))+=1;
+        p = NEXT(p);
+    }
+    
+}
+
+//Menyambung utas pada indeks tertentu.
+//UTAS val sudah diisi dengan komponen yg diinginkan
+void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val)
 {   //aku liat dulu entrymachine 2 param nya
     Address pointerlinked;
-    Address new;
-    new = newNodeLinked(val);
+    Address p;
     pointerlinked = FIRST(*l);
-    
-    
-    // while (NEXT(pointerlinked)!=NULL){
-    //     /* code */
-    // }
+    //Insert di indeks 1 atau pertama
+    if (idx==1){
+        insertFirstUtas(l,val);
+    }
+    //insert di indeks Eltype idx pilihan
+    else{
+        p = newNodeLinked(val);
+        if (p!=NULL){
+            pointerlinked=FIRST(*l);
+            int count=0;
+            while (count<idx){
+                count++;
+                pointerlinked = NEXT(pointerlinked);
+            }
+            NEXT(p) = NEXT(pointerlinked);
+            NEXT(pointerlinked)=p;
+        }
+        //mengubah indeks UTAS sisanya dengan menambah 1 krn terjadi insert
+        while (p!=NULL){
+            INDEKS(INFOUTAS(p))+=1;
+            p = NEXT(p);
+        }
+    }
 }
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
