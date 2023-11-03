@@ -4,6 +4,7 @@
 #include "../../boolean.h"
 #include "../Matrix/matrix.h"
 #include "../EntryMachine/entrymachine.h"
+#include "../Matrix/matrix.h"
 
 /* *** Definisi TYPE DATETIME <DD/MM/YY HH:MM:SS> *** */
 typedef struct profil{
