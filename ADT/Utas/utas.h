@@ -48,7 +48,7 @@ Address newNodeLinked(UTAS val);
 #define FIRSTUTAS(p) (p)
 
 typedef Address LINKEDUTAS;
-#include "../Kicau/kicau.h"
+
 
 void createUtas(UTAS *U, ElType idx, Entry teks, DATETIME time);
 /* I.S sembarang */
@@ -62,15 +62,7 @@ void readUtas(LINKEDUTAS* l);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void displayUtas(UTAS u,Kicau Twt);
-/* I.S sembarang */
-/* F.S Menampilkan SATU UTAS */
-
-void displayLinkedUtas(LINKEDUTAS l,Kicau Twt);
-/* I.S sembarang */
-/* F.S Menampilkan SELURUH LinkedUtas termasuk Kicauan Utama */
-
-void sambungUtas(LINKEDUTAS *l,UTAS idx);
+void sambungUtas(LINKEDUTAS *l, ElType idx);
 
 void insertFirstUtas(LINKEDUTAS *l, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */
@@ -84,7 +76,7 @@ void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
-void deleteUtas(LINKEDUTAS *l, ElType idx, ElType id_utas, UTAS *val);
+void deleteUtasAt(LINKEDUTAS *l, ElType idx);
 /* I.S list l tidak kosong */
 /* F.S Melakukan penghapusan elemen bertipe UTAS  */
 
