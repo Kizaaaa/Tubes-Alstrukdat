@@ -1,8 +1,6 @@
 #ifndef KICAU_H
 #define KICAU_H
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "../../boolean.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../DateTime/datetime.h"
