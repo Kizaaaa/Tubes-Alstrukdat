@@ -5,5 +5,6 @@
 #include <stdlib.h>
 #include "boolean.h"
 #include "ADT/EntryMachine/entrymachine.h"
+#include "ADT/Kicau/kicau.h"
 
 #endif
