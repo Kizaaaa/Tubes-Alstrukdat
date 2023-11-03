@@ -6,7 +6,9 @@
     "entrymachine.h": "c",
     "kicau.h": "c",
     "stdio.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "main.h": "c",
+    "utas.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",

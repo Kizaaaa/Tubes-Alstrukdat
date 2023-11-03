@@ -48,8 +48,8 @@ int main(){
 
             } else if(isSame(input,StringToEntry("KICAU",5))){
                 // CreateKicau(kicau, IDKicau, CurrentUser);
-            } else if(isSame(input,StringToEntry("DAFTAR",6))){
-
+            } else if(isSame(input,StringToEntry("UTAS",4))){
+                
             } else if(isSame(input,StringToEntry("DAFTAR",6))){
 
             } else if(isSame(input,StringToEntry("DAFTAR",6))){

@@ -3,14 +3,15 @@
 
 #ifndef UTAS_H
 #define UTAS_H
-
-/* Definisi Node : */
-typedef int ElType;
-// #include "../LinkedList/listlinier.h"
+#include "../LinkedList/listlinier.h"
 #include "../DateTime/datetime.h"
 // #include "../ListDin/listdin.h"
 #include "../EntryMachine/entrymachine.h"
+#include "../Kicau/kicau.h"
 #include "../../boolean.h"
+
+/* Definisi Node : */
+typedef int ElType;
 typedef struct
 {
     ElType indeks;
@@ -19,12 +20,12 @@ typedef struct
 } UTAS;
 
 
-typedef struct nodeLU *Address;
-typedef struct nodeLU
+typedef struct node *Address;
+typedef struct node
 {
     UTAS infoutas;
     Address next;
-} NodeLU;
+} LINKEDUTAS;
 
 
 #define INDEKS(p) (p).indeks
@@ -48,17 +49,16 @@ Address newNodeLinked(UTAS val);
 #define FIRSTUTAS(p) (p)
 
 typedef Address LINKEDUTAS;
-#include "../Kicau/kicau.h"
 
 void createUtas(UTAS *U, ElType idx, Entry teks, DATETIME time);
 /* I.S sembarang */
 /* F.S Terbentuk utas dengan komponen yang terdefinisi*/
 
-void createLinkedUtas(LINKEDUTAS *l);
+void createLinkedUtas(LINKEDUTAS *l, Kicau Twt);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
-void readUtas(LINKEDUTAS* l);
+void readUtas(LINKEDUTAS l);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
@@ -70,15 +70,11 @@ void displayLinkedUtas(LINKEDUTAS l,Kicau Twt);
 /* I.S sembarang */
 /* F.S Menampilkan SELURUH LinkedUtas termasuk Kicauan Utama */
 
-void sambungUtas(LINKEDUTAS *l,UTAS idx);
+void sambungUtas(LINKEDUTAS *l,ElType idx);
 
 void insertFirstUtas(LINKEDUTAS *l, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di awal */
-
-void insertLastUtas(LINKEDUTAS *l, UTAS val);
-/* I.S l mungkin kosong (bukan sebuah utas) */
-/* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
 void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */

@@ -6,6 +6,7 @@ void CreateKicau(Kicau *k, int id, Entry author){
     ID(*k) = id;
     LIKE(*k) = 0;
     AUTHOR(*k) = author;
+    UTASAN(*k) = NULL;
     WAKTU(*k) = GetLocalTime();
 
     printf("Masukkan kicauan:\n");
