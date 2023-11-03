@@ -120,18 +120,4 @@ List copyListT(List l);
 
 List inverseListT(List l);
 
-int maxListT(List l);
-
-int minListT(List l);
-
-float averageT(List l);
-
-List sortListascT(List l);
-
-List sortListdescT(List l);
-
-int idxMinT(List l, int val);
-
-int idxMaxT(List l, int val);
-
 #endif

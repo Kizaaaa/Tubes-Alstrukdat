@@ -21,37 +21,37 @@ typedef Kicau ElType; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
-    ElType *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    ElType *bufferT; /* memori tempat penyimpan elemen (container) */
+    int nEffT;       /* >=0, banyaknya elemen efektif */
+    int capacityT;   /* ukuran elemen */
 } ListDinT;
-/* Indeks yang digunakan [0..capacity-1] */
+/* Indeks yang digunakan [0..capacityT-1] */
 /* Jika l adalah : ListDinT, cara deklarasi dan akses: */
 /* Deklarasi : l : ListDinT */
 /* Maka cara akses:
-   l.nEff      untuk mengetahui banyaknya elemen
-   l.buffer    untuk mengakses seluruh nilai elemen list
-   l.buffer[i] untuk mengakses elemen ke-i */
+   l.nEffT      untuk mengetahui banyaknya elemen
+   l.bufferT    untuk mengakses seluruh nilai elemen list
+   l.bufferT[i] untuk mengakses elemen ke-i */
 /* Definisi :
-  list kosong: l.nEff = 0
-  Definisi elemen pertama : l.buffer[i] dengan i=0
-  Definisi elemen terakhir yang terdefinisi: l.buffer[i] dengan i=l.capacity */
+  list kosong: l.nEffT = 0
+  Definisi elemen pertama : l.bufferT[i] dengan i=0
+  Definisi elemen terakhir yang terdefinisi: l.bufferT[i] dengan i=l.capacityT */
 
 /* ********** SELEKTOR ********** */
-#define NEFF(l) (l).nEff
-#define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+#define NEFFT(l) (l).nEffT
+#define BUFFERT(l) (l).bufferT
+#define ELMTT(l, i) (l).bufferT[i]
+#define CAPACITYT(l) (l).capacityT
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
-void CreateListDinT(ListDinT *l, int capacity);
-/* I.S. l sembarang, capacity > 0 */
-/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
+void CreateListDinT(ListDinT *l, int capacityT);
+/* I.S. l sembarang, capacityT > 0 */
+/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacityT */
 
 void dealocateListDinT(ListDinT *l);
 /* I.S. l terdefinisi; */
-/* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
+/* F.S. (l) dikembalikan ke system, CAPACITYT(l)=0; NEFFT(l)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
@@ -74,7 +74,7 @@ boolean isIdxValidListDinT(ListDinT l, IdxType i);
 /* yaitu antara indeks yang terdefinisi utk container*/
 boolean isIdxEffListDinT(ListDinT l, IdxType i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk list */
-/* yaitu antara 0..NEFF(l) */
+/* yaitu antara 0..NEFFT(l) */
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test list kosong *** */
@@ -91,9 +91,9 @@ void readListDinT(ListDinT *l);
 /* F.S. List l terdefinisi */
 /* Proses : membaca banyaknya elemen l dan mengisi nilainya */
 /* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITY(l) */
+/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITYT(l) */
 /*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
+/* 2. Jika 0 < N <= CAPACITYT(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk l kosong */
 void printListDinT(ListDinT l);
@@ -105,55 +105,11 @@ void printListDinT(ListDinT l);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika list : Penjumlahan, pengurangan, perkalian, ... *** */
-ListDinT plusMinusList(ListDinT l1, ListDinT l2, boolean plus);
-/* Prekondisi : l1 dan l2 memiliki Neff sama dan tidak kosong */
-/* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada indeks yang sama dijumlahkan */
-/* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi elemen l2 pada indeks yang sama */
-
-/* ********** OPERATOR RELASIONAL ********** */
-/* *** Operasi pembandingan list : < =, > *** */
-boolean isListDinTEqual(ListDinT l1, ListDinT l2);
-/* Mengirimkan true jika l1 sama dengan l2 yaitu jika nEff l1 = l2 dan semua elemennya sama */
-
-/* ********** SEARCHING ********** */
-/* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexListDinTOf(ListDinT l, ElType val);
-/* Search apakah ada elemen List l yang bernilai val */
-/* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
-/* Jika tidak ada, mengirimkan IDX_UNDEF */
-/* Menghasilkan indeks tak terdefinisi (IDX_UNDEF) jika List l kosong */
-/* Skema Searching yang digunakan bebas */
-
-/* ********** NILAI EKSTREM ********** */
-void extremeValues(ListDinT l, ElType *max, ElType *min);
-/* I.S. List l tidak kosong */
-/* F.S. max berisi nilai maksimum l;
-        min berisi nilai minimum l */
-
-/* ********** OPERASI LAIN ********** */
 void copyListDinT(ListDinT lIn, ListDinT *lOut);
 /* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
-/* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
+/* F.S. lOut berisi salinan dari lIn (identik, nEffT dan capacityT sama) */
 /* Proses : Menyalin isi lIn ke lOut */
-ElType sumListDinT(ListDinT l);
-/* Menghasilkan hasil penjumlahan semua elemen l */
-/* Jika l kosong menghasilkan 0 */
-int countVal(ListDinT l, ElType val);
-/* Menghasilkan berapa banyak kemunculan val di l */
-/* Jika l kosong menghasilkan 0 */
 
-/* ********** SORTING ********** */
-void sortListDinT(ListDinT *l, boolean asc);
-/* I.S. l boleh kosong */
-/* F.S. Jika asc = true, l terurut membesar */
-/*      Jika asc = false, l terurut mengecil */
-/* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-   algoritma bebas */
-
-/* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
-/* *** Menambahkan elemen terakhir *** */
 void insertLastListDinT(ListDinT *l, ElType val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
@@ -168,18 +124,18 @@ void deleteLastListDinT(ListDinT *l, ElType *val);
 
 /* ********* MENGUBAH UKURAN ARRAY ********* */
 void expandListDinT(ListDinT *l, int num);
-/* Proses : Menambahkan capacity l sebanyak num */
+/* Proses : Menambahkan capacityT l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
 void shrinkList(ListDinT *l, int num);
-/* Proses : Mengurangi capacity sebanyak num */
-/* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
+/* Proses : Mengurangi capacityT sebanyak num */
+/* I.S. List sudah terdefinisi, ukuran capacityT > num, dan nEffT < capacityT - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
 void compressList(ListDinT *l);
-/* Proses : Mengubah capacity sehingga capacity = nEff */
+/* Proses : Mengubah capacityT sehingga capacityT = nEffT */
 /* I.S. List tidak kosong */
-/* F.S. Ukuran capacity = nEff */
+/* F.S. Ukuran capacityT = nEffT */
 
 #endif

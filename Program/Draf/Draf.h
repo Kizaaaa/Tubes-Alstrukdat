@@ -5,5 +5,6 @@
 #include "../../ADT/Kicau/kicau.h"
 #include "../../ADT/LinkedListTweet/listliniertweet.h"
 #include "../../ADT/ListDinLLTweet/listdintweet.h"
+#include "../../ADT/StackDraf/stackdraf.h"
 
-void InitializeDraf(ListDinT *l);
+void InitializeDraf(StackD *l);
