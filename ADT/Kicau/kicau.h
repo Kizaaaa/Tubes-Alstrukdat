@@ -35,4 +35,12 @@ void DisplayKicau(Kicau k);
 
 void LikeKicau(Kicau *k);
 
+void displayUtas(UTAS u, Kicau Twt);
+/* I.S sembarang */
+/* F.S Menampilkan SATU UTAS */
+
+void displayLinkedUtas(LINKEDUTAS l, Kicau Twt);
+/* I.S sembarang */
+/* F.S Menampilkan SELURUH LinkedUtas termasuk Kicauan Utama */
+
 #endif
