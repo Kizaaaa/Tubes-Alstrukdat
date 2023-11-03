@@ -7,6 +7,8 @@
     "kicau.h": "c",
     "stdio.h": "c",
     "stdlib.h": "c",
+    "main.h": "c",
+    "utas.h": "c"
     "pcolor.h": "c",
     "charmachine.h": "c"
   },

@@ -13,12 +13,12 @@
 #include <math.h>
 
 // /* Definisi Node : */
-// typedef int ElType;
-// typedef struct node* Address;
-// typedef struct node {
-//     ElType info;
-//     Address next;
-// } Node;
+typedef int ElType;
+typedef struct node* Address;
+typedef struct node {
+    ElType info;
+    Address next;
+} Node;
 
 // #define INFO(p) (p)->info
 // #define NEXT(p) (p)->next
