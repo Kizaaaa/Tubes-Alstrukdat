@@ -7,7 +7,7 @@ void CreateTweet(Kicau *k, int id, Entry author, Entry text){
     LIKE(*k) = 0;
     AUTHOR(*k) = author;
     TEXT(*k) = text;
-    // NEXT(*k) = NULL;
+    UTASAN(*k) = NULL;
     WAKTU(*k) = GetLocalTime();
 }
 
