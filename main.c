@@ -5,6 +5,7 @@
 
 Entry CurrentUser;
 boolean isMasuk = false;
+long long int IDKicau;
 
 int main(){
     boolean exit = false;
@@ -30,7 +31,7 @@ int main(){
             } else { //Input tidak valid
 
             }
-        } else {
+        } else { //Sudah masuk
             if(isSame(input,StringToEntry("DAFTAR",6))){
                 printf("Anda sudah masuk. Keluar terlebih dahulu untuk melakukan daftar.\n");
             } else if(isSame(input,StringToEntry("MASUK",5))){
@@ -45,8 +46,17 @@ int main(){
 
             } else if(isSame(input,StringToEntry("DAFTAR_TEMAN",12))){
 
+            } else if(isSame(input,StringToEntry("KICAU",5))){
+                // CreateKicau(kicau, IDKicau, CurrentUser);
             } else if(isSame(input,StringToEntry("DAFTAR",6))){
 
+            } else if(isSame(input,StringToEntry("DAFTAR",6))){
+
+            } else if(isSame(input,StringToEntry("DAFTAR",6))){
+
+            } else if(isSame(input,StringToEntry("KELUAR",6))){
+                printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n");
+                isMasuk = false;
             }
             else if(isSame(input,StringToEntry("TUTUP_PROGRAM",13))){
                 exit = true;

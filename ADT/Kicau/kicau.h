@@ -27,7 +27,12 @@ typedef struct kicau
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create Tweet */
-void CreateTweet(Kicau *k, int id, Entry author, Entry text);
+void CreateKicau(Kicau *k, int id, Entry author);
 
-void DisplayTweet(Kicau k);
+void EditKicau(Kicau *k);
+
+void DisplayKicau(Kicau k);
+
+void LikeKicau(Kicau *k);
+
 #endif
