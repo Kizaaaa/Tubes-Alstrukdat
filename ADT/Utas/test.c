@@ -1,21 +1,26 @@
 #include <stdio.h>
 #include "../Kicau/kicau.h"
 
-//PROBLEMS SO FAR------------------------------------------
-// unlimited loop ketika mau mengganti indeks di insert
+// PROBLEMS SO FAR------------------------------------------
+//  unlimited loop ketika mau mengganti indeks di insert
 
-
-void displaylinkedkw(LINKEDUTAS l){ //Display SELURUH LINKEDUTAS, asumsi pada main sudah diambilkan Linkedutas dengan id_utas masukan
-    //coba print semua utas
-    // Address p;
+void displaylinkedkw(LINKEDUTAS l)
+{ // Display SELURUH LINKEDUTAS, asumsi pada main sudah diambilkan Linkedutas dengan id_utas masukan
+    // coba print semua utas
+    //  Address p;
     Address p;
     int i = 0;
     p = FIRSTUTAS(l);
-    INDEKS(INFOUTAS(p)) = 1;    //ini gatau kenapa ada bug di indeks pertama utas jadi 2 jd pake ini
-    while (p!=NULL){
-        printf("    | INDEX = %d",INDEKS(INFOUTAS(p))); printf("\n");
-        printf("    | "); TulisDATETIME(TIME(INFOUTAS(p))); printf("\n");
-        printf("    | "), printEntry(TEXTUTAS(INFOUTAS(p))); printf("\n");
+    INDEKS(INFOUTAS(p)) = 1; // ini gatau kenapa ada bug di indeks pertama utas jadi 2 jd pake ini
+    while (p != NULL)
+    {
+        printf("    | INDEX = %d", INDEKS(INFOUTAS(p)));
+        printf("\n");
+        printf("    | ");
+        TulisDATETIME(TIME(INFOUTAS(p)));
+        printf("\n");
+        printf("    | "), printEntry(TEXTUTAS(INFOUTAS(p)));
+        printf("\n");
         printf("\n");
         i++;
         p = NEXT(p);
@@ -24,35 +29,31 @@ void displaylinkedkw(LINKEDUTAS l){ //Display SELURUH LINKEDUTAS, asumsi pada ma
 Entry CurrentUser;
 boolean isMasuk = false;
 
-int main(){
+int main()
+{
 
     LINKEDUTAS L1;
     // // Kicau twt;
     // //buat linked utas kosong
     createLinkedUtas(&L1);
     readUtas(&L1);
-    printf("Done initial reading\n");printf("\n");
+    printf("Done initial reading\n");
+    printf("\n");
     displaylinkedkw(L1);
 
-    printf("Max idx: %d\n",getLastIdxUtas(L1));
+    printf("Max idx: %d\n", getLastIdxUtas(L1));
     // deleteUtasAt(&L1,2);
     // displaylinkedkw(L1);
     // printf("Selesai\n");
-    
-    
-    sambungUtas(&L1,1);
-    printf("Done sambung utas\n");printf("\n");
+
+    sambungUtas(&L1, 2);
+    printf("Done sambung utas\n");
+    printf("\n");
     displaylinkedkw(L1);
 
-    //thea
-    //uwu
-    //hay
-    
-
-
-
-
-
+    // thea
+    // uwu
+    // hay
 
     // while(!exit){
     //     //INISIALISASI();
@@ -65,9 +66,9 @@ int main(){
     //             //MASUK()
     //             isMasuk = true;
     //         } else if(isSame(input,StringToEntry("DAFTAR",6))){
-            
+
     //         } else if(isSame(input,StringToEntry("MUAT",4))){
-            
+
     //         } else if(isSame(input,StringToEntry("TUTUP_PROGRAM",13))){
     //             exit = true;
     //         } else if(isSame(input,StringToEntry("KELUAR",6))){
@@ -95,13 +96,9 @@ int main(){
     //         }
     //         else if(isSame(input,StringToEntry("TUTUP_PROGRAM",13))){
     //             exit = true;
-    //         } 
+    //         }
     //     }
 
-
-        
-    
-    
     // printf("Anda telah keluar dari program BurBir. Sampai jumpa di penjelajahan berikutnya.\n");
     return 0;
 }
