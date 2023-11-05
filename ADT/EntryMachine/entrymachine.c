@@ -123,6 +123,15 @@ boolean CHECKVALIDBIO(Entry n)
     return (n.Length <= 135 && n.Length != 0);
 }
 
+Entry PotongEntry(Entry n, int panjang){
+    Entry e;
+    e.Length = panjang;
+    for(int i=0;i<panjang;i++){
+        e.TabEntry[i] = n.TabEntry[i];
+    }
+    return e;
+}
+
 boolean isSame(Entry n1, Entry n2)
 {
     if (n1.Length != n2.Length)

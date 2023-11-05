@@ -1,12 +1,9 @@
-/* File : bintree.h */
 /* ADT pohon biner */
 /* Representasi Address dengan pointer */
 /* ElType adalah integer */
 
-#ifndef POHONBINER_H
-#define POHONBINER_H
-
-#include "boolean.h"
+#ifndef TREE_H
+#define TREE_H
 #include "../../boolean.h"
 
 /* Selektor */
