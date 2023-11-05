@@ -1,12 +1,26 @@
-#ifndef PROFILE_H
-#define PROFILE_H
+#ifndef PROFIL_H
+#define PROFIL_H
 
 #include "../../boolean.h"
+#include "../../main.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../../Program/Pcolor/pcolor.h"
+#include "../ListStatic/liststatik.h"
+
+/* Ukuran maksimum baris dan kolom Matrix foto */
+#define ROW_CAP 10
+#define COL_CAP 10
+
+typedef int IdxType; /* Index baris, kolom */
+typedef struct
+{
+    char mem[ROW_CAP][COL_CAP];
+    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
+    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
+} MatrixChar;
 
 /* *** Definisi TYPE Profil *** */
-typedef struct
+typedef struct Profil
 {
     int Jenis; // 0 bertipe privat, 1 bertipe publik
     Entry Nama;
@@ -14,7 +28,7 @@ typedef struct
     Entry Bio;
     Entry Nomor;
     Entry Weton;
-    Matrix Foto;
+    MatrixChar Foto;
 } Profil;
 
 /* ********** SELEKTOR ********** */
@@ -26,30 +40,21 @@ typedef struct
 #define Weton(P) (P).Weton
 #define Foto(P) (P).Foto
 
-/* Ukuran maksimum baris dan kolom Matrix foto */
-#define ROW_CAP 10
-#define COL_CAP 10
 
-typedef int IdxType; /* Index baris, kolom */
-typedef char ElType;
-typedef struct
-{
-    ElType mem[ROW_CAP][COL_CAP];
-    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
-    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
-} Matrix;
 
 /* *** Selektor *** */
 #define ROW_EFF(M) (M).rowEff
 #define COL_EFF(M) (M).colEff
 #define ELMT(M, i, j) (M).mem[(i)][(j)]
 
+void Masuk();
+
 /* ********** KONSTRUKTOR ********** */
-void CreateProfile(Profil *P, Entry nama, Entry password, int jenis, Entry bio, Entry nomor, Entry weton, Matrix *foto);
+void Daftar(Profil *P);
 /* I.S. P sembarang */
 /* F.S. P terdefinisi dengan jenis tertentu */
 
-void CreateFoto(Matrix *foto);
+MatrixChar FotoDefault();
 /* I.S. P terdefinisi */
 /* F.S. P terdefinisi dengan foto baru */
 
@@ -63,14 +68,6 @@ void LihatProfile(Profil P, Entry nama);
     Weton: <Weton>
     Foto profil akun <nama>
 */
-
-/* ********** MENGEMBALIKAN FOTO DAN PROFIL ********** */
-Profil GetProfile(Profil P);
-/* Mengembalikan profil P */
-
-Matrix GetFoto(Matrix foto);
-/* Mengembalikan foto profil P */
-
 
 /* ********** MENGUBAH FOTO DAN PROFILE ********** */
 void GantiBioNomorWeton(Profil *P);
@@ -89,7 +86,7 @@ void SetJenis(Profil *P, int jenis);
 */
 
 /* ********** FOTO ********** */
-void PrintFoto(Profil *P);
+void PrintFoto(Profil P);
 /* I.S. Foto terdefinisi */
 /* F.S. P tercetak di layar dengan format (5x5):
     Representasi foto profil (PColor: R = merah)

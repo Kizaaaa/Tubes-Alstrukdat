@@ -55,6 +55,8 @@ boolean CHECKVALIDUNP(Entry n);
 
 boolean CHECKVALIDBIO(Entry n);
 
+Entry PotongEntry(Entry n, int panjang);
+
 void printEntry(Entry n);
 
 boolean isSame(Entry n1, Entry n2);
