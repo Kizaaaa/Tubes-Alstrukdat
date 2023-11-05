@@ -7,4 +7,14 @@
 #include "../../ADT/ListDinLLTweet/listdintweet.h"
 #include "../../ADT/StackDraf/stackdraf.h"
 
-void InitializeDraf(StackD *l);
+void InitializeDrafCreate(StackD *s, Entry auth, int aidi, ListDinT *l);
+
+void InitializeDrafView(StackD *s, ListDinT *l);
+
+void SaveDraf(StackD *s, Kicau k);
+
+void PublishDraf(StackD *s, ListDinT *l);
+
+void DeleteDrafCreate(StackD *s);
+
+// void DeleteDrafView(StackD *s);

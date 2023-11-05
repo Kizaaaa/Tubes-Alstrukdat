@@ -4,11 +4,11 @@
 /* Versi II : dengan banyaknya elemen didefinisikan secara eksplisit,
    memori list dinamik */
 
-#ifndef LISTDIN_H
-#define LISTDIN_H
+#ifndef LISTDINT_H
+#define LISTDINT_H
 
 #include "../../boolean.h"
-#include "../Kicau/kicau.h"
+#include "../LinkedListTweet/listliniertweet.h"
 
 /*  Kamus Umum */
 #define IDX_MIN 0
@@ -17,13 +17,13 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef Kicau ElType; /* type elemen list */
+typedef NodeT ElType; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
-    ElType *bufferT; /* memori tempat penyimpan elemen (container) */
-    int nEffT;       /* >=0, banyaknya elemen efektif */
-    int capacityT;   /* ukuran elemen */
+  ElType *bufferT; /* memori tempat penyimpan elemen (container) */
+  int nEffT;       /* >=0, banyaknya elemen efektif */
+  int capacityT;   /* ukuran elemen */
 } ListDinT;
 /* Indeks yang digunakan [0..capacityT-1] */
 /* Jika l adalah : ListDinT, cara deklarasi dan akses: */
@@ -86,30 +86,6 @@ boolean isFullListDinT(ListDinT l);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi list dari pembacaan *** */
-void readListDinT(ListDinT *l);
-/* I.S. l sembarang dan sudah dialokasikan sebelumnya */
-/* F.S. List l terdefinisi */
-/* Proses : membaca banyaknya elemen l dan mengisi nilainya */
-/* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITYT(l) */
-/*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= CAPACITYT(l); Lakukan N kali: Baca elemen mulai dari indeks
-      0 satu per satu diakhiri enter */
-/*    Jika N = 0; hanya terbentuk l kosong */
-void printListDinT(ListDinT l);
-/* Proses : Menuliskan isi list dengan traversal, list ditulis di antara kurung siku;
-   antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
-   di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika list kosong : menulis [] */
-
-void copyListDinT(ListDinT lIn, ListDinT *lOut);
-/* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
-/* F.S. lOut berisi salinan dari lIn (identik, nEffT dan capacityT sama) */
-/* Proses : Menyalin isi lIn ke lOut */
-
 void insertLastListDinT(ListDinT *l, ElType val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
