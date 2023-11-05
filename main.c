@@ -1,27 +1,27 @@
 #include <stdio.h>
 #include "main.h"
 
-#define MASUK 
-
-Entry CurrentUser;
 boolean isMasuk = false;
-long long int IDKicau;
+long long int IDKicau = 1;
+ListStatik ListProfil;
+int CurrentUser;
 
 int main(){
     boolean exit = false;
+    CreateListStatik(&ListProfil);
 
     while(!exit){
         //INISIALISASI();
-
+        printf(">> ");
         STARTENTRY();
         Entry input = cleansedEntry(currentEntry);
 
         if(!isMasuk){
             if(isSame(input,StringToEntry("MASUK",5))){
-                //MASUK()
+                Masuk();
                 isMasuk = true;
             } else if(isSame(input,StringToEntry("DAFTAR",6))){
-            
+                Daftar(&ELMTLS(ListProfil,NEFFLS(ListProfil)));
             } else if(isSame(input,StringToEntry("MUAT",4))){
             
             } else if(isSame(input,StringToEntry("TUTUP_PROGRAM",13))){

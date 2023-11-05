@@ -2,33 +2,106 @@
 #include <stdlib.h>
 #include "profile.h"
 
-/* ********** KONSTRUKTOR ********** */
-void CreateProfile(Profil *P, Entry nama, Entry password, int jenis, Entry bio, Entry nomor, Entry weton, Matrix *foto)
-{
-    /* I.S. P sembarang */
-    /* F.S. P terdefinisi dengan jenis tertentu */
+void Masuk(){
+    if(isEmptyListStatik(ListProfil)){
+        printf("Belum ada pengguna yang didaftarkan!\n");
+    } else {
+        printf("Masukkan nama:\n");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        while(indexOfListStatik(ListProfil,currentEntry) == IDX_UNDEF){
+            printf("Wah, nama yang Anda cari tidak ada. Masukkan nama lain!\n\n");
+            printf("Masukkan nama:\n");
+            STARTENTRY();
+            currentEntry = cleansedEntry(currentEntry);
+        }
 
-    Jenis(*P) = jenis;
-    Nama(*P) = nama;
-    Password(*P) = password;
-    Bio(*P) = bio;
-    Nomor(*P) = nomor;
-    Weton(*P) = weton;
-    CreateFoto(foto);
+        CurrentUser = indexOfListStatik(ListProfil,currentEntry);
+
+        printf("Masukkan kata sandi:");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        while(!isSame(currentEntry,Password(ELMTLS(ListProfil,CurrentUser)))){
+            printf("Wah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n\n");
+            printf("Masukkan kata sandi:\n");
+            STARTENTRY();
+            currentEntry = cleansedEntry(currentEntry);
+        }
+
+        printf("Anda telah berhasil masuk dengan nama pengguna ");
+        printEntry(Nama(ELMTLS(ListProfil,CurrentUser)));
+        printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
+    }
 }
 
-void CreateFoto(Matrix *foto)
+/* ********** KONSTRUKTOR ********** */
+void Daftar(Profil *P){
+    /* I.S. P sembarang */
+    /* F.S. P terdefinisi dengan jenis tertentu */
+    if(isFullListStatik(ListProfil)){
+        printf("Jumlah pengguna sudah maksimum, tidak dapat mendaftarkan akun lagi\n");
+    } else {
+        Jenis(*P) = 0; //Akun Publik
+        Entry blank = StringToEntry("",0);
+        Bio(*P) = blank;
+        Nomor(*P) = blank;
+        Weton(*P) = blank;
+        printf("Masukkan nama:\n");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        while(!CHECKVALIDUNP(currentEntry) && indexOfListStatik(ListProfil,currentEntry) != IDX_UNDEF){
+            if(currentEntry.Length == 0){
+                printf("Nama tidak boleh kosong!\n");
+            } else if(currentEntry.Length > 20){
+                printf("Nama tidak boleh lebih dari 20 karakter!\n");
+            } else { //Nama pengguna sudah diambil
+                printf("Wah, sayang sekali nama tersebut telah diambil.\n");
+            }
+
+            printf("Masukkan nama:\n");
+            STARTENTRY();
+            currentEntry = cleansedEntry(currentEntry);
+        }
+        Nama(*P) = currentEntry;
+
+        printf("Masukkan kata sandi:\n");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        while(!CHECKVALIDUNP(currentEntry)){
+            if(currentEntry.Length == 0){
+                printf("Kata sandi tidak boleh kosong!\n");
+            } else {
+                printf("Kata sandi tidak boleh lebih dari 20 karakter!\n");
+            }
+
+            printf("Masukkan kata sandi:\n");
+            STARTENTRY();
+            currentEntry = cleansedEntry(currentEntry);
+        }
+        Password(*P) = currentEntry;
+
+        Foto(*P) = FotoDefault();
+        NEFFLS(ListProfil)++;
+    }
+}
+
+MatrixChar FotoDefault()
 {
     /* I.S. P terdefinisi */
     /* F.S. P terdefinisi dengan foto baru */
     IdxType i, j;
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 10; j++)
-        {
-            ELMT(*foto, i, j) = ' ';
+    MatrixChar m;
+    for (i = 0; i < 5; i++){
+        for (j = 0; j < 10; j++){
+            if(j%2){
+                ELMT(m,i,j) = '*';
+            } else {
+                ELMT(m,i,j) = 'R';
+            }
         }
     }
+
+    return m;
 }
 
 /* ********** BACA/TULIS ********** */
@@ -42,26 +115,13 @@ void LihatProfile(Profil P, Entry nama)
         Weton: <Weton>
         Foto profil akun <nama>
     */
-    printf("Nama: %s\n", Nama(P));
-    printf("Bio Akun: %s\n", Bio(P));
-    printf("No HP: %s\n", Nomor(P));
-    printf("Weton: %s\n", Weton(P));
+    printf("| Nama: "); printEntry(Nama(P)); printf("\n");
+    printf("| Bio Akun: "); printEntry(Bio(P)); printf("\n");
+    printf("| No HP: "); printEntry(Nomor(P)); printf("\n");
+    printf("| Weton: "); printEntry(Weton(P)); printf("\n\n");
 
     printf("Foto profil akun %s\n", nama);
-    PrintFoto(Foto(P));
-}
-
-/* ********** MENGEMBALIKAN FOTO DAN PROFIL ********** */
-Profil GetProfile(Profil P)
-{
-    /* Mengembalikan profil P */
-    return P;
-}
-
-Matrix GetFoto(Matrix foto)
-{
-    /* Mengembalikan foto profil P */
-    return foto;
+    PrintFoto(P);
 }
 
 /* ********** MENGUBAH FOTO DAN PROFILE ********** */
@@ -111,7 +171,7 @@ void SetJenis(Profil *P, int jenis)
 }
 
 /* ********** FOTO ********** */
-void PrintFoto(Profil *P)
+void PrintFoto(Profil P)
 {
     /* I.S. P terdefinisi */
     /* F.S. P Cetak foto baru 5x5  */
@@ -120,9 +180,9 @@ void PrintFoto(Profil *P)
 
     for (i = 0; i < 5; i++)
     {
-        for (j = 0; j < 10; j++)
+        for (j = 0; j < 10; j+=2)
         {
-            c = ELMT(Foto(*P), i, j + 1);
+            c = ELMT(Foto(P), i, j + 1);
             if (c == 'R')
             {
                 print_red(c);
