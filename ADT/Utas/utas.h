@@ -58,6 +58,10 @@ void createLinkedUtas(LINKEDUTAS *l);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
 
+int getLastIdxUtas(LINKEDUTAS l);
+/* I.S list l terdefinisi */
+/* F.S Mengirimkan indeks maksimum dalam suatu linkedlist l */
+
 void readUtas(LINKEDUTAS* l);
 /* I.S sembarang */
 /* F.S Terbentuk list kosong l dengan elemen bertipe utas */
@@ -76,8 +80,12 @@ void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val);
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
+void deleteFirstUtas(LINKEDUTAS *l);
+/* I.S list l tidak kosong */
+/* F.S Melakukan penghapusan elemen pertama bertipe UTAS  */
+
 void deleteUtasAt(LINKEDUTAS *l, ElType idx);
 /* I.S list l tidak kosong */
-/* F.S Melakukan penghapusan elemen bertipe UTAS  */
+/* F.S Melakukan penghapusan elemen pada indeks idx tertentu bertipe UTAS  */
 
 #endif
