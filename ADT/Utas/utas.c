@@ -3,16 +3,24 @@
 #include "../Utas/utas.h"
 //bungkusnya listdin KICAUAN, ele listdin adalah link list, INFO link list adalah KICAU, NEXT di KICAU menunjuk ke UTAS. 
 
+//TEMPORARY FUNCTIONS
+void displayUtasKW(UTAS u){ //Display hanya 1 UTAS
+    printf("    | INDEX = %d\n",INDEKS(u));
+    printf("    | "); TulisDATETIME(TIME(u)); printf("\n");
+    printf("    | "), printEntry(TEXTUTAS(u)); printf("\n");
+    printf("\n");
+}
+
 
 //ADT UTAS UTAMA
 Address newNodeLinked(UTAS val)
 {
     Address p;
-    p = (Address)malloc(sizeof(LINKEDUTAS));
+    p = (Address)malloc(sizeof(NodeLU));
 
     if (p != NULL)
     {
-        INFOUTAS(p) = val;  //sial ini gmn anjir tipe p harusnya UTAS
+        INFOUTAS(p) = val;  
         NEXT(p) = NULL;
     }
     return p;
@@ -36,7 +44,7 @@ void createLinkedUtas(LINKEDUTAS *l)
 
 //getting the max indeks, indeks start from 1!
 int getLastIdxUtas(LINKEDUTAS l){
-    int res=1;
+    int res=0;
     Address p;
     p = FIRSTUTAS(l);
     while (p!=NULL)
@@ -51,40 +59,55 @@ int getLastIdxUtas(LINKEDUTAS l){
 //read utas for the first time
 void readUtas(LINKEDUTAS* l){
     boolean stop=false;
+    boolean valid = false;
     printf("Utas berhasil dibuat!\n");
     printf("\n");
-    printf("Masukkan kicauan:\n");
-    // Entry A;
     Entry text;
-    STARTENTRY();
-    text = currentEntry;
+    while (!valid)
+    {
+        printf("Masukkan kicauan:\n");
+        STARTENTRY();
+        text = cleansedEntry(currentEntry);
+        CLOSEENTRY();
+        valid = CHECKVALIDTWEET(text);
+        if (!valid){
+            printf("Masukanmu tidak valid, pastikan masukan tidak mengandung spasi saja atau kosong\n"); printf("\n");
+        }
+    }
     UTAS u;
     Address p;
     createUtas(&u,1,text,GetLocalTime());
     insertFirstUtas(l,u);
-
-    CLOSEENTRY();
-
+    p = FIRSTUTAS(*l);
+    int i=1;
     while(!stop){   //will not stop until user says "TIDAK" for continuing taking threads
+        valid = false;
         printf("Apakah Anda ingin melanjutkan kicauan ini? (YA/TIDAK)\n");
-        int i=2;
+        UTAS x;
         Entry yn;
         STARTENTRY();
         yn = cleansedEntry(currentEntry);
         CLOSEENTRY();
         if(isSame(yn,StringToEntry("YA",2))){
-            printf("Masukkan kicauan:\n");
-            STARTENTRY();
-            text = cleansedEntry(currentEntry);
-            CLOSEENTRY();
-            createUtas(&u,i,text,GetLocalTime());
-            insertLastUtas(l,u);
+            while (!valid)
+            {
+                printf("Masukkan kicauan:\n");
+                STARTENTRY();
+                text = cleansedEntry(currentEntry);
+                CLOSEENTRY();
+                valid = CHECKVALIDTWEET(text);
+                if (!valid){
+                    printf("*Masukanmu tidak valid, pastikan masukan tidak mengandung spasi saja atau kosong\n"); printf("\n");
+                }
+            }
+            i++;
+            createUtas(&x,i,text,GetLocalTime());
+            insertLastUtas(l,x);
         }
         else if (isSame(yn,StringToEntry("TIDAK",5))){
             printf("Utas selesai!\n");
             stop = true;
         }
-        i++;
     }
 }
 
@@ -128,15 +151,26 @@ void readUtas(LINKEDUTAS* l){
 
 //ID_UTAS asumsi sudah valid
 void sambungUtas(LINKEDUTAS *l, ElType idx){
-    if(idx>getLastIdxUtas(l)){
+    if(idx>getLastIdxUtas(*l)){
         printf("Index terlalu tinggi!\n");
     }
     else{
         UTAS val;
-        STARTENTRY();
-        Entry text = cleansedEntry(currentEntry);
-        CLOSEENTRY();
+        Entry text;
+        boolean valid = false;
+        while (!valid)
+        {
+            printf("Masukkan kicauan:\n");
+            STARTENTRY();
+            text = cleansedEntry(currentEntry);
+            CLOSEENTRY();
+            valid = CHECKVALIDTWEET(text);
+            if (!valid){
+                printf("*Masukanmu tidak valid, pastikan masukan tidak mengandung spasi saja atau kosong\n"); printf("\n");
+            }
+        }
         createUtas(&val,idx,text,GetLocalTime());
+        displayUtasKW(val);
         insertUtasAt(l,idx,val);
     }
 }
@@ -154,7 +188,6 @@ void insertFirstUtas(LINKEDUTAS *l, UTAS val){
         INDEKS(INFOUTAS(p))+=1;
         p = NEXT(p);
     }
-    
 }
 
 void insertLastUtas(LINKEDUTAS *l, UTAS val){
@@ -170,7 +203,6 @@ void insertLastUtas(LINKEDUTAS *l, UTAS val){
         
         NEXT(idx) = p;
     }
-    
 }
 
 //Menyambung utas pada indeks tertentu.
@@ -179,6 +211,7 @@ void insertLastUtas(LINKEDUTAS *l, UTAS val){
 //Indeks idx mulai dari 1
 void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val){
     Address pointerlinked;
+    Address temp;
     Address before;
     Address p;
     //Insert di indeks 1 atau pertama
@@ -187,11 +220,13 @@ void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val){
     }
     //insert di indeks Eltype idx pilihan
     else{
+        printf("custom insert akan mulai buat node\n");
         before = FIRSTUTAS(*l);
         pointerlinked = NEXT(FIRSTUTAS(*l));
         p = newNodeLinked(val);
+        printf("custom insert\n");
         if (p!=NULL){
-            pointerlinked=FIRST(*l);
+            pointerlinked=FIRSTUTAS(*l);
             int count=1;
             while (count<idx-1){
                 count++;
@@ -201,26 +236,37 @@ void insertUtasAt(LINKEDUTAS *l, ElType idx, UTAS val){
             NEXT(p) = pointerlinked;
             NEXT(before)=p;
         }
+        printf("berhasil inserted dan ubah pointer\n");
         //mengubah indeks UTAS sisanya dengan menambah 1 krn terjadi insert
-        while (pointerlinked!=NULL){
-            INDEKS(INFOUTAS(pointerlinked))+=1;
-            pointerlinked = NEXT(pointerlinked);
+        printf("   |inital "),printEntry(TEXTUTAS(INFOUTAS(temp)));printf("\n");
+
+        temp = NEXT(pointerlinked);
+        while (temp!=NULL){
+            // printf("    ||"),printEntry(TEXTUTAS(INFOUTAS(pointerlinked)));printf("\n");
+            INDEKS(INFOUTAS(temp))+=1;
+            temp = NEXT(temp);
         }
+        printf("sdh ganti indeks sisa\n");
     }
 }
 /* I.S l mungkin kosong (bukan sebuah utas) */
 /* F.S Melakukan alokasi sebuah elemen tipe bentukan UTAS dan menambahkan elemen list di akhir */
 
 //HAPUS_UTAS
-void deleteFirstUtas(LINKEDUTAS *l){
+void deleteFirstUtas(LINKEDUTAS *l){    
     Address pointerlinked;
+    Address loopingidx;
     pointerlinked = FIRSTUTAS(*l);
     FIRSTUTAS(*l) = NEXT(pointerlinked);
+    loopingidx = pointerlinked;
+    while (loopingidx!=NULL){
+        INDEKS(INFOUTAS(loopingidx))-=1;
+        loopingidx = NEXT(loopingidx);
+    }
     free(pointerlinked);
 }
 
-void deleteUtasAt(LINKEDUTAS *l, ElType idx)
-{
+void deleteUtasAt(LINKEDUTAS *l, ElType idx){
     Address pointerlinked;
     Address before;
     if(idx>getLastIdxUtas(*l)){
@@ -242,6 +288,12 @@ void deleteUtasAt(LINKEDUTAS *l, ElType idx)
             NEXT(before) = NEXT(pointerlinked);
         }
         printf("Kicauan sambungan berhasil dihapus!\n");
+    Address loopingidx;
+    loopingidx = NEXT(pointerlinked);
+    while (loopingidx!=NULL){ 
+        INDEKS(INFOUTAS(loopingidx))-=1;
+        loopingidx = NEXT(loopingidx);
+    }
     free(pointerlinked);
     }
 }

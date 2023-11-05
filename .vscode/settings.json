@@ -57,9 +57,11 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
+
     "entrymachine.h": "c",
     "kicau.h": "c",
     "profile.h": "c",
+
     "liststatik.h": "c"
   }
 }
