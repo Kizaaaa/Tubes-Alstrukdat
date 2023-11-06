@@ -1,12 +1,18 @@
-#ifndef PROFIL_H
-#define PROFIL_H
+#ifndef LISTPROFIL_H
+#define LISTPROFIL_H
 
 #include "../../boolean.h"
 #include "../../main.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../../Program/Pcolor/pcolor.h"
-#include "../ListStatic/liststatik.h"
 
+/*  Kamus Umum */
+#define CAPACITY 20
+/* Kapasitas penyimpanan */
+#define IDX_MIN 0
+/* Indeks minimum list */
+#define IDX_UNDEF (-1)
+/* Indeks tak terdefinisi*/
 /* Ukuran maksimum baris dan kolom Matrix foto */
 #define ROW_CAP 10
 #define COL_CAP 10
@@ -31,6 +37,12 @@ typedef struct Profil
     MatrixChar Foto;
 } Profil;
 
+/* Definisi elemen dan koleksi objek */
+typedef struct {
+   Profil contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+   int nEff;                  /* >=0, banyaknya elemen efektif */
+} ListStatik;
+
 /* ********** SELEKTOR ********** */
 #define Jenis(P) (P).Jenis
 #define Nama(P) (P).Nama
@@ -39,7 +51,8 @@ typedef struct Profil
 #define Nomor(P) (P).Nomor
 #define Weton(P) (P).Weton
 #define Foto(P) (P).Foto
-
+#define NEFFLS(l) (l).nEff
+#define ELMTLS(l, i) (l).contents[(i)]
 
 
 /* *** Selektor *** */
@@ -47,10 +60,10 @@ typedef struct Profil
 #define COL_EFF(M) (M).colEff
 #define ELMT(M, i, j) (M).mem[(i)][(j)]
 
-void Masuk();
+void Masuk(ListStatik *ListProfil, int *CurrentUser, boolean *isMasuk);
 
 /* ********** KONSTRUKTOR ********** */
-void Daftar(Profil *P);
+void Daftar(ListStatik *ListProfil);
 /* I.S. P sembarang */
 /* F.S. P terdefinisi dengan jenis tertentu */
 
@@ -70,7 +83,7 @@ void LihatProfile(Profil P, Entry nama);
 */
 
 /* ********** MENGUBAH FOTO DAN PROFILE ********** */
-void GantiBioNomorWeton(Profil *P);
+void GantiProfil(Profil *P);
 /* I.S. P terdefinisi */
 /* F.S. P terdefinisi dengan bio, nomor, dan weton baru */
 
@@ -79,14 +92,14 @@ void GantiFoto(Profil *P);
 /* F.S. P terdefinisi dengan foto baru */
 
 /* ********** ATUR JENIS AKUN (PRIVAT/UMUM) ********** */
-void SetJenis(Profil *P, int jenis);
+void GantiJenis(Profil *P);
 /* I.S. P terdefinisi */
 /* F.S. P terdefinisi dengan jenis baru
         0 bertipe privat, 1 bertipe publik
 */
 
 /* ********** FOTO ********** */
-void PrintFoto(Profil P);
+void PrintFoto(MatrixChar m);
 /* I.S. Foto terdefinisi */
 /* F.S. P tercetak di layar dengan format (5x5):
     Representasi foto profil (PColor: R = merah)
@@ -96,5 +109,27 @@ void PrintFoto(Profil P);
     *****
     *****
  */
+
+/* ********** KONSTRUKTOR ********** */
+/* Konstruktor : create List kosong  */
+void CreateListStatik(ListStatik *l);
+/* I.S. l sembarang */
+/* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
+
+/* ********** TEST KOSONG/PENUH ********** */
+/* *** Test List kosong *** */
+boolean isEmptyListStatik(ListStatik l);
+/* Mengirimkan true jika List l kosong, mengirimkan false jika tidak */
+/* *** Test List penuh *** */
+boolean isFullListStatik(ListStatik l);
+/* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
+
+/* ********** SEARCHING ********** */
+/* ***  Perhatian : List boleh kosong!! *** */
+int indexNama(ListStatik l, Entry val);
+/* Search apakah ada elemen List l yang bernilai val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
+/* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
+/* Skema Searching yang digunakan bebas */
 
 #endif

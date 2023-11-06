@@ -6,17 +6,11 @@
 #include "boolean.h"
 #include "ADT/EntryMachine/entrymachine.h"
 #include "ADT/Kicau/kicau.h"
-#include "ADT/Profile/profile.h"
-#include "ADT/ListStatic/liststatik.h"
-
-extern boolean isMasuk;
-extern long long int IDKicau;
-extern ListStatik ListProfil;
-extern int CurrentUser;
+#include "ADT/ListProfil/listprofil.h"
 
 #endif
 
 
 /*
-gcc -o main main.c ADT/EntryMachine/entrymachine.c ADT/Kicau/kicau.c ADT/Profile/profile.c ADT/ListStatic/liststatik.c
+gcc -o main main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c
 */
