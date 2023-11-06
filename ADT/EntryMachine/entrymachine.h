@@ -42,11 +42,17 @@ void COPYENTRY();
           currentChar = MARK;
           sisa entry TIDAK "dipotong" */
 
+Entry LOWER(Entry n);
+
 /* Utility Mesin Entry */
 boolean CHECKVALIDTWEET(Entry n);
 /*  Melakukan validasi terhadap input tweet
     Mengembalikan nilai true jika tweet valid (Length <= 280 dan Length != 0 dan tidak bernilai spasi semuanya)
     dan false jika tweet tidak valid */
+
+boolean CHECKNOMORHP(Entry n);
+
+boolean CHECKWETON(Entry n);
 
 boolean CHECKVALIDUNP(Entry n);
 /*  Melakukan validasi terhadap input tweet
