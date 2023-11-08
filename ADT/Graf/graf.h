@@ -2,61 +2,39 @@
 #define GRAF_H
 
 #include "../../boolean.h"
-#include "../../ADT/Matrix/matrix.h"
+#include "../../ADT/ListProfil/listprofil.h"
 
-typedef int vType;
-typedef int eType;
-typedef struct 
+#define MAX_PENGGUNA 20
+
+typedef struct
 {
-    Matrix m;
+    int simpul;
+    int matriks[MAX_PENGGUNA][MAX_PENGGUNA];
 } Graf;
 
-// #define 
+#define Simpul(G) (G).simpul
+#define ELMT(G, i, j) (G).matriks[i][j]
 
-
-/* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Graf *** */
-void CreateGraf(Graf *G, vType v, eType e);
-//  menghasilkan sebuah graph G=(V,E), 
-// V tidak kosong, E bisa kosong }
+void buatGraf(Graf *G, vType v, eType e);
+//  menghasilkan sebuah graph G=(V,E),
 
+void tambahTeman(Graf *G, int userIdx_1, int userIdx_2);
+// Menambahkan teman antara pengguna dengan indeks userIdx_1 dan userIdx_2
 
-boolean IsEmpty(Graf G);
-// Test apakah G adalah Graph kosong
+void hapusTeman(Graf *G, int userIdx_1, int userIdx_2);
+// Menghapus pertemanan antara pengguna dengan indeks userIdx_1 dan userIdx_2
 
-boolean Adjacent(Graf G, vType v1, vType v2);
-// tes apakah v1 dan v2 bertetangga
+void printTeman(Graf G, User user_Idx, int userIdx);
+// Menampilkan pertemanan
 
-boolean Incident(Graf G, vType v, eType e);
-//  tes apakah v berhubungan dengan e
+boolean isTemanPenuh(Graf G, int userIdx);
+// Mengecek apakah pengguna dengan indeks userIdx masih dapat memiliki teman tambahan
 
-void Neighbors(Graf G, vType v);
-// daftar seluruh simpul yang bertetangga dengan v
+boolean isTeman(Graf G, int userIdx_1, int user_Idx_2);
+// Mengecek apakah pengguna dengan indeks userIdx_1 dan userIdx_2 memiliki hubungan pertemanan
 
-void AddV(Graf *G, vType v);
-// menambahkan simpul v pada G
-
-void DeleteV(Graf *G, vType v);
-// menghapus simpul v dari G, berikut semua busur incident v
-
-void AddE(Graf *G, vType v1, vType v2);
-// menambahkan busur (v1,v2) pada G
-
-void DeleteE(Graf *G, vType v1, vType v2);
-// menghapus busur (v1,v2) dari G
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+boolean jumlahTeman(Graf G, int userIdx);
+// Menghitung jumlah teman dari pengguna dengan indeks userIdx
 
 #endif
