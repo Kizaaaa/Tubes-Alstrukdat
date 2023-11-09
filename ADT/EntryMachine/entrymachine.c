@@ -142,6 +142,12 @@ boolean CHECKWETON(Entry n){
     return false;
 }
 
+Entry UnifyWeton(Entry n){
+    n = LOWER(n);
+    n.TabEntry[0]-=32;
+    return n;
+}
+
 boolean CHECKVALIDUNP(Entry n)
 /*  UNP = Username and Password
     Melakukan validasi terhadap input tweet
@@ -228,7 +234,7 @@ Entry cutBeforeEntry(Entry n, int k)
 Entry cutAfterEntry(Entry n, int k)
 {
     Entry m;
-    m.Length = n.Length - k;
+    m.Length = n.Length - k - 1;
     for (int i = 0; i < m.Length; i++)
     {
         m.TabEntry[i] = n.TabEntry[k + 1 + i];
@@ -363,9 +369,9 @@ gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
 
 // int main(){
 //     STARTENTRY();
-//     currentEntry = StringToEntry("",0);
-//     STARTENTRY();
 //     currentEntry = cleansedEntry(currentEntry);
-//     printf("%d",currentEntry.Length);
+//     printEntry(cutBeforeEntry(currentEntry,12));
+//     printf("\n");
+//     printEntry(cutAfterEntry(currentEntry,12));
 //     return 0;
 // }

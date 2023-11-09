@@ -54,6 +54,8 @@ boolean CHECKNOMORHP(Entry n);
 
 boolean CHECKWETON(Entry n);
 
+Entry UnifyWeton(Entry n);
+
 boolean CHECKVALIDUNP(Entry n);
 /*  Melakukan validasi terhadap input tweet
     Mengembalikan nilai true jika tweet valid (Length <= 20 dan Length != 0)

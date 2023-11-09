@@ -2,7 +2,6 @@
 #define LISTPROFIL_H
 
 #include "../../boolean.h"
-#include "../../main.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../../Program/Pcolor/pcolor.h"
 
@@ -17,13 +16,23 @@
 #define ROW_CAP 10
 #define COL_CAP 10
 
-typedef int IdxType; /* Index baris, kolom */
 typedef struct
 {
     char mem[ROW_CAP][COL_CAP];
     int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
     int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } MatrixChar;
+
+typedef struct {
+    int Prio;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas adalah tertinggi) */
+    Entry Info;  /* elemen karakter */
+} Elmtqueue;
+
+typedef struct {
+    Elmtqueue Element[CAPACITY];
+    int IdxHead;
+    int IdxTail;
+} Queue;
 
 /* *** Definisi TYPE Profil *** */
 typedef struct Profil
@@ -35,6 +44,8 @@ typedef struct Profil
     Entry Nomor;
     Entry Weton;
     MatrixChar Foto;
+    int JumlahTeman;
+    Queue PermintaanPertemanan;
 } Profil;
 
 /* Definisi elemen dan koleksi objek */
@@ -51,11 +62,17 @@ typedef struct {
 #define Nomor(P) (P).Nomor
 #define Weton(P) (P).Weton
 #define Foto(P) (P).Foto
+#define JumlahTeman(P) (P).JumlahTeman
+#define PermintaanPertemanan(P) (P).PermintaanPertemanan
+#define Info(E) (E).Info
+#define Prio(E) (E).Prio
+#define ELMTQ(Q, i) (Q).Element[i]
+#define IDXHEAD(Q) (Q).IdxHead
+#define IDXTAIL(Q) (Q).IdxTail
+#define HEAD(Q) (Q).Element[(Q).IdxHead]
+#define TAIL(Q) (Q).Element[(Q).IdxTail]
 #define NEFFLS(l) (l).nEff
 #define ELMTLS(l, i) (l).contents[(i)]
-
-
-/* *** Selektor *** */
 #define ROW_EFF(M) (M).rowEff
 #define COL_EFF(M) (M).colEff
 #define ELMT(M, i, j) (M).mem[(i)][(j)]
@@ -72,7 +89,7 @@ MatrixChar FotoDefault();
 /* F.S. P terdefinisi dengan foto baru */
 
 /* ********** BACA/TULIS ********** */
-void LihatProfile(Profil P, Entry nama);
+void PrintProfil(Profil P);
 /* I.S. P terdefinisi */
 /* F.S. P tercetak di layar dengan format:
     Nama: <Nama>
@@ -131,5 +148,19 @@ int indexNama(ListStatik l, Entry val);
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
+
+void CreateQueue(Queue *Q);
+
+boolean isEmptyQueue(Queue Q);
+
+int lengthQueue(Queue Q);
+
+boolean IsIn(Queue Q, Entry nama);
+
+void Enqueue(Queue *Q, Elmtqueue Val);
+
+void Dequeue(Queue *Q);
+
+void PrintQueue(Queue Q);
 
 #endif
