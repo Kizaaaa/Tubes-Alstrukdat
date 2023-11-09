@@ -2,61 +2,38 @@
 #define GRAF_H
 
 #include "../../boolean.h"
-#include "../../ADT/Matrix/matrix.h"
+#include "../ListProfil/listprofil.h"
 
-typedef int vType;
-typedef int eType;
-typedef struct 
-{
-    Matrix m;
+#define MAX_PENGGUNA 20
+
+typedef struct {
+    int Simpul[MAX_PENGGUNA];
+    int Busur[MAX_PENGGUNA][MAX_PENGGUNA];
 } Graf;
 
-// #define 
+#define Simpul(G,i) (G).Simpul[(i)]
+#define Busur(G, i, j) (G).Busur[(i)][(j)]
 
+void LihatProfil(Graf G, ListStatik ListProfil, int CurrentUser, Entry namaTeman);
 
-/* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Graf *** */
-void CreateGraf(Graf *G, vType v, eType e);
-//  menghasilkan sebuah graph G=(V,E), 
-// V tidak kosong, E bisa kosong }
+void CreateGraf(Graf *G);
+//  menghasilkan sebuah graph G=(V,E),
 
+void TambahTeman(Graf *G, ListStatik *ListProfil, int CurrentUser);
+// Menambahkan teman antara pengguna dengan indeks userIdx_1 dan userIdx_2
 
-boolean IsEmpty(Graf G);
-// Test apakah G adalah Graph kosong
+void HapusTeman(Graf *G, ListStatik *ListProfil, int CurrentUser);
+// Menghapus pertemanan antara pengguna dengan indeks userIdx_1 dan userIdx_2
 
-boolean Adjacent(Graf G, vType v1, vType v2);
-// tes apakah v1 dan v2 bertetangga
+void DaftarTeman(Graf G, ListStatik ListProfil, int CurrentUser);
+// Menampilkan pertemanan
 
-boolean Incident(Graf G, vType v, eType e);
-//  tes apakah v berhubungan dengan e
+void TerimaTeman(Graf *G, ListStatik ListProfil, int CurrentUser);
 
-void Neighbors(Graf G, vType v);
-// daftar seluruh simpul yang bertetangga dengan v
+void SetujuiTeman(Graf *G, ListStatik *ListProfil, int CurrentUser);
 
-void AddV(Graf *G, vType v);
-// menambahkan simpul v pada G
-
-void DeleteV(Graf *G, vType v);
-// menghapus simpul v dari G, berikut semua busur incident v
-
-void AddE(Graf *G, vType v1, vType v2);
-// menambahkan busur (v1,v2) pada G
-
-void DeleteE(Graf *G, vType v1, vType v2);
-// menghapus busur (v1,v2) dari G
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+boolean isBerteman(Graf G, int User1, int User2);
+// Mengecek apakah pengguna dengan indeks userIdx_1 dan userIdx_2 memiliki hubungan pertemanan
 
 #endif
