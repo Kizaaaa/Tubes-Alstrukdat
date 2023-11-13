@@ -12,15 +12,15 @@
 /*  Kamus Umum */
 #define IDX_MIN 0
 /* Indeks minimum list */
-#define IDX_UNDEF -1
+#define IDX_UNDEF_LDT -1
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-/*typedef int ElType; /* type elemen list */
+/*typedef int ElTypeLDT; /* type elemen list */
 // typedef int IdxType;
 // typedef struct
 // {
-//     ElType *buffer; /* memori tempat penyimpan elemen (container) */
+//     ElTypeLDT *buffer; /* memori tempat penyimpan elemen (container) */
 //     int nEff;       /* >=0, banyaknya elemen efektif */
 //     int capacityT;   /* ukuran elemen */
 // } ListDinT;
@@ -46,7 +46,7 @@
 /* Konstruktor : create list kosong  */
 void CreateListDinT(ListDinT *l, int capacityT)
 {
-    BUFFERT(*l) = (ElType *)malloc(capacityT * sizeof(ElType));
+    BUFFERT(*l) = (ElTypeLDT *)malloc(capacityT * sizeof(ElTypeLDT));
     CAPACITYT(*l) = capacityT;
     NEFFT(*l) = 0;
 }
@@ -149,7 +149,7 @@ boolean isFullListDinT(ListDinT l)
 /* *** Aritmatika list : Penjumlahan, pengurangan, perkalian, ... *** */
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLastListDinT(ListDinT *l, ElType val)
+void insertLastListDinT(ListDinT *l, ElTypeLDT val)
 {
     ELMTT(*l, getLastIdxListDinT(*l) + 1) = val;
     NEFFT(*l)
@@ -159,7 +159,7 @@ void insertLastListDinT(ListDinT *l, ElType val)
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastListDinT(ListDinT *l, ElType *val)
+void deleteLastListDinT(ListDinT *l, ElTypeLDT *val)
 {
     *val = ELMTT(*l, getLastIdxListDinT(*l));
     NEFFT(*l)
@@ -175,29 +175,29 @@ void deleteLastListDinT(ListDinT *l, ElType *val)
 /* ********* MENGUBAH UKURAN ARRAY ********* */
 void expandListDinT(ListDinT *l, int num)
 {
-    int *ptr;
-    ptr = (ElType *)calloc(CAPACITYT(*l), sizeof(ElType));
-    int *temp = ptr;
+    ElTypeLDT *ptr;
+    ptr = (ElTypeLDT *)calloc(CAPACITYT(*l), sizeof(ElTypeLDT));
+    ElTypeLDT *temp = ptr;
     CAPACITYT(*l) = CAPACITYT(*l) + num;
-    ptr = realloc(ptr, CAPACITYT(*l) * sizeof(ElType));
+    ptr = realloc(ptr, CAPACITYT(*l) * sizeof(ElTypeLDT));
 }
 /* Proses : Menambahkan capacityT l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void shrinkList(ListDinT *l, int num)
+void shrinkListDinT(ListDinT *l, int num)
 {
-    int *ptr;
-    ptr = (ElType *)calloc(CAPACITYT(*l), sizeof(ElType));
-    int *temp = ptr;
+    ElTypeLDT *ptr;
+    ptr = (ElTypeLDT *)calloc(CAPACITYT(*l), sizeof(ElTypeLDT));
+    ElTypeLDT *temp = ptr;
     CAPACITYT(*l) = CAPACITYT(*l) - num;
-    ptr = realloc(ptr, CAPACITYT(*l) * sizeof(ElType));
+    ptr = realloc(ptr, CAPACITYT(*l) * sizeof(ElTypeLDT));
 }
 /* Proses : Mengurangi capacityT sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacityT > num, dan nEff < capacityT - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
-void compressList(ListDinT *l)
+void compressListDinT(ListDinT *l)
 {
     CAPACITYT(*l) = NEFFT(*l);
 }

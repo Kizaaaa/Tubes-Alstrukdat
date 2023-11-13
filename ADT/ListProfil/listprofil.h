@@ -4,6 +4,7 @@
 #include "../../boolean.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../../Program/Pcolor/pcolor.h"
+#include "../StackDraf/stackdraf.h"
 
 /*  Kamus Umum */
 #define CAPACITY 20
@@ -23,12 +24,14 @@ typedef struct
     int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } MatrixChar;
 
-typedef struct {
-    int Prio;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas adalah tertinggi) */
-    Entry Info;  /* elemen karakter */
+typedef struct
+{
+    int Prio;   /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas adalah tertinggi) */
+    Entry Info; /* elemen karakter */
 } Elmtqueue;
 
-typedef struct {
+typedef struct
+{
     Elmtqueue Element[CAPACITY];
     int IdxHead;
     int IdxTail;
@@ -46,12 +49,17 @@ typedef struct Profil
     MatrixChar Foto;
     int JumlahTeman;
     Queue PermintaanPertemanan;
+
+    // NEW
+    StackD PersonalDraft;
+    // NEW
 } Profil;
 
 /* Definisi elemen dan koleksi objek */
-typedef struct {
-   Profil contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
-   int nEff;                  /* >=0, banyaknya elemen efektif */
+typedef struct
+{
+    Profil contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+    int nEff;                  /* >=0, banyaknya elemen efektif */
 } ListStatik;
 
 /* ********** SELEKTOR ********** */
@@ -64,6 +72,11 @@ typedef struct {
 #define Foto(P) (P).Foto
 #define JumlahTeman(P) (P).JumlahTeman
 #define PermintaanPertemanan(P) (P).PermintaanPertemanan
+
+// NEW
+#define DRAFTS(P) (P).PersonalDraft
+// NEW
+
 #define Info(E) (E).Info
 #define Prio(E) (E).Prio
 #define ELMTQ(Q, i) (Q).Element[i]

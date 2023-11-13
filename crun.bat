@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc main.c ADT/DateTime/datetime.c ADT/EntryMachine/entrymachine.c ADT/ListDin/listdin.c ADT/ListStatic/liststatik.c ADT/Matrix/matrix.c ADT/Queue/queue.c ADT/Stack/stack.c -o main -lm
+gcc main.c ADT/DateTime/datetime.c ADT/DateTime/time.c ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c ADT/ListDin/listdin.c ADT/Kicau/kicau.c ADT/LinkedListTweet/listliniertweet.c ADT/ListDinLLTweet/listdintweet.c ADT/StackDraf/stackdraf.c Program/Draf/Draf.c -o main -lm
