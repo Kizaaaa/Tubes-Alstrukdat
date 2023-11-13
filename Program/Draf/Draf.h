@@ -1,5 +1,4 @@
 #include "../../boolean.h"
-#include "../../ADT/ListDin/listdin.h"
 #include "../../ADT/EntryMachine/entrymachine.h"
 #include "../../ADT/EntryMachine/charmachine.h"
 #include "../../ADT/Kicau/kicau.h"
@@ -13,8 +12,12 @@ void InitializeDrafView(StackD *s, ListDinT *l);
 
 void SaveDraf(StackD *s, Kicau k);
 
-void PublishDraf(StackD *s, ListDinT *l);
+void PublishDrafCreate(Kicau n, ListDinT *l);
+
+void PublishDrafView(StackD *s, ListDinT *l);
 
 void DeleteDrafCreate(StackD *s);
+
+void UbahRec(StackD *s, ListDinT *l);
 
 // void DeleteDrafView(StackD *s);

@@ -2,15 +2,20 @@
 #include <stdlib.h>
 #include "listprofil.h"
 
-void Masuk(ListStatik *ListProfil, int *CurrentUser, boolean *isMasuk){
-    if(isEmptyListStatik(*ListProfil)){
+void Masuk(ListStatik *ListProfil, int *CurrentUser, boolean *isMasuk)
+{
+    if (isEmptyListStatik(*ListProfil))
+    {
         printf("Belum ada pengguna yang didaftarkan!\n");
-    } else {
+    }
+    else
+    {
         printf("Masukkan nama:\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
         printf("\n");
-        while(indexNama(*ListProfil,currentEntry) == IDX_UNDEF){
+        while (indexNama(*ListProfil, currentEntry) == IDX_UNDEF)
+        {
             printf("Wah, nama yang Anda cari tidak ada. Masukkan nama lain!\n\n");
             printf("Masukkan nama:\n");
             STARTENTRY();
@@ -18,13 +23,14 @@ void Masuk(ListStatik *ListProfil, int *CurrentUser, boolean *isMasuk){
             printf("\n");
         }
 
-        *CurrentUser = indexNama(*ListProfil,currentEntry);
+        *CurrentUser = indexNama(*ListProfil, currentEntry);
 
         printf("Masukkan kata sandi:\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
         printf("\n");
-        while(!isSame(currentEntry,Password(ELMTLS(*ListProfil,*CurrentUser)))){
+        while (!isSame(currentEntry, Password(ELMTLS(*ListProfil, *CurrentUser))))
+        {
             printf("Wah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n\n");
             printf("Masukkan kata sandi:\n");
             STARTENTRY();
@@ -33,37 +39,54 @@ void Masuk(ListStatik *ListProfil, int *CurrentUser, boolean *isMasuk){
         }
 
         printf("Anda telah berhasil masuk dengan nama pengguna ");
-        printEntry(Nama(ELMTLS(*ListProfil,*CurrentUser)));
+        printEntry(Nama(ELMTLS(*ListProfil, *CurrentUser)));
         printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
         *isMasuk = true;
     }
 }
 
-void Daftar(ListStatik *ListProfil){
+void Daftar(ListStatik *ListProfil)
+{
     /* I.S. P sembarang */
     /* F.S. P terdefinisi dengan jenis tertentu */
-    if(isFullListStatik(*ListProfil)){
+    if (isFullListStatik(*ListProfil))
+    {
         printf("Jumlah pengguna sudah maksimum, tidak dapat mendaftarkan akun lagi\n");
-    } else {
-        Jenis(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = 0; //Akun Publik
-        JumlahTeman(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = 0; //Jumlah Teman
-        Entry blank = StringToEntry("",0);
-        Bio(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = blank;
-        Nomor(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = blank;
-        Weton(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = blank;
-        Queue q; CreateQueue(&q);
-        PermintaanPertemanan(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = q;
+    }
+    else
+    {
+        Jenis(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = 0;       // Akun Publik
+        JumlahTeman(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = 0; // Jumlah Teman
+        Entry blank = StringToEntry("", 0);
+        Bio(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
+        Nomor(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
+        Weton(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
+        Queue q;
+        CreateQueue(&q);
+        PermintaanPertemanan(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = q;
+
+        // NEW
+        StackD draf;
+        CreateEmptyD(&draf);
+        DRAFTS(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = draf;
+        // NEW
 
         printf("Masukkan nama:\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
         printf("\n");
-        while(!CHECKVALIDUNP(currentEntry) || indexNama(*ListProfil,currentEntry) != IDX_UNDEF){
-            if(currentEntry.Length == 0){
+        while (!CHECKVALIDUNP(currentEntry) || indexNama(*ListProfil, currentEntry) != IDX_UNDEF)
+        {
+            if (currentEntry.Length == 0)
+            {
                 printf("Nama tidak boleh kosong!\n\n");
-            } else if(currentEntry.Length > 20){
+            }
+            else if (currentEntry.Length > 20)
+            {
                 printf("Nama tidak boleh lebih dari 20 karakter!\n\n");
-            } else if(indexNama(*ListProfil,currentEntry) != IDX_UNDEF) { //Nama pengguna sudah diambil
+            }
+            else if (indexNama(*ListProfil, currentEntry) != IDX_UNDEF)
+            { // Nama pengguna sudah diambil
                 printf("Wah, sayang sekali nama tersebut telah diambil.\n\n");
             }
 
@@ -72,16 +95,20 @@ void Daftar(ListStatik *ListProfil){
             currentEntry = cleansedEntry(currentEntry);
             printf("\n");
         }
-        Nama(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = currentEntry;
+        Nama(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = currentEntry;
 
         printf("Masukkan kata sandi:\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
         printf("\n");
-        while(!CHECKVALIDUNP(currentEntry)){
-            if(currentEntry.Length == 0){
+        while (!CHECKVALIDUNP(currentEntry))
+        {
+            if (currentEntry.Length == 0)
+            {
                 printf("Kata sandi tidak boleh kosong!\n\n");
-            } else {
+            }
+            else
+            {
                 printf("Kata sandi tidak boleh lebih dari 20 karakter!\n\n");
             }
 
@@ -90,23 +117,30 @@ void Daftar(ListStatik *ListProfil){
             currentEntry = cleansedEntry(currentEntry);
             printf("\n");
         }
-        Password(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = currentEntry;
+        Password(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = currentEntry;
 
-        Foto(ELMTLS(*ListProfil,NEFFLS(*ListProfil))) = FotoDefault();
-        NEFFLS(*ListProfil)++;
+        Foto(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = FotoDefault();
+        NEFFLS(*ListProfil)
+        ++;
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 }
 
-MatrixChar FotoDefault(){
+MatrixChar FotoDefault()
+{
     int i, j;
     MatrixChar m;
-    for (i = 0; i < 5; i++){
-        for (j = 0; j < 10; j++){
-            if(j%2){
-                ELMT(m,i,j) = '*';
-            } else {
-                ELMT(m,i,j) = 'R';
+    for (i = 0; i < 5; i++)
+    {
+        for (j = 0; j < 10; j++)
+        {
+            if (j % 2)
+            {
+                ELMT(m, i, j) = '*';
+            }
+            else
+            {
+                ELMT(m, i, j) = 'R';
             }
         }
     }
@@ -114,7 +148,8 @@ MatrixChar FotoDefault(){
     return m;
 }
 
-void PrintProfil(Profil P){
+void PrintProfil(Profil P)
+{
     /* I.S. P terdefinisi */
     /* F.S. P tercetak di layar dengan format:
         Nama: <Nama>
@@ -123,35 +158,57 @@ void PrintProfil(Profil P){
         Weton: <Weton>
         Foto profil akun <nama>
     */
-    printf("| Nama: "); printEntry(Nama(P)); printf("\n");
-    printf("| Bio Akun: "); printEntry(Bio(P)); printf("\n");
-    printf("| No HP: "); printEntry(Nomor(P)); printf("\n");
-    printf("| Weton: "); printEntry(Weton(P)); printf("\n\n");
+    printf("| Nama: ");
+    printEntry(Nama(P));
+    printf("\n");
+    printf("| Bio Akun: ");
+    printEntry(Bio(P));
+    printf("\n");
+    printf("| No HP: ");
+    printEntry(Nomor(P));
+    printf("\n");
+    printf("| Weton: ");
+    printEntry(Weton(P));
+    printf("\n\n");
 
-    printf("Foto profil akun "); printEntry(Nama(P)); printf("\n");
+    printf("Foto profil akun ");
+    printEntry(Nama(P));
+    printf("\n");
     PrintFoto(Foto(P));
 }
 
 /* ********** MENGUBAH FOTO DAN PROFILE ********** */
-void GantiProfil(Profil *P){
-    printf("| Nama: "); printEntry(Nama(*P)); printf("\n");
-    printf("| Bio Akun: "); printEntry(Bio(*P)); printf("\n");
-    printf("| No HP: "); printEntry(Nomor(*P)); printf("\n");
-    printf("| Weton: "); printEntry(Weton(*P)); printf("\n\n");
+void GantiProfil(Profil *P)
+{
+    printf("| Nama: ");
+    printEntry(Nama(*P));
+    printf("\n");
+    printf("| Bio Akun: ");
+    printEntry(Bio(*P));
+    printf("\n");
+    printf("| No HP: ");
+    printEntry(Nomor(*P));
+    printf("\n");
+    printf("| Weton: ");
+    printEntry(Weton(*P));
+    printf("\n\n");
 
     printf("Masukkan Bio Akun:\n");
     STARTENTRY();
-    if(currentEntry.Length > 135){
-        Bio(*P) = PotongEntry(cleansedEntry(currentEntry),135);// MAKSIMAL 135 KARAKTER
-    } else {
+    if (currentEntry.Length > 135)
+    {
+        Bio(*P) = PotongEntry(cleansedEntry(currentEntry), 135); // MAKSIMAL 135 KARAKTER
+    }
+    else
+    {
         Bio(*P) = cleansedEntry(currentEntry);
     }
-    
 
     printf("Masukkan No HP:\n");
     STARTENTRY();
     currentEntry = cleansedEntry(currentEntry); // HARUS DALAM ANGKA
-    while(!CHECKNOMORHP(currentEntry) && !isSame(currentEntry,StringToEntry("",0))){
+    while (!CHECKNOMORHP(currentEntry) && !isSame(currentEntry, StringToEntry("", 0)))
+    {
         printf("No HP tidak valid. Masukkan lagi yuk!\n\n");
         printf("Masukkan No HP:\n");
         STARTENTRY();
@@ -162,7 +219,8 @@ void GantiProfil(Profil *P){
     printf("Masukkan Weton:\n");
     STARTENTRY();
     currentEntry = cleansedEntry(currentEntry); // HARI HARUS ADA DI LIST WETON: Pahing, Kliwon, Wage, Pon, dan Legi (case insensitive)
-    while(!CHECKWETON(currentEntry) && !isSame(currentEntry,StringToEntry("",0))){
+    while (!CHECKWETON(currentEntry) && !isSame(currentEntry, StringToEntry("", 0)))
+    {
         printf("Weton anda tidak valid.\n\n");
         printf("Masukkan Weton:\n");
         STARTENTRY();
@@ -173,22 +231,27 @@ void GantiProfil(Profil *P){
     printf("Profil Anda sudah berhasil diperbarui!\n\n");
 }
 
-void GantiFoto(Profil *P){
+void GantiFoto(Profil *P)
+{
     printf("Foto profil Anda saat ini adalah\n");
     PrintFoto(Foto(*P));
 
     printf("\nMasukkan foto profil yang baru\n");
 
     MatrixChar m;
-    ROW_EFF(m) = 5; COL_EFF(m) = 10;
-    int i=0,j=0;
+    ROW_EFF(m) = 5;
+    COL_EFF(m) = 10;
+    int i = 0, j = 0;
     STARTENTRY();
-    boolean color= true;
-    for(int k=0;k<currentEntry.Length;k++){
-        if(currentEntry.TabEntry[k] != 10 && currentEntry.TabEntry[k] != 32){
-            ELMT(m,i,j) = currentEntry.TabEntry[k];
+    boolean color = true;
+    for (int k = 0; k < currentEntry.Length; k++)
+    {
+        if (currentEntry.TabEntry[k] != 10 && currentEntry.TabEntry[k] != 32)
+        {
+            ELMT(m, i, j) = currentEntry.TabEntry[k];
             j++;
-            if(j==10){
+            if (j == 10)
+            {
                 i++;
                 j = 0;
             }
@@ -200,30 +263,38 @@ void GantiFoto(Profil *P){
 }
 
 /* ********** ATUR JENIS AKUN (PRIVAT/UMUM) ********** */
-void GantiJenis(Profil *P){
-    if(Jenis(*P)){
+void GantiJenis(Profil *P)
+{
+    if (Jenis(*P))
+    {
         printf("Saat ini, akun Anda adalah akun Privat. Ingin mengubah ke akun Publik? (YA/TIDAK)\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
-        while(!isSame(currentEntry,StringToEntry("YA",2)) && !isSame(currentEntry,StringToEntry("TIDAK",5))){
+        while (!isSame(currentEntry, StringToEntry("YA", 2)) && !isSame(currentEntry, StringToEntry("TIDAK", 5)))
+        {
             printf("Input tidak valid. (YA/TIDAK)\n");
             STARTENTRY();
             currentEntry = cleansedEntry(currentEntry);
         }
-        if(isSame(currentEntry,StringToEntry("YA",2))){
+        if (isSame(currentEntry, StringToEntry("YA", 2)))
+        {
             printf("Akun anda sudah diubah menjadi akun Publik.\n");
             Jenis(*P) = 0;
         }
-    } else {
+    }
+    else
+    {
         printf("Saat ini, akun Anda adalah akun Publik. Ingin mengubah ke akun Privat? (YA/TIDAK)\n");
         STARTENTRY();
         currentEntry = cleansedEntry(currentEntry);
-        while(!isSame(currentEntry,StringToEntry("YA",2)) && !isSame(currentEntry,StringToEntry("TIDAK",5))){
+        while (!isSame(currentEntry, StringToEntry("YA", 2)) && !isSame(currentEntry, StringToEntry("TIDAK", 5)))
+        {
             printf("Input tidak valid. (YA/TIDAK)\n");
             STARTENTRY();
             currentEntry = cleansedEntry(currentEntry);
         }
-        if(isSame(currentEntry,StringToEntry("YA",2))){
+        if (isSame(currentEntry, StringToEntry("YA", 2)))
+        {
             printf("Akun anda sudah diubah menjadi akun Privat.\n");
             Jenis(*P) = 1;
         }
@@ -236,19 +307,24 @@ void PrintFoto(MatrixChar m)
     /* I.S. P terdefinisi */
     /* F.S. P Cetak foto baru 5x5  */
     int i, j;
-    char c1,c2;
+    char c1, c2;
 
-    for (i = 0; i < 5; i++){
-        for (j = 0; j < 10; j+=2){
+    for (i = 0; i < 5; i++)
+    {
+        for (j = 0; j < 10; j += 2)
+        {
             c1 = ELMT(m, i, j + 1);
             c2 = ELMT(m, i, j);
-            if(c2 == 'R'){
+            if (c2 == 'R')
+            {
                 print_red(c1);
             }
-            if(c2 == 'G'){
+            if (c2 == 'G')
+            {
                 print_green(c1);
             }
-            if (c2 == 'B'){
+            if (c2 == 'B')
+            {
                 print_blue(c1);
             }
         }
@@ -285,77 +361,107 @@ int indexNama(ListStatik l, Entry nama)
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
 {
-    if (isEmptyListStatik(l)){
+    if (isEmptyListStatik(l))
+    {
         return IDX_UNDEF;
-    } else {
+    }
+    else
+    {
         int i = 0;
         boolean found = false;
-        while (i < NEFFLS(l) && !found){
-            if (isSame(Nama(ELMTLS(l,i)),nama)) {
+        while (i < NEFFLS(l) && !found)
+        {
+            if (isSame(Nama(ELMTLS(l, i)), nama))
+            {
                 found = true;
-            } else {
+            }
+            else
+            {
                 i++;
             }
         }
-        if(found){
+        if (found)
+        {
             return i;
-        } else {
+        }
+        else
+        {
             return IDX_UNDEF;
         }
-        
     }
 }
 
-void CreateQueue(Queue *Q){
+void CreateQueue(Queue *Q)
+{
     IDXHEAD(*Q) = IDX_UNDEF;
     IDXTAIL(*Q) = IDX_UNDEF;
 }
 
-boolean isEmptyQueue(Queue Q){
+boolean isEmptyQueue(Queue Q)
+{
     return IDXHEAD(Q) == IDX_UNDEF && IDXTAIL(Q) == IDX_UNDEF;
 }
 
-int lengthQueue(Queue Q){
-    if(IDXHEAD(Q) == IDX_UNDEF){
+int lengthQueue(Queue Q)
+{
+    if (IDXHEAD(Q) == IDX_UNDEF)
+    {
         return 0;
-    } else if(IDXHEAD(Q) <= IDXTAIL(Q)){
+    }
+    else if (IDXHEAD(Q) <= IDXTAIL(Q))
+    {
         return IDXTAIL(Q) - IDXHEAD(Q) + 1;
-    } else {
+    }
+    else
+    {
         return CAPACITY + IDXTAIL(Q) - IDXHEAD(Q) + 1;
     }
 }
 
-boolean IsIn(Queue Q, Entry nama){
-    while(IDXHEAD(Q) != IDXTAIL(Q)){
-        if(isSame(Info(HEAD(Q)),nama)){
+boolean IsIn(Queue Q, Entry nama)
+{
+    while (IDXHEAD(Q) != IDXTAIL(Q))
+    {
+        if (isSame(Info(HEAD(Q)), nama))
+        {
             return true;
         }
         IDXHEAD(Q) = (IDXHEAD(Q) + 1) % CAPACITY;
     }
-    if(isSame(Info(HEAD(Q)),nama)){
+    if (isSame(Info(HEAD(Q)), nama))
+    {
         return true;
     }
     return false;
 }
 
-void Enqueue(Queue *Q, Elmtqueue Val){
-    if(isEmptyQueue(*Q)){
+void Enqueue(Queue *Q, Elmtqueue Val)
+{
+    if (isEmptyQueue(*Q))
+    {
         IDXHEAD(*Q) = 0;
         IDXTAIL(*Q) = 0;
-        ELMTQ(*Q,0) = Val;
-    } else {
+        ELMTQ(*Q, 0) = Val;
+    }
+    else
+    {
         int idxheadawal = IDXHEAD(*Q);
-        while(Prio(Val) < Prio(HEAD(*Q)) && IDXHEAD(*Q) != IDXTAIL(*Q)){
+        while (Prio(Val) < Prio(HEAD(*Q)) && IDXHEAD(*Q) != IDXTAIL(*Q))
+        {
             IDXHEAD(*Q) = (IDXHEAD(*Q) + 1) % CAPACITY;
         }
-        if(IDXHEAD(*Q) == IDXTAIL(*Q) && Prio(Val) < Prio(HEAD(*Q))){
+        if (IDXHEAD(*Q) == IDXTAIL(*Q) && Prio(Val) < Prio(HEAD(*Q)))
+        {
             IDXTAIL(*Q) = (IDXTAIL(*Q) + 1) % CAPACITY;
             TAIL(*Q) = Val;
-        } else {
+        }
+        else
+        {
             IDXTAIL(*Q) = (IDXTAIL(*Q) + 1) % CAPACITY;
             int idxtailawal = IDXTAIL(*Q);
-            while(IDXTAIL(*Q) != IDXHEAD(*Q)){
-                TAIL(*Q) = ELMTQ(*Q,(IDXTAIL(*Q) - 1 + CAPACITY) % CAPACITY);
+            while (IDXTAIL(*Q) != IDXHEAD(*Q))
+            {
+                TAIL(*Q) = ELMTQ(*Q, (IDXTAIL(*Q) - 1 + CAPACITY) % CAPACITY);
                 IDXTAIL(*Q) = (IDXTAIL(*Q) - 1 + CAPACITY) % CAPACITY;
             }
             TAIL(*Q) = Val;
@@ -365,26 +471,37 @@ void Enqueue(Queue *Q, Elmtqueue Val){
     }
 }
 
-void Dequeue(Queue *Q){
-    if(lengthQueue(*Q) == 1){
+void Dequeue(Queue *Q)
+{
+    if (lengthQueue(*Q) == 1)
+    {
         IDXHEAD(*Q) = IDX_UNDEF;
         IDXTAIL(*Q) = IDX_UNDEF;
-    } else {
+    }
+    else
+    {
         IDXHEAD(*Q) = (IDXHEAD(*Q) + 1) % CAPACITY;
     }
 }
 
-void PrintQueue(Queue Q){
-    if(isEmptyQueue(Q)){
+void PrintQueue(Queue Q)
+{
+    if (isEmptyQueue(Q))
+    {
         printf("Tidak ada permintaan pertemanan untuk Anda.\n");
-    } else {
-        printf("Terdapat %d permintaan pertemanan untuk Anda.\n",lengthQueue(Q));
-        while(IDXHEAD(Q) != IDXTAIL(Q)){
-            printf("\n| "); printEntry(Info(HEAD(Q)));
+    }
+    else
+    {
+        printf("Terdapat %d permintaan pertemanan untuk Anda.\n", lengthQueue(Q));
+        while (IDXHEAD(Q) != IDXTAIL(Q))
+        {
+            printf("\n| ");
+            printEntry(Info(HEAD(Q)));
             printf("\n| Jumlah teman: %d\n", Prio(HEAD(Q)));
             IDXHEAD(Q) = (IDXHEAD(Q) + 1) % CAPACITY;
         }
-        printf("\n| "); printEntry(Info(HEAD(Q)));
+        printf("\n| ");
+        printEntry(Info(HEAD(Q)));
         printf("\n| Jumlah teman: %d\n\n", Prio(HEAD(Q)));
     }
 }

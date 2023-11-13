@@ -13,17 +13,17 @@
 /*  Kamus Umum */
 #define IDX_MIN 0
 /* Indeks minimum list */
-#define IDX_UNDEF -1
+#define IDX_UNDEF_LDT -1
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef NodeT ElType; /* type elemen list */
+typedef NodeT ElTypeLDT; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
-  ElType *bufferT; /* memori tempat penyimpan elemen (container) */
-  int nEffT;       /* >=0, banyaknya elemen efektif */
-  int capacityT;   /* ukuran elemen */
+  ElTypeLDT *bufferT; /* memori tempat penyimpan elemen (container) */
+  int nEffT;          /* >=0, banyaknya elemen efektif */
+  int capacityT;      /* ukuran elemen */
 } ListDinT;
 /* Indeks yang digunakan [0..capacityT-1] */
 /* Jika l adalah : ListDinT, cara deklarasi dan akses: */
@@ -86,12 +86,12 @@ boolean isFullListDinT(ListDinT l);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi list dari pembacaan *** */
-void insertLastListDinT(ListDinT *l, ElType val);
+void insertLastListDinT(ListDinT *l, ElTypeLDT val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastListDinT(ListDinT *l, ElType *val);
+void deleteLastListDinT(ListDinT *l, ElTypeLDT *val);
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
@@ -104,12 +104,12 @@ void expandListDinT(ListDinT *l, int num);
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void shrinkList(ListDinT *l, int num);
+void shrinkListDinT(ListDinT *l, int num);
 /* Proses : Mengurangi capacityT sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacityT > num, dan nEffT < capacityT - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
-void compressList(ListDinT *l);
+void compressListDinT(ListDinT *l);
 /* Proses : Mengubah capacityT sehingga capacityT = nEffT */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacityT = nEffT */

@@ -82,13 +82,18 @@ void STARTENTRY()
     }
 }
 
-Entry LOWER(Entry n){
+Entry LOWER(Entry n)
+{
     Entry m;
     m.Length = n.Length;
-    for(int i=0;i<n.Length;i++){
-        if(n.TabEntry[i] < 91){
+    for (int i = 0; i < n.Length; i++)
+    {
+        if (n.TabEntry[i] < 91)
+        {
             m.TabEntry[i] = n.TabEntry[i] + 32;
-        } else {
+        }
+        else
+        {
             m.TabEntry[i] = n.TabEntry[i];
         }
     }
@@ -122,29 +127,37 @@ boolean CHECKVALIDTWEET(Entry n)
     return valid;
 }
 
-boolean CHECKNOMORHP(Entry n){
+boolean CHECKNOMORHP(Entry n)
+{
     int i = 0;
-    while(i < n.Length){
-        if(n.TabEntry[i] - '0' < 0 || n.TabEntry[i] - '0' > 9){
+    while (i < n.Length)
+    {
+        if (n.TabEntry[i] - '0' < 0 || n.TabEntry[i] - '0' > 9)
+        {
             return false;
-        } else {
+        }
+        else
+        {
             i++;
         }
     }
     return true;
 }
 
-boolean CHECKWETON(Entry n){
+boolean CHECKWETON(Entry n)
+{
     n = LOWER(n);
-    if(isSame(n,StringToEntry("pahing",6)) || isSame(n,StringToEntry("kliwon",6)) || isSame(n,StringToEntry("wage",4)) || isSame(n,StringToEntry("pon",3)) || isSame(n,StringToEntry("legi",4))){
+    if (isSame(n, StringToEntry("pahing", 6)) || isSame(n, StringToEntry("kliwon", 6)) || isSame(n, StringToEntry("wage", 4)) || isSame(n, StringToEntry("pon", 3)) || isSame(n, StringToEntry("legi", 4)))
+    {
         return true;
     }
     return false;
 }
 
-Entry UnifyWeton(Entry n){
+Entry UnifyWeton(Entry n)
+{
     n = LOWER(n);
-    n.TabEntry[0]-=32;
+    n.TabEntry[0] -= 32;
     return n;
 }
 
@@ -162,10 +175,12 @@ boolean CHECKVALIDBIO(Entry n)
     return (n.Length <= 135 && n.Length != 0);
 }
 
-Entry PotongEntry(Entry n, int panjang){
+Entry PotongEntry(Entry n, int panjang)
+{
     Entry e;
     e.Length = panjang;
-    for(int i=0;i<panjang;i++){
+    for (int i = 0; i < panjang; i++)
+    {
         e.TabEntry[i] = n.TabEntry[i];
     }
     return e;
