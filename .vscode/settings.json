@@ -65,6 +65,7 @@
     "listliniertweet.h": "c",
     "charmachine.h": "c",
     "listdintweet.h": "c",
-    "stackdraf.h": "c"
+    "stackdraf.h": "c",
+    "llstackd.h": "c"
   }
 }

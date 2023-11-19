@@ -1,15 +1,15 @@
 #include "draf.h"
 #include <stdio.h>
 
-void SaveDraf(StackD *s, Kicau k)
+void SaveDraf(LLStackD *s, Kicau k)
 {
-    PushD(s, k);
+    PushLLSD(s, k);
 }
 
-void PublishDrafView(StackD *s, ListDinT *l)
+void PublishDrafView(LLStackD *s, ListDinT *l)
 {
     Kicau n;
-    PopD(s, &n);
+    PopLLSD(s, &n);
     AddressforLLT a = newNodeT(n);
     insertLastListDinT(l, *a);
 }
@@ -20,20 +20,20 @@ void PublishDrafCreate(Kicau n, ListDinT *l)
     insertLastListDinT(l, *a);
 }
 
-void DeleteDrafView(StackD *s)
+void DeleteDrafView(LLStackD *s)
 {
     Kicau n;
-    PopD(s, &n);
+    PopLLSD(s, &n);
 }
 
-void UbahRec(StackD *s, ListDinT *l)
+void UbahRec(LLStackD *s, ListDinT *l)
 {
     printf("Masukkan draf yang baru:\n");
     Entry n, temp;
     STARTENTRY();
     n = cleansedEntry(currentEntry);
     CLOSEENTRY();
-    TEXT(InfoTopD(*s)) = n;
+    TEXT(INFOT(TOPLLS(*s))) = n;
 
     printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
     STARTENTRY();
@@ -46,12 +46,12 @@ void UbahRec(StackD *s, ListDinT *l)
     }
     else if (isSame(temp, StringToEntry("TERBIT", 6)))
     {
-        WAKTU(InfoTopD(*s)) = GetLocalTime();
-        DisplayKicau(InfoTopD(*s));
+        WAKTU(INFOT(TOPLLS(*s))) = GetLocalTime();
+        DisplayKicau(INFOT(TOPLLS(*s)));
         PublishDrafView(s, l);
         printf("Selamat! Draf kicauan telah diterbitkan!\n");
         printf("Detil kicauan: \n");
-        // DisplayKicau(InfoTopD(*s));
+        // DisplayKicau(INFOT(TOPLLS(*s)));
     }
     else if (isSame(temp, StringToEntry("UBAH", 4)))
     {
@@ -67,7 +67,7 @@ void UbahRec(StackD *s, ListDinT *l)
     }
 }
 
-void InitializeDrafCreate(StackD *s, Entry auth, int aidi, ListDinT *l)
+void InitializeDrafCreate(LLStackD *s, Entry auth, int aidi, ListDinT *l)
 {
     Kicau tempk;
     CreateKicau(&tempk, aidi, auth);
@@ -101,7 +101,7 @@ void InitializeDrafCreate(StackD *s, Entry auth, int aidi, ListDinT *l)
     }
 }
 
-void InitializeDrafView(StackD *s, ListDinT *l)
+void InitializeDrafView(LLStackD *s, ListDinT *l)
 {
     if (IsEmptyD(*s))
     {
@@ -111,7 +111,7 @@ void InitializeDrafView(StackD *s, ListDinT *l)
     {
         Entry temp;
         printf("Ini draf terakhir anda:\n");
-        DisplayKicau(InfoTopD(*s));
+        DisplayKicau(INFOT(TOPLLS(*s)));
         printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
         STARTENTRY();
         temp = cleansedEntry(currentEntry);
@@ -123,12 +123,12 @@ void InitializeDrafView(StackD *s, ListDinT *l)
         }
         else if (isSame(temp, StringToEntry("TERBIT", 6)))
         {
-            WAKTU(InfoTopD(*s)) = GetLocalTime();
-            DisplayKicau(InfoTopD(*s));
+            WAKTU(INFOT(TOPLLS(*s))) = GetLocalTime();
+            DisplayKicau(INFOT(TOPLLS(*s)));
             PublishDrafView(s, l);
             printf("Selamat! Draf kicauan telah diterbitkan!\n");
             printf("Detil kicauan: \n");
-            // DisplayKicau(InfoTopD(*s));
+            // DisplayKicau(INFOT(TOPLLS(*s)));
         }
         else if (isSame(temp, StringToEntry("UBAH", 4)))
         {
@@ -138,7 +138,7 @@ void InitializeDrafView(StackD *s, ListDinT *l)
             // STARTENTRY();
             // n = cleansedEntry(currentEntry);
             // CLOSEENTRY();
-            // TEXT(InfoTopD(*s)) = n;
+            // TEXT(INFOT(TOPLLS(*s))) = n;
         }
         else if (isSame(temp, StringToEntry("SIMPAN", 6)))
         {
