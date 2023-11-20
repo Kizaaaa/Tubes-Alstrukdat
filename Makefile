@@ -1,3 +1,59 @@
+main: 
+	gcc main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Graf/graf.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c -o main.exe
+
+driverdatetime:
+	gcc ADT/DateTime/datetime.c ADT/DateTime/time.c -o driverdatetime.exe
+
+driverentrymachine:
+	gcc ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c -o driverentrymachine.exe
+
+drivergraf:
+	gcc ADT/Graf/graf.c -o drivergraf.exe
+
+driverkicau:
+	gcc ADT/Kicau/kicau.c -o driverkicau.exe
+
+driverlinkedlist:
+	gcc ADT/LinkedList/listlinier.c -o driverlinkedlist.exe
+
+driverlinkedliststack:
+	gcc ADT/LinkedListStack/LLStackD.c -o driverlinkedliststack.exe
+
+driverlinkedlisttweet:
+	gcc ADT/LinkedListTweet/listliniertweet.c -o driverlinkedlisttweet.exe
+
+driverlistdin:
+	gcc ADT/ListDin/listdin.c -o driverlistdin.exe
+
+driverlistdintweet:
+	gcc ADT/ListDinLLTweet/listdintweet.c -o driverlistdintweet.exe
+
+driverprofil:
+	gcc ADT/ListProfil/listprofil.c -o driverprofil.exe
+
+driverstatic:
+	gcc ADT/Static/Static.c -o driverstatic.exe
+
+driverstack:
+	gcc ADT/Stack/stack.c -o driverstack.exe
+
+driverstackdraf:
+	gcc ADT/StackDraf/stackdraf.c -o driverstackdraf.exe
+
+drivertree:
+	gcc ADT/Tree/tree.c -o drivertree.exe
+	
+driverutas:
+	gcc ADT/Utas/utas.c -o driverutas.exe
+
+
+
+
+
+
+
+
+
 CC = gcc
 CFLAGS = -Wall -Werror -std=c11
 
