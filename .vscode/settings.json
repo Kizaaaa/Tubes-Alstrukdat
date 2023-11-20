@@ -59,6 +59,17 @@
   "files.associations": {
     "entrymachine.h": "c",
     "kicau.h": "c",
+<<<<<<< HEAD
     "listdin.h": "c"
+=======
+    "profile.h": "c",
+    "liststatik.h": "c",
+    "listlinier.h": "c",
+    "listliniertweet.h": "c",
+    "charmachine.h": "c",
+    "listdintweet.h": "c",
+    "stackdraf.h": "c",
+    "llstackd.h": "c"
+>>>>>>> ffbc6c6cc3483037bf4c19a71089592bba4b911a
   }
 }

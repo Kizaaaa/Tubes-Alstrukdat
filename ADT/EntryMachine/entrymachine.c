@@ -82,6 +82,24 @@ void STARTENTRY()
     }
 }
 
+Entry LOWER(Entry n)
+{
+    Entry m;
+    m.Length = n.Length;
+    for (int i = 0; i < n.Length; i++)
+    {
+        if (n.TabEntry[i] < 91)
+        {
+            m.TabEntry[i] = n.TabEntry[i] + 32;
+        }
+        else
+        {
+            m.TabEntry[i] = n.TabEntry[i];
+        }
+    }
+    return m;
+}
+
 boolean CHECKVALIDTWEET(Entry n)
 /*  Melakukan validasi terhadap input tweet
     Mengembalikan nilai true jika tweet valid (Length <= 280 dan Length != 0 dan tidak bernilai spasi semuanya)
@@ -109,6 +127,40 @@ boolean CHECKVALIDTWEET(Entry n)
     return valid;
 }
 
+boolean CHECKNOMORHP(Entry n)
+{
+    int i = 0;
+    while (i < n.Length)
+    {
+        if (n.TabEntry[i] - '0' < 0 || n.TabEntry[i] - '0' > 9)
+        {
+            return false;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return true;
+}
+
+boolean CHECKWETON(Entry n)
+{
+    n = LOWER(n);
+    if (isSame(n, StringToEntry("pahing", 6)) || isSame(n, StringToEntry("kliwon", 6)) || isSame(n, StringToEntry("wage", 4)) || isSame(n, StringToEntry("pon", 3)) || isSame(n, StringToEntry("legi", 4)))
+    {
+        return true;
+    }
+    return false;
+}
+
+Entry UnifyWeton(Entry n)
+{
+    n = LOWER(n);
+    n.TabEntry[0] -= 32;
+    return n;
+}
+
 boolean CHECKVALIDUNP(Entry n)
 /*  UNP = Username and Password
     Melakukan validasi terhadap input tweet
@@ -121,6 +173,17 @@ boolean CHECKVALIDUNP(Entry n)
 boolean CHECKVALIDBIO(Entry n)
 {
     return (n.Length <= 135 && n.Length != 0);
+}
+
+Entry PotongEntry(Entry n, int panjang)
+{
+    Entry e;
+    e.Length = panjang;
+    for (int i = 0; i < panjang; i++)
+    {
+        e.TabEntry[i] = n.TabEntry[i];
+    }
+    return e;
 }
 
 boolean isSame(Entry n1, Entry n2)
@@ -137,7 +200,6 @@ boolean isSame(Entry n1, Entry n2)
         {
             if (n1.TabEntry[j] != n2.TabEntry[j])
             {
-                printf("%d", n1.TabEntry[j] != n2.TabEntry[j]);
                 same = false;
                 return same;
             }
@@ -168,6 +230,7 @@ Entry cleansedEntry(Entry n)
             n.TabEntry[i] = n.TabEntry[i + 1];
         }
         n.Length -= 1;
+        j++;
     }
     return n;
 }
@@ -186,7 +249,7 @@ Entry cutBeforeEntry(Entry n, int k)
 Entry cutAfterEntry(Entry n, int k)
 {
     Entry m;
-    m.Length = n.Length - k;
+    m.Length = n.Length - k - 1;
     for (int i = 0; i < m.Length; i++)
     {
         m.TabEntry[i] = n.TabEntry[k + 1 + i];
@@ -314,3 +377,16 @@ int secondNumParam(Entry n)
         // proses jika UnP tidak valid
     }
 */
+
+/*
+gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
+*/
+
+// int main(){
+//     STARTENTRY();
+//     currentEntry = cleansedEntry(currentEntry);
+//     printEntry(cutBeforeEntry(currentEntry,12));
+//     printf("\n");
+//     printEntry(cutAfterEntry(currentEntry,12));
+//     return 0;
+// }
