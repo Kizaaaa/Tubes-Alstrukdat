@@ -216,6 +216,7 @@ void CreateKicau(ListDinT *l, Entry author){
     AUTHOR(k) = author;
     UTASAN(k) = NULL;
     AddressBT t = NULL;
+    ISUTAS(k) = false;
     BALASAN(k) = t;
 
     printf("Masukkan kicauan:\n");
@@ -523,5 +524,53 @@ void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author){
             ELMTT(*KicauGlobal,NEFFT(*KicauGlobal)) = k;
             NEFFT(*KicauGlobal)++;
         }
+    }
+}
+
+void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int *IDUtas, long long int IDCreate){
+    if(IDCreate < 1 || IDCreate > NEFFT(*KicauGlobal)){
+        printf("Kicauan tidak ditemukan\n");
+    } else if(!isSame(AUTHOR(ELMTT(*KicauGlobal,IDCreate-1)), CurrentUser)){
+        printf("Kicau ini bukan milik anda!\n");
+    } else if(ISUTAS(ELMTT(*KicauGlobal,IDCreate-1))){
+        printf("Kicau ini telah menjadi utas\n");
+    } else {
+        ELMTLDI(*UtasGlobal,*IDUtas-1) = IDCreate-1;
+        NEFFLDI(*UtasGlobal) = NEFFLDI(*UtasGlobal) + 1;
+        ISUTAS(ELMTT(*KicauGlobal,IDCreate-1)) = true;
+        *IDUtas = *IDUtas +1;
+        readUtas(&UTASAN(ELMTT(*KicauGlobal,IDCreate-1)));
+    }
+}
+
+void SambungUtas(ListDinT *KicauGlobal, ListDin UtasGlobal, Entry CurrentUser, long long int IDUtas, long long int Index){
+    if(IDUtas < 1 || IDUtas > NEFFLDI(UtasGlobal)){
+        printf("Utas tidak ditemukan!\n");
+    } else if(!isSame(CurrentUser,AUTHOR(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1))))){
+        printf("Anda tidak bisa menyambung utas ini!\n");
+    } else {
+        sambungUtas(&UTASAN(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1))),Index);
+    }
+}
+
+void HapusUtas(ListDinT *KicauGlobal, ListDin UtasGlobal, Entry CurrentUser, long long int IDUtas, long long int Index){
+    if(IDUtas < 1 || IDUtas > NEFFLDI(UtasGlobal)){
+        printf("Utas tidak ditemukan!\n");
+    } else if(!isSame(CurrentUser,AUTHOR(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1))))){
+        printf("Anda tidak bisa menghapus kicauan dalam utas ini!\n");
+    } else if(Index == 0){
+        printf("Anda tidak bisa menghapus kicauan utama!\n");
+    } else {
+        deleteUtasAt(&UTASAN(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1))),Index);
+    }
+}
+
+void CetakUtas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, ListDin UtasGlobal, int CurrentUser, long long int IDUtas){
+    if(IDUtas < 1 || IDUtas > NEFFLDI(UtasGlobal)){
+        printf("Utas tidak ditemukan!\n");
+    } else if(Jenis(ELMTLS(ListProfil,indexNama(ListProfil,AUTHOR(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1)))))) && !isBerteman(G,CurrentUser,indexNama(ListProfil,AUTHOR(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1)))))){
+        printf("Akun yang membuat utas ini adalah akun privat! Ikuti dahulu akun ini untuk melihat utasnya!\n");
+    } else {
+        displayLinkedUtas(ELMTT(*KicauGlobal,ELMTLDI(UtasGlobal,IDUtas-1)));
     }
 }

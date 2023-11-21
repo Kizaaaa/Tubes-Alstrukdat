@@ -10,6 +10,7 @@
 #include "../../boolean.h"
 #include "../Kicau/kicau.h"
 #include "../Utas/utas.h"
+#include "../ListDin/listdin.h"
 
 /*  Kamus Umum */
 #define IDX_MIN 0
@@ -132,5 +133,13 @@ void HapusBalasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int Curr
 void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
 
 void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
+
+void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int *IDUtas, long long int IDCreate);
+
+void SambungUtas(ListDinT *KicauGlobal, ListDin UtasGlobal, Entry CurrentUser, long long int IDUtas, long long int Index);
+
+void HapusUtas(ListDinT *KicauGlobal, ListDin UtasGlobal, Entry CurrentUser, long long int IDUtas, long long int Index);
+
+void CetakUtas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, ListDin UtasGlobal, int CurrentUser, long long int IDUtas);
 
 #endif

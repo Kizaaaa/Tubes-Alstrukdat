@@ -31,28 +31,16 @@ void displayUtas(UTAS u, Kicau Twt)
     printf("\n");
 }
 
-void displayLinkedUtas(LINKEDUTAS l, Kicau Twt)
+void displayLinkedUtas(Kicau Twt)
 { // Display SELURUH LINKEDUTAS, asumsi pada main sudah diambilkan Linkedutas dengan id_utas masukan
     // print kicauan utama dulu
-    printf("| ID = %d\n", ID(Twt));
-    printf("| ");
-    printEntry(AUTHOR(Twt));
-    printf("\n");
-    printf("| ");
-    TulisDATETIME(WAKTU(Twt));
-    printf("\n");
-    printf("| "), printEntry(TEXT(Twt));
-    printf("\n");
-    printf("\n");
+    DisplayKicau(Twt); printf("\n");
 
-    // coba print semua utas
-    //  Address p;
     Address p;
-    int i = 0;
-    p = FIRSTUTAS(l);
+    p = FIRSTUTAS(UTASAN(Twt));
     while (p != NULL)
     {
-        printf("    | INDEX = %d\n", i);
+        printf("    | INDEX = %d\n", INDEKS(INFOUTAS(p)));
         printf("    | ");
         printEntry(AUTHOR(Twt));
         printf("\n");
@@ -62,7 +50,6 @@ void displayLinkedUtas(LINKEDUTAS l, Kicau Twt)
         printf("    | "), printEntry(TEXTUTAS(INFOUTAS(p)));
         printf("\n");
         printf("\n");
-        i++;
         p = NEXT(p);
     }
 }

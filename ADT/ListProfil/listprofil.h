@@ -11,7 +11,7 @@
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */
-#define IDX_UNDEF (-1)
+#define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
 /* Ukuran maksimum baris dan kolom Matrix foto */
 #define ROW_CAP 10

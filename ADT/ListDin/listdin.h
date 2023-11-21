@@ -12,17 +12,14 @@
 /*  Kamus Umum */
 #define IDX_MIN 0
 /* Indeks minimum list */
-#define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef int ElType; /* type elemen list */
-typedef int IdxType;
 typedef struct
 {
-    ElType *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    int *bufferldi; /* memori tempat penyimpan elemen (container) */
+    int nEffldi;       /* >=0, banyaknya elemen efektif */
+    int capacityldi;   /* ukuran elemen */
 } ListDin;
 /* Indeks yang digunakan [0..capacity-1] */
 /* Jika l adalah : ListDin, cara deklarasi dan akses: */
@@ -37,10 +34,10 @@ typedef struct
   Definisi elemen terakhir yang terdefinisi: l.buffer[i] dengan i=l.capacity */
 
 /* ********** SELEKTOR ********** */
-#define NEFF(l) (l).nEff
-#define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+#define NEFFLDI(l) (l).nEffldi
+#define BUFFERLDI(l) (l).bufferldi
+#define ELMTLDI(l, i) (l).bufferldi[i]
+#define CAPACITYLDI(l) (l).capacityldi
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
@@ -60,18 +57,18 @@ int listdinLength(ListDin l);
 /* *** Daya tampung container *** */
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdxListDin(ListDin l);
+int getFirstIdxListDin(ListDin l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-IdxType getLastIdxListDin(ListDin l);
+int getLastIdxListDin(ListDin l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValidListDin(ListDin l, IdxType i);
+boolean isIdxValidListDin(ListDin l, int i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEffListDin(ListDin l, IdxType i);
+boolean isIdxEffListDin(ListDin l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk list */
 /* yaitu antara 0..NEFF(l) */
 
@@ -118,7 +115,7 @@ boolean isListDinEqual(ListDin l1, ListDin l2);
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexlistdinOf(ListDin l, ElType val);
+int indexlistdinOf(ListDin l, int val);
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
@@ -126,7 +123,7 @@ IdxType indexlistdinOf(ListDin l, ElType val);
 /* Skema Searching yang digunakan bebas */
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues(ListDin l, ElType *max, ElType *min);
+void extremeValues(ListDin l, int *max, int *min);
 /* I.S. List l tidak kosong */
 /* F.S. max berisi nilai maksimum l;
         min berisi nilai minimum l */
@@ -136,10 +133,10 @@ void copyListDin(ListDin lIn, ListDin *lOut);
 /* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
 /* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
 /* Proses : Menyalin isi lIn ke lOut */
-ElType sumListDin(ListDin l);
+int sumListDin(ListDin l);
 /* Menghasilkan hasil penjumlahan semua elemen l */
 /* Jika l kosong menghasilkan 0 */
-int countVal(ListDin l, ElType val);
+int countVal(ListDin l, int val);
 /* Menghasilkan berapa banyak kemunculan val di l */
 /* Jika l kosong menghasilkan 0 */
 
@@ -153,12 +150,12 @@ void sortListDin(ListDin *l, boolean asc);
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLastListDin(ListDin *l, ElType val);
+void insertLastListDin(ListDin *l, int val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastListDin(ListDin *l, ElType *val);
+void deleteLastListDin(ListDin *l, int *val);
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
