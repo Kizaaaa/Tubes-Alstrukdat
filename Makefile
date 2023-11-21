@@ -1,50 +1,50 @@
 main: 
-	gcc main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Graf/graf.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c -o main.exe
+	gcc main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Graf/graf.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c Program/Draf/Draf.c Program/Pcolor/pcolor.c boolean.h -o main
 
 driverdatetime:
-	gcc ADT/DateTime/datetime.c ADT/DateTime/time.c -o driverdatetime.exe
+	gcc ADT/DateTime/datetime.c ADT/DateTime/time.c -o driverdatetime
 
 driverentrymachine:
-	gcc ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c -o driverentrymachine.exe
+	gcc ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c -o driverentrymachine
 
 drivergraf:
-	gcc ADT/Graf/graf.c -o drivergraf.exe
+	gcc ADT/Graf/graf.c -o drivergraf
 
 driverkicau:
-	gcc ADT/Kicau/kicau.c -o driverkicau.exe
+	gcc ADT/Kicau/kicau.c -o driverkicau
 
 driverlinkedlist:
-	gcc ADT/LinkedList/listlinier.c -o driverlinkedlist.exe
+	gcc ADT/LinkedList/listlinier.c -o driverlinkedlist
 
 driverlinkedliststack:
-	gcc ADT/LinkedListStack/LLStackD.c -o driverlinkedliststack.exe
+	gcc ADT/LinkedListStack/LLStackD.c -o driverlinkedliststack
 
 driverlinkedlisttweet:
-	gcc ADT/LinkedListTweet/listliniertweet.c -o driverlinkedlisttweet.exe
+	gcc ADT/LinkedListTweet/listliniertweet.c -o driverlinkedlisttweet
 
 driverlistdin:
-	gcc ADT/ListDin/listdin.c -o driverlistdin.exe
+	gcc ADT/ListDin/listdin.c -o driverlistdin
 
 driverlistdintweet:
-	gcc ADT/ListDinLLTweet/listdintweet.c -o driverlistdintweet.exe
+	gcc ADT/ListDinLLTweet/listdintweet.c -o driverlistdintweet
 
 driverprofil:
-	gcc ADT/ListProfil/listprofil.c -o driverprofil.exe
+	gcc ADT/ListProfil/listprofil.c -o driverprofil
 
 driverstatic:
-	gcc ADT/Static/Static.c -o driverstatic.exe
+	gcc ADT/Static/Static.c -o driverstatic
 
 driverstack:
-	gcc ADT/Stack/stack.c -o driverstack.exe
+	gcc ADT/Stack/stack.c -o driverstack
 
 driverstackdraf:
-	gcc ADT/StackDraf/stackdraf.c -o driverstackdraf.exe
+	gcc ADT/StackDraf/stackdraf.c -o driverstackdraf
 
 drivertree:
-	gcc ADT/Tree/tree.c -o drivertree.exe
+	gcc ADT/Tree/tree.c -o drivertree
 	
 driverutas:
-	gcc ADT/Utas/utas.c -o driverutas.exe
+	gcc ADT/Utas/utas.c -o driverutas
 
 
 
