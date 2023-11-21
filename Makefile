@@ -1,3 +1,59 @@
+main: 
+	gcc main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Graf/graf.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c Program/Draf/Draf.c Program/Pcolor/pcolor.c boolean.h -o main
+
+driverdatetime:
+	gcc ADT/DateTime/datetime.c ADT/DateTime/time.c -o driverdatetime
+
+driverentrymachine:
+	gcc ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c -o driverentrymachine
+
+drivergraf:
+	gcc ADT/Graf/graf.c -o drivergraf
+
+driverkicau:
+	gcc ADT/Kicau/kicau.c -o driverkicau
+
+driverlinkedlist:
+	gcc ADT/LinkedList/listlinier.c -o driverlinkedlist
+
+driverlinkedliststack:
+	gcc ADT/LinkedListStack/LLStackD.c -o driverlinkedliststack
+
+driverlinkedlisttweet:
+	gcc ADT/LinkedListTweet/listliniertweet.c -o driverlinkedlisttweet
+
+driverlistdin:
+	gcc ADT/ListDin/listdin.c -o driverlistdin
+
+driverlistdintweet:
+	gcc ADT/ListDinLLTweet/listdintweet.c -o driverlistdintweet
+
+driverprofil:
+	gcc ADT/ListProfil/listprofil.c -o driverprofil
+
+driverstatic:
+	gcc ADT/Static/Static.c -o driverstatic
+
+driverstack:
+	gcc ADT/Stack/stack.c -o driverstack
+
+driverstackdraf:
+	gcc ADT/StackDraf/stackdraf.c -o driverstackdraf
+
+drivertree:
+	gcc ADT/Tree/tree.c -o drivertree
+	
+driverutas:
+	gcc ADT/Utas/utas.c -o driverutas
+
+
+
+
+
+
+
+
+
 CC = gcc
 CFLAGS = -Wall -Werror -std=c11
 
@@ -18,7 +74,6 @@ clean:
 	rm -f main_program mfoo $(OBJ_MAIN) $(OBJ_FOO) $(OBJ_TEST) $(TEST_RESULTS)
 
 # UNIT TESTS
-
 SRC_FOO = ADT/Foo/foo.c
 SRC_TEST = ADT/Foo/tests/mfoo.c
 OBJ_FOO = $(SRC_FOO:.c=.o)
@@ -42,6 +97,25 @@ $(TEST_RESULTS): $(TESTS_DIR)/%.result: $(TESTS_DIR)/%.in $(TESTS_DIR)/%.out mfo
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+######### UNIT TEST ENTRYMACHINE #########
+SRC_ADT = $(SRC_CHAR) $(SRC_ENTRY) $(SRC_PCOLOR)
+OBJ_ADT = $(SRC_ADT:.c=.o)
+
+SRC_CHAR = ADT/EntryMachine/charmachine.c
+SRC_ENTRY = ADT/EntryMachine/entrymachine.c
+
+SRC_PCOLOR = ADT/pcolor/pcolor.c
+
+OBJ_CHAR = $(SRC_CHAR:.c=.o)
+OBJ_ENTRY = $(SRC_ENTRY:.c=.o)
+
+
+entrymachine: $(OBJ_CHAR) $(OBJ_ENTRY)
+	$(CC) $(CFLAGS) -o $@ $^ 
+
+
+adt: $(OBJ_ADT)
+	$(CC) $(CFLAGS) -o $@  main.c $(SRC_ADT)
 
 # UNIT TESTS MATRIX
 
