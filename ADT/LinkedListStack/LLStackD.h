@@ -1,9 +1,9 @@
 #ifndef LLS_H
 #define LLS_H
 
-#include "boolean.h"
-#include "kicau.h"
-#include "listliniertweet.h"
+#include "../../boolean.h"
+#include "../Kicau/kicau.h"
+#include "../LinkedListTweet/listliniertweet.h"
 
 /* Definisi Node : */
 

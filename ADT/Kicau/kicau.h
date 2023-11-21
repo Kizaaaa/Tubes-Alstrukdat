@@ -2,38 +2,36 @@
 #define KICAU_H
 
 #include "../../boolean.h"
-#include "../EntryMachine/entrymachine.h"
-#include "../DateTime/datetime.h"
 #include "../Utas/utas.h"
+#include "../Graf/graf.h"
+#include "../Tree/tree.h"
 
 typedef struct kicau
 {
-    int Id;
-    int Like;
+    long long int IdBalasan;
+    long long int Id;
+    long long int Like;
     Entry Author;
     Entry Text;
     LINKEDUTAS Utasan;
-    // LINKEDUTAS Next;
     DATETIME Waktu;
+    BinTree Balasan;
 } Kicau;
 
 /* ********** SELEKTOR ********** */
+#define IDBALASAN(k) (k).IdBalasan
 #define ID(k) (k).Id
 #define LIKE(k) (k).Like
 #define AUTHOR(k) (k).Author
 #define TEXT(k) (k).Text
 #define UTASAN(k) (k).Utasan
 #define WAKTU(k) (k).Waktu
+#define BALASAN(k) (k).Balasan
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create Tweet */
-void CreateKicau(Kicau *k, int id, Entry author);
-
-void EditKicau(Kicau *k);
 
 void DisplayKicau(Kicau k);
-
-void LikeKicau(Kicau *k);
 
 void displayUtas(UTAS u, Kicau Twt);
 /* I.S sembarang */
