@@ -55,28 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "entrymachine.h": "c",
-    "kicau.h": "c",
-<<<<<<< HEAD
-    "listdin.h": "c"
-=======
-    "profile.h": "c",
-    "liststatik.h": "c",
-    "listlinier.h": "c",
-    "listliniertweet.h": "c",
-    "charmachine.h": "c",
-    "listdintweet.h": "c",
-    "stackdraf.h": "c",
-<<<<<<< HEAD
-    "llstackd.h": "c"
->>>>>>> ffbc6c6cc3483037bf4c19a71089592bba4b911a
-=======
-    "llstackd.h": "c",
-    "graf.h": "c",
-    "listprofil.h": "c",
-    "stack.h": "c"
->>>>>>> ad0bc90acbae921253d6a8c597b1d1ab271617ee
-  }
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }
