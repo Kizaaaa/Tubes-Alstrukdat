@@ -49,36 +49,6 @@ boolean isBinary(BinTree p){
     return !isTreeEmpty(p) && (LEFT(p) != NULL && RIGHT(p) != NULL);
 }
 
-void printPreorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printf("%d",ROOT(p));
-        printPreorder(LEFT(p));
-        printPreorder(RIGHT(p));
-    }
-    printf(")");
-}
-
-void printInorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printInorder(LEFT(p));
-        printf("%d",ROOT(p));
-        printInorder(RIGHT(p));
-    }
-    printf(")");
-}
-
-void printPostorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printPostorder(LEFT(p));
-        printPostorder(RIGHT(p));
-        printf("%d",ROOT(p));
-    }
-    printf(")");
-}
-
 void dealloc(BinTree p){
     if(isOneElmt(p)){
         deallocTreeNode(p);
@@ -104,6 +74,11 @@ void addRight(BinTree *p, BalasanB b)
         RIGHT(*p) = newTreeNode(b);
         PARENT(RIGHT(*p)) = *p;
     }
+}
+
+void addChild(BinTree *p, BalasanB b){
+    LEFT(*p) = newTreeNode(b);
+    PARENT(LEFT(*p)) = *p;
 }
 
 BinTree searchTree(BinTree p, long long int IDBalas){

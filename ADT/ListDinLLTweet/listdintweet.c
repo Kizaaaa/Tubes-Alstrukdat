@@ -293,7 +293,7 @@ void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
     } else {
         Kicau k = ELMTT(*KicauGlobal,IDKicau-1);
-        if(IDBalas > IDBALASAN(k)){
+        if(searchTree(BALASAN(k),IDBalas) == NULL && IDBalas != -1){
             printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
         } else {
             Entry authorowner;
@@ -321,7 +321,7 @@ void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser
                     printf("\nSelamat! balasan telah diterbitkan!\nDetil balasan:\n");
                     WAKTUB(b) = GetLocalTime();
 
-                    printf("| ID = %d\n",IDB(b));
+                    printf("| ID = %lld\n",IDB(b));
                     printf("| "); printEntry(AUTHORB(b)); printf("\n");
                     printf("| "); TulisDATETIME(WAKTUB(b)); printf("\n");
                     printf("| "); printEntry(TEXTB(b)); printf("\n\n");
@@ -334,7 +334,8 @@ void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser
                         BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = binitial;
                     } else {
                         BinTree binitial = bi;
-                        addRight(&LEFT(searchTree(BALASAN(k),IDBalas)),b);
+                        bi = searchTree(bi,IDBalas);
+                        addChild(&bi,b);
                         BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = binitial;
                     }
                     IDBALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = IDBALASAN(ELMTT(*KicauGlobal,IDKicau-1)) + 1;
@@ -356,12 +357,12 @@ void PrintBalasan(Graf G, ListStatik ListProfil, int CurrentUser, BinTree p, int
         int IdAuthorKicau = indexNama(ListProfil,AuthorKicau);
 
         if(!isBerteman(G,CurrentUser,IdAuthorKicau) && Jenis(ELMTLS(ListProfil,IdAuthorKicau))){
-            CoutSpace(depth); printf("| ID = %d\n",IDB(ROOT(p)));
+            CoutSpace(depth); printf("| ID = %lld\n",IDB(ROOT(p)));
             CoutSpace(depth); printf("| PRIVAT\n");
             CoutSpace(depth); printf("| PRIVAT\n");
             CoutSpace(depth); printf("| PRIVAT\n\n");
         } else {
-            CoutSpace(depth); printf("| ID = %d\n",IDB(ROOT(p)));
+            CoutSpace(depth); printf("| ID = %lld\n",IDB(ROOT(p)));
             CoutSpace(depth); printf("| "); printEntry(AUTHORB(ROOT(p))); printf("\n");
             CoutSpace(depth); printf("| "); TulisDATETIME(WAKTUB(ROOT(p))); printf("\n");
             CoutSpace(depth); printf("| "); printEntry(TEXTB(ROOT(p))); printf("\n\n");
@@ -387,27 +388,32 @@ void Balasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUs
 
 void HapusBalasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau, long long int IDHapus){
     if(IDKicau < 1 || IDKicau > NEFFT(*KicauGlobal)){
-        printf("Kicauan dengan ID = %d tidak ditemukan!\n",IDKicau);
+        printf("Kicauan dengan ID = %lld tidak ditemukan!\n",IDKicau);
     } else {
         Kicau k = ELMTT(*KicauGlobal,IDKicau-1);
-        if(IDHapus > IDBALASAN(k)){
+        if(searchTree(BALASAN(k),IDHapus) == NULL){
             printf("Balasan tidak ditemukan\n");
         } else {
-            BinTree bi = BALASAN(k),t;
-            t = searchTree(bi,IDHapus);
+            BinTree t = searchTree(BALASAN(ELMTT(*KicauGlobal,IDKicau-1)),IDHapus);
             if(!isSame(AUTHORB(ROOT(t)),Nama(ELMTLS(ListProfil,CurrentUser)))){
                 printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
             } else {
                 printf("Balasan berhasil dihapus\n");
                 if(isOneElmt(BALASAN(k))){
-                    t = BALASAN(k);
-                    BALASAN(k) = NULL;
-                    free(t);
+                    printf("Masuk sini1\n");
+                    free(BALASAN(ELMTT(*KicauGlobal,IDKicau-1)));
+                    BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = NULL;
                 } else {
-                    RIGHT(PARENT(t)) = RIGHT(t);
-                    dealloc(LEFT(t));
-                    deallocTreeNode(t);
-                    BALASAN(k) = bi;
+                    if(PARENT(t) == NULL){
+                        BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = RIGHT(t);
+                        free(t);
+                    } else if(LEFT(PARENT(t)) == t){
+                        LEFT(PARENT(t)) = NULL;
+                        free(t);
+                    } else {
+                        RIGHT(PARENT(t)) = RIGHT(t);
+                        free(t);
+                    }
                 }
             }
         }
