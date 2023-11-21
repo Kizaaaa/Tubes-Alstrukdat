@@ -44,7 +44,6 @@ typedef struct nodeLU
 Address newNodeLinked(UTAS val);
 
 
-#define IDX_UNDEF (-1)
 #define FIRSTUTAS(p) (p)
 
 typedef Address LINKEDUTAS;

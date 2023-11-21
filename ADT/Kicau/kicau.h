@@ -14,6 +14,7 @@ typedef struct kicau
     Entry Author;
     Entry Text;
     LINKEDUTAS Utasan;
+    boolean IsUtas;
     DATETIME Waktu;
     BinTree Balasan;
 } Kicau;
@@ -25,6 +26,7 @@ typedef struct kicau
 #define AUTHOR(k) (k).Author
 #define TEXT(k) (k).Text
 #define UTASAN(k) (k).Utasan
+#define ISUTAS(k) (k).IsUtas
 #define WAKTU(k) (k).Waktu
 #define BALASAN(k) (k).Balasan
 
@@ -37,7 +39,7 @@ void displayUtas(UTAS u, Kicau Twt);
 /* I.S sembarang */
 /* F.S Menampilkan SATU UTAS */
 
-void displayLinkedUtas(LINKEDUTAS l, Kicau Twt);
+void displayLinkedUtas(Kicau Twt);
 /* I.S sembarang */
 /* F.S Menampilkan SELURUH LinkedUtas termasuk Kicauan Utama */
 
