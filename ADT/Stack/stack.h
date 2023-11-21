@@ -9,21 +9,23 @@
 #include <stdlib.h>
 
 /* Deklarasi infotype */
-typedef struct eltypes{
+typedef struct eltypes
+{
     Entry texts;
     DATETIME waktus;
 } Eltypes;
 
-
 /* Stack dengan representasi berkait dengan pointer */
-typedef struct nodes* Addresss;
-typedef struct nodes {
+typedef struct nodes *Addresss;
+typedef struct nodes
+{
     Eltypes infos;
-    Addresss nexts; 
-} Nodes; 
+    Addresss nexts;
+} Nodes;
 
 /* Type stack dengan ciri Top: */
-typedef struct { 
+typedef struct
+{
     Addresss addrTop; /* alamat Top: elemen puncak */
 } Stack;
 
@@ -33,13 +35,13 @@ typedef struct {
 #define TEXTS(p) (p).texts
 #define WAKTUS(p) (p).waktus
 #define ADDR_TOP(s) (s).addrTop
-#define TOP(s) (s).addrTop->infos 
+#define TOP(s) (s).addrTop->infos
 
 /* Prototype manajemen memori */
 Addresss newNode(Entry x);
-/* Mengembalikan alamat sebuah Node hasil alokasi dengan info = x, 
-   atau 
-   NULL jika alokasi gagal */   
+/* Mengembalikan alamat sebuah Node hasil alokasi dengan info = x,
+   atau
+   NULL jika alokasi gagal */
 
 /* ********* PROTOTYPE REPRESENTASI LOJIK STACK ***************/
 boolean isEmptyS(Stack s);
@@ -49,7 +51,7 @@ int lengthS(Stack s);
 /* Mengirimkan banyaknya elemen stack. Mengirimkan 0 jika Stack s kosong */
 
 void CreateStack(Stack *s);
-/* I.S. sembarang */ 
+/* I.S. sembarang */
 /* F.S. Membuat sebuah stack s yang kosong */
 
 void push(Stack *s, Entry x);

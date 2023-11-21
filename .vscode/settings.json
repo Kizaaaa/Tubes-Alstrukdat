@@ -66,6 +66,9 @@
     "charmachine.h": "c",
     "listdintweet.h": "c",
     "stackdraf.h": "c",
-    "llstackd.h": "c"
+    "llstackd.h": "c",
+    "graf.h": "c",
+    "listprofil.h": "c",
+    "stack.h": "c"
   }
 }
