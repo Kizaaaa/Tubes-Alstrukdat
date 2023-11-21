@@ -1,9 +1,3 @@
-#ifndef LLS_H
-#define LLS_H
-
-#include "boolean.h"
-#include "kicau.h"
-#include "listliniertweet.h"
 #include "LLStackD.h"
 #include <stdlib.h>
 
@@ -66,5 +60,3 @@ void PopLLSD(LLStackD *S, Kicau *X)
         --;
     }
 }
-
-#endif

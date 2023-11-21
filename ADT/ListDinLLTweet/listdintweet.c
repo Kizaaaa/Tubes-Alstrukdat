@@ -204,3 +204,324 @@ void compressListDinT(ListDinT *l)
 /* Proses : Mengubah capacityT sehingga capacityT = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacityT = nEff */
+
+void CreateKicau(ListDinT *l, Entry author){
+    if(isFullListDinT(*l)){
+        expandListDinT(&*l,10);
+    }
+    Kicau k;
+    IDBALASAN(k) = 0;
+    ID(k) = NEFFT(*l) + 1;
+    LIKE(k) = 0;
+    AUTHOR(k) = author;
+    UTASAN(k) = NULL;
+    AddressBT t = NULL;
+    BALASAN(k) = t;
+
+    printf("Masukkan kicauan:\n");
+    STARTENTRY();
+    if(!CHECKVALIDTWEET(cleansedEntry(currentEntry))){
+        printf("Kicauan tidak boleh hanya berisi spasi!\n");
+    } else {
+        TEXT(k) = cleansedEntry(currentEntry);
+        printf("\nSelamat! kicauan telah diterbitkan!\nDetil kicauan:\n");
+
+        WAKTU(k) = GetLocalTime();
+        DisplayKicau(k);
+        // BALASAN(k) = NewTree(k);
+        ELMTT(*l,NEFFT(*l)) = k;
+        NEFFT(*l)++;
+    }
+}
+
+void Kicauan(Graf G, ListDinT KicauGlobal, ListStatik ListProfil, int CurrentUser){
+    if(NEFFT(KicauGlobal) == 0){
+        printf("Belum ada kicauan saat ini.\n");
+    } else {
+        for(int i=NEFFT(KicauGlobal)-1;i>=0;i--){
+            Entry NamaAuthor = AUTHOR(ELMTT(KicauGlobal,i));
+            if(isBerteman(G,CurrentUser,indexNama(ListProfil,NamaAuthor))){
+                DisplayKicau(ELMTT(KicauGlobal,i));
+                printf("\n");
+            }
+        }
+    }
+}
+
+void SukaKicau(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDLike){
+    if(IDLike < 0 || IDLike > NEFFT(*KicauGlobal)){
+        printf("Tidak ditemukan kicauan dengan ID = %lld\n",IDLike);
+    } else {
+        IDLike--;
+        Entry NamaAuthor = AUTHOR(ELMTT(*KicauGlobal,IDLike));
+        int IDAuthor = indexNama(ListProfil,NamaAuthor);
+        if(Jenis(ELMTLS(ListProfil,IDAuthor)) == 1 && !isBerteman(G,CurrentUser,IDAuthor)){
+            printf("Wah, kicauan tersebut dibuat oleh akun privat! Ikuti akun itu dulu ya\n");
+        } else {
+            printf("Selamat! kicauan telah disukai!\nDetil kicauan:\n");
+            LIKE(ELMTT(*KicauGlobal,IDLike))++;
+            DisplayKicau(ELMTT(*KicauGlobal,IDLike));
+        }
+    }
+}
+
+void UbahKicau(ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDUbah){
+    if(IDUbah < 1 || IDUbah > NEFFT(*KicauGlobal)){
+        printf("Tidak ditemukan kicauan dengan ID = %lld\n",IDUbah);
+    } else {
+        IDUbah--;
+        Entry NamaAuthor = AUTHOR(ELMTT(*KicauGlobal,IDUbah));
+        if(!isSame(NamaAuthor,Nama(ELMTLS(ListProfil,CurrentUser)))){
+            printf("Kicauan dengan ID = %lld bukan milikmu!",IDUbah + 1);
+        } else {
+            printf("Masukkan kicauan baru:\n");
+            STARTENTRY();
+            if(!CHECKVALIDTWEET(cleansedEntry(currentEntry))){
+                printf("Kicauan tidak boleh hanya berisi spasi!\n");
+            } else {
+                TEXT(ELMTT(*KicauGlobal,IDUbah)) = cleansedEntry(currentEntry);
+                printf("\nSelamat! kicauan telah diterbitkan!\nDetil kicauan:\n");
+                DisplayKicau(ELMTT(*KicauGlobal,IDUbah));
+            }
+        }
+    }
+}
+
+void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau, long long int IDBalas){
+    if(IDKicau < 1 || IDKicau > NEFFT(*KicauGlobal)){
+        printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
+    } else {
+        Kicau k = ELMTT(*KicauGlobal,IDKicau-1);
+        if(IDBalas > IDBALASAN(k)){
+            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+        } else {
+            Entry authorowner;
+            BinTree bi = BALASAN(k);
+            if(IDBalas == -1){
+                authorowner = Nama(ELMTLS(ListProfil,CurrentUser));
+            } else {
+                authorowner = AUTHORB(ROOT(searchTree(BALASAN(k),IDBalas)));
+            }
+            int idAuthorOwner = indexNama(ListProfil,authorowner);
+            if(!isBerteman(G,CurrentUser,indexNama(ListProfil,authorowner)) && Jenis(ELMTLS(ListProfil,idAuthorOwner))){
+                printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
+            } else {
+                BalasanB b;
+                IDB(b) = IDBALASAN(k) + 1;
+                IDBALASAN(k) = IDB(b);
+                AUTHORB(b) = Nama(ELMTLS(ListProfil,CurrentUser));
+
+                printf("Masukkan balasan:\n");
+                STARTENTRY();
+                if(!CHECKVALIDTWEET(cleansedEntry(currentEntry))){
+                    printf("Balasan tidak boleh hanya berisi spasi!\n");
+                } else {
+                    TEXTB(b) = cleansedEntry(currentEntry);
+                    printf("\nSelamat! balasan telah diterbitkan!\nDetil balasan:\n");
+                    WAKTUB(b) = GetLocalTime();
+
+                    printf("| ID = %d\n",IDB(b));
+                    printf("| "); printEntry(AUTHORB(b)); printf("\n");
+                    printf("| "); TulisDATETIME(WAKTUB(b)); printf("\n");
+                    printf("| "); printEntry(TEXTB(b)); printf("\n\n");
+
+                    if(isTreeEmpty(BALASAN(k))){
+                        BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = newTreeNode(b);
+                    } else if(IDBalas == -1){
+                        BinTree binitial = bi;
+                        addRight(&bi,b);
+                        BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = binitial;
+                    } else {
+                        BinTree binitial = bi;
+                        addRight(&LEFT(searchTree(BALASAN(k),IDBalas)),b);
+                        BALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = binitial;
+                    }
+                    IDBALASAN(ELMTT(*KicauGlobal,IDKicau-1)) = IDBALASAN(ELMTT(*KicauGlobal,IDKicau-1)) + 1;
+                }
+            }
+        }
+    }
+}
+
+void CoutSpace(int depth){
+    for(int i=0;i<3*depth;i++){
+        printf(" ");
+    }
+}
+
+void PrintBalasan(Graf G, ListStatik ListProfil, int CurrentUser, BinTree p, int depth){
+    if(!isTreeEmpty(p)){
+        Entry AuthorKicau = AUTHORB(ROOT(p));
+        int IdAuthorKicau = indexNama(ListProfil,AuthorKicau);
+
+        if(!isBerteman(G,CurrentUser,IdAuthorKicau) && Jenis(ELMTLS(ListProfil,IdAuthorKicau))){
+            CoutSpace(depth); printf("| ID = %d\n",IDB(ROOT(p)));
+            CoutSpace(depth); printf("| PRIVAT\n");
+            CoutSpace(depth); printf("| PRIVAT\n");
+            CoutSpace(depth); printf("| PRIVAT\n\n");
+        } else {
+            CoutSpace(depth); printf("| ID = %d\n",IDB(ROOT(p)));
+            CoutSpace(depth); printf("| "); printEntry(AUTHORB(ROOT(p))); printf("\n");
+            CoutSpace(depth); printf("| "); TulisDATETIME(WAKTUB(ROOT(p))); printf("\n");
+            CoutSpace(depth); printf("| "); printEntry(TEXTB(ROOT(p))); printf("\n\n");
+        }
+        PrintBalasan(G, ListProfil, CurrentUser,LEFT(p),depth+1);
+        PrintBalasan(G, ListProfil, CurrentUser,RIGHT(p),depth);
+    }
+}
+
+void Balasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau){
+    Entry AuthorKicau = AUTHOR(ELMTT(*KicauGlobal,IDKicau-1));
+    int IdAuthorKicau = indexNama(ListProfil,AuthorKicau);
+    if(IDKicau < 1 || IDKicau > NEFFT(*KicauGlobal)){
+        printf("Tidak terdapat kicauan dengan id tersebut!\n");
+    } else if(isTreeEmpty(BALASAN(ELMTT(*KicauGlobal,IDKicau-1)))){
+        printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
+    } else if(!isBerteman(G,CurrentUser,IdAuthorKicau) && Jenis(ELMTLS(ListProfil,IdAuthorKicau))){
+        printf("Wah, kicauan tersebut dibuat oleh pengguna dengan akun privat!\n");
+    } else {
+        PrintBalasan(G, ListProfil, CurrentUser, BALASAN(ELMTT(*KicauGlobal,IDKicau-1)),0);
+    }
+}
+
+void HapusBalasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau, long long int IDHapus){
+    if(IDKicau < 1 || IDKicau > NEFFT(*KicauGlobal)){
+        printf("Kicauan dengan ID = %d tidak ditemukan!\n",IDKicau);
+    } else {
+        Kicau k = ELMTT(*KicauGlobal,IDKicau-1);
+        if(IDHapus > IDBALASAN(k)){
+            printf("Balasan tidak ditemukan\n");
+        } else {
+            BinTree bi = BALASAN(k),t;
+            t = searchTree(bi,IDHapus);
+            if(!isSame(AUTHORB(ROOT(t)),Nama(ELMTLS(ListProfil,CurrentUser)))){
+                printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+            } else {
+                printf("Balasan berhasil dihapus\n");
+                if(isOneElmt(BALASAN(k))){
+                    t = BALASAN(k);
+                    BALASAN(k) = NULL;
+                    free(t);
+                } else {
+                    RIGHT(PARENT(t)) = RIGHT(t);
+                    dealloc(LEFT(t));
+                    deallocTreeNode(t);
+                    BALASAN(k) = bi;
+                }
+            }
+        }
+    }
+}
+
+void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author){
+    printf("Masukkan draf:\n");
+    STARTENTRY();
+    Entry CurrentDraf = cleansedEntry(currentEntry);
+    if(!CHECKVALIDTWEET(CurrentDraf)){
+        printf("Draf tidak boleh hanya berisi spasi!\n");
+    } else {
+        printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        if(isSame(currentEntry,StringToEntry("HAPUS",5))){
+            printf("\nDraf telah berhasil dihapus!\n");
+        } else if(isSame(currentEntry,StringToEntry("SIMPAN",6))){
+            push(&*S,CurrentDraf);
+            printf("Draf telah berhasil disimpan!\n");
+        } else if(isSame(currentEntry,StringToEntry("TERBIT",7))){ 
+            if(isFullListDinT(*KicauGlobal)){
+                expandListDinT(&*KicauGlobal,10);
+            }
+            Kicau k;
+            IDBALASAN(k) = 0;
+            ID(k) = NEFFT(*KicauGlobal) + 1;
+            LIKE(k) = 0;
+            AUTHOR(k) = Author;
+            UTASAN(k) = NULL;
+            BALASAN(k) = NULL;
+            TEXT(k) = CurrentDraf;
+            WAKTU(k) = GetLocalTime();
+
+            printf("Selamat! Draf kicauan telah diterbitkan!\nDetil kicauan:\n");
+            DisplayKicau(k);
+
+            ELMTT(*KicauGlobal,NEFFT(*KicauGlobal)) = k;
+            NEFFT(*KicauGlobal)++;
+        }
+    }
+}
+
+void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author){
+    Eltypes dummy;
+    if(isEmptyS(*S)){
+        printf("Yah, anda belum memiliki draf apapun! Buat dulu ya :D\n");
+    } else {
+        printf("Ini draf terakhir anda:\n");
+        printf("| "); TulisDATETIME(WAKTUS(TOP(*S))); printf("\n");
+        printf("| "); printEntry(TEXTS(TOP(*S))); printf("\n\n");
+        printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
+        STARTENTRY();
+        currentEntry = cleansedEntry(currentEntry);
+        if(isSame(currentEntry,StringToEntry("HAPUS",5))){
+            Eltypes dummy;
+            pop(&*S,&dummy);
+            printf("\nDraf telah berhasil dihapus!\n");
+        } else if(isSame(currentEntry,StringToEntry("UBAH",4))){
+            printf("Masukkan draf yang baru:\n");
+            STARTENTRY();
+            TEXTS(TOP(*S)) = cleansedEntry(currentEntry);
+            WAKTUS(TOP(*S)) = GetLocalTime();
+            if(!CHECKVALIDTWEET(TEXTS(TOP(*S)))){
+                printf("Draf tidak boleh hanya berisi spasi!\n");
+            } else {
+                printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+                STARTENTRY();
+                currentEntry = cleansedEntry(currentEntry);
+                if(isSame(currentEntry,StringToEntry("HAPUS",5))){
+                    pop(&*S,&dummy);
+                } else if(isSame(currentEntry,StringToEntry("SIMPAN",6))){
+                    printf("Draf telah berhasil disimpan!\n");
+                } else if(isSame(currentEntry,StringToEntry("TERBIT",6))){
+                    if(isFullListDinT(*KicauGlobal)){
+                        expandListDinT(&*KicauGlobal,10);
+                    }
+                    Kicau k;
+                    IDBALASAN(k) = 0;
+                    ID(k) = NEFFT(*KicauGlobal) + 1;
+                    LIKE(k) = 0;
+                    AUTHOR(k) = Author;
+                    UTASAN(k) = NULL;
+                    BALASAN(k) = NULL;
+                    TEXT(k) = TEXTS(TOP(*S));
+                    WAKTU(k) = GetLocalTime();
+
+                    printf("Selamat! Draf kicauan telah diterbitkan!\nDetil kicauan:\n");
+                    DisplayKicau(k);
+
+                    pop(&*S,&dummy);
+                    ELMTT(*KicauGlobal,NEFFT(*KicauGlobal)) = k;
+                    NEFFT(*KicauGlobal)++;
+                }
+            }
+        } else if(isSame(currentEntry,StringToEntry("TERBIT",6))){ // Terbit
+            if(isFullListDinT(*KicauGlobal)){
+                expandListDinT(&*KicauGlobal,10);
+            }
+            Kicau k;
+            IDBALASAN(k) = 0;
+            ID(k) = NEFFT(*KicauGlobal) + 1;
+            LIKE(k) = 0;
+            AUTHOR(k) = Author;
+            UTASAN(k) = NULL;
+            BALASAN(k) = NULL;
+            TEXT(k) = TEXTS(TOP(*S));
+            WAKTU(k) = GetLocalTime();
+
+            printf("Selamat! Draf kicauan telah diterbitkan!\nDetil kicauan:\n");
+            DisplayKicau(k);
+
+            ELMTT(*KicauGlobal,NEFFT(*KicauGlobal)) = k;
+            NEFFT(*KicauGlobal)++;
+        }
+    }
+}

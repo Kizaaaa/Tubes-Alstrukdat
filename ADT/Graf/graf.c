@@ -25,7 +25,11 @@ void CreateGraf(Graf *G)
     for(int i=0;i<MAX_PENGGUNA;i++){
         Simpul(*G,i) = 0;
         for(int j=0;j<MAX_PENGGUNA;j++){
-            Busur(*G,i,j) = 0;
+            if(i == j){
+                Busur(*G,i,j) = 1;
+            } else {
+                Busur(*G,i,j) = 0;
+            }
         }
     }
 }

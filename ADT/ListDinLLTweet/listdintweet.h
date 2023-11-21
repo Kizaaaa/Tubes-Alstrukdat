@@ -8,7 +8,8 @@
 #define LISTDINT_H
 
 #include "../../boolean.h"
-#include "../LinkedListTweet/listliniertweet.h"
+#include "../Kicau/kicau.h"
+#include "../Utas/utas.h"
 
 /*  Kamus Umum */
 #define IDX_MIN 0
@@ -17,7 +18,7 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef NodeT ElTypeLDT; /* type elemen list */
+typedef Kicau ElTypeLDT; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
@@ -113,5 +114,23 @@ void compressListDinT(ListDinT *l);
 /* Proses : Mengubah capacityT sehingga capacityT = nEffT */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacityT = nEffT */
+
+void CreateKicau(ListDinT *l, Entry author);
+
+void Kicauan(Graf G, ListDinT KicauGlobal, ListStatik ListProfil, int CurrentUser);
+
+void SukaKicau(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDLike);
+
+void UbahKicau(ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDUbah);
+
+void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau, long long int IDBalas);
+
+void Balasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau);
+
+void HapusBalasan(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser, long long int IDKicau, long long int IDHapus);
+
+void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
+
+void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
 
 #endif

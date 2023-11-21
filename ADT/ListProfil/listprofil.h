@@ -4,7 +4,7 @@
 #include "../../boolean.h"
 #include "../EntryMachine/entrymachine.h"
 #include "../../Program/Pcolor/pcolor.h"
-#include "../StackDraf/stackdraf.h"
+#include "../Stack/stack.h"
 
 /*  Kamus Umum */
 #define CAPACITY 20
@@ -49,10 +49,7 @@ typedef struct Profil
     MatrixChar Foto;
     int JumlahTeman;
     Queue PermintaanPertemanan;
-
-    // NEW
-    StackD PersonalDraft;
-    // NEW
+    Stack Draf;
 } Profil;
 
 /* Definisi elemen dan koleksi objek */
@@ -72,10 +69,7 @@ typedef struct
 #define Foto(P) (P).Foto
 #define JumlahTeman(P) (P).JumlahTeman
 #define PermintaanPertemanan(P) (P).PermintaanPertemanan
-
-// NEW
-#define DRAFTS(P) (P).PersonalDraft
-// NEW
+#define DRAF(P) (P).Draf
 
 #define Info(E) (E).Info
 #define Prio(E) (E).Prio

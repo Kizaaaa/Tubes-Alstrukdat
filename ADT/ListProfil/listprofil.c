@@ -61,15 +61,8 @@ void Daftar(ListStatik *ListProfil)
         Bio(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
         Nomor(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
         Weton(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = blank;
-        Queue q;
-        CreateQueue(&q);
-        PermintaanPertemanan(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = q;
-
-        // NEW
-        StackD draf;
-        CreateEmptyD(&draf);
-        DRAFTS(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = draf;
-        // NEW
+        CreateQueue(&PermintaanPertemanan(ELMTLS(*ListProfil, NEFFLS(*ListProfil))));
+        CreateStack(&DRAF(ELMTLS(*ListProfil, NEFFLS(*ListProfil))));
 
         printf("Masukkan nama:\n");
         STARTENTRY();
@@ -507,20 +500,7 @@ void PrintQueue(Queue Q)
 }
 
 // int main(){
-//     Queue q;
-//     CreateQueue(&q);
-//     Elmtqueue e;
-//     Prio(e) = 1;
-//     Info(e) = StringToEntry("Kiza",4);
-//     Enqueue(&q,e);
-//     Prio(e) = 8;
-//     Info(e) = StringToEntry("Risa",4);
-//     Enqueue(&q,e);
-//     Prio(e) = 9;
-//     Info(e) = StringToEntry("Nnael",5);
-//     Enqueue(&q,e);
-//     PrintQueue(q);
-//     return 0;
+
 // }
 /*
 gcc -o tes3 ADT/ListProfil/listprofil.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c Program/Pcolor/pcolor.c

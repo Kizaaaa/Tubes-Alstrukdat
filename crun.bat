@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc main.c ADT/DateTime/datetime.c ADT/DateTime/time.c ADT/EntryMachine/charmachine.c ADT/EntryMachine/entrymachine.c ADT/ListDin/listdin.c ADT/Kicau/kicau.c ADT/LinkedListTweet/listliniertweet.c ADT/ListDinLLTweet/listdintweet.c ADT/StackDraf/stackdraf.c Program/Draf/Draf.c -o main -lm
+gcc -o main main.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/Graf/graf.c ADT/Kicau/kicau.c ADT/ListProfil/listprofil.c Program/Pcolor/pcolor.c ADT/DateTime/datetime.c ADT/DateTime/time.c -o main -lm

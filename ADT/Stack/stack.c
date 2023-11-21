@@ -1,50 +1,65 @@
-/* deklarasi stack yang diimplementasi dengan tabel kontigu dan ukuran sama */
-/* TOP adalah alamat elemen puncak */
-/* Implementasi dalam bahasa C dengan alokasi statik */
+#include <stdio.h>
 #include "stack.h"
 
-/* ************ Prototype ************ */
-/* *** Konstruktor/Kreator *** */
-void CreateEmpty(Stack *S){
-    Top(*S) = Nil;
+Addresss newNode(Entry x){
+    Addresss p = (Addresss) malloc (sizeof(Nodes));
+    TEXTS(INFOS(p)) = x;
+    WAKTUS(INFOS(p)) = GetLocalTime();
+    NEXTS(p) = NULL;
+    return p;
 }
-/* I.S. sembarang; */
-/* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
-/* jadi indeksnya antara 0.. MaxEl */
-/* Ciri stack kosong : TOP bernilai Nil */
 
-/* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty(Stack S){
-    return Top(S) == Nil;
+boolean isEmptyS(Stack s){
+    return ADDR_TOP(s) == NULL;
 }
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFull(Stack S){
-    return Top(S) == MaxEl-1;
-}
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
-/* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push(Stack * S, infotype X){
-    if (IsEmpty(*S))
-    {
-        Top(*S) = 0;
-        InfoTop(*S) = X;
-    } else {
-        Top(*S)++ ;
-        InfoTop(*S) = X;
+int lengthS(Stack s){
+    int ans = 0;
+    while(ADDR_TOP(s) != NULL){
+        ans++;
+        ADDR_TOP(s) = NEXTS(ADDR_TOP(s));
     }
-    
-    
+    return ans;
 }
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
-/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
-/* ************ Menghapus sebuah elemen Stack ************ */
-void Pop(Stack * S, infotype* X){
-    *X = InfoTop(*S);
-    Top(*S)--;
+void CreateStack(Stack *s){
+    ADDR_TOP(*s) = NULL;
 }
-/* Menghapus X dari Stack S. */
-/* I.S. S  tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+
+void push(Stack *s, Entry x){
+    if(isEmptyS(*s)){
+        Addresss p = newNode(x);
+        ADDR_TOP(*s) = p;
+    } else {
+        Addresss p = newNode(x);
+        NEXTS(p) = ADDR_TOP(*s);
+        ADDR_TOP(*s) = p;
+    }
+}
+
+void pop(Stack *s, Eltypes *x){
+    *x = TOP(*s);
+    if(NEXTS(ADDR_TOP(*s)) == NULL){
+        Addresss p = ADDR_TOP(*s);
+        free(p);
+        ADDR_TOP(*s) = NULL;
+    } else {
+        Addresss p = ADDR_TOP(*s);
+        ADDR_TOP(*s) = NEXTS(ADDR_TOP(*s));
+        free(p);
+    }
+}
+
+// int main(){
+//     Stack s;
+//     CreateStack(&s);
+//     push(&s,3);
+//     push(&s,4);
+//     DisplayStack(s); printf("\n");
+//     int x;
+//     pop(&s,&x);
+//     DisplayStack(s); printf("%d\n",x);
+//     pop(&s,&x);
+//     DisplayStack(s); printf("%d\n",x);
+//     return 0;
+// }
