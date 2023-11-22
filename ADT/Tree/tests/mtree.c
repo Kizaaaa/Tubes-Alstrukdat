@@ -1,54 +1,50 @@
 #include <stdio.h>
-#include "../../Foo/foo.h"
+#include <stdlib.h>
+#include "../tree.h"
 
-int main()
+iint main()
 {
-    int type, bar;
-    Foo foo;
+    BalasanB b1, b2, b3;
+    IDB(b1) = 1;
+    AUTHORB(b1) = StringToEntry("Kiza", 4);
+    TEXTB(b1) = StringToEntry("Balas1", 6);
+    WAKTUB(b1) = GetLocalTime();
 
-    scanf("%d", &type);
+    BinTree t = newTreeNode(b1), t2;
+    IDB(b2) = 2;
+    TEXTB(b2) = StringToEntry("Balas2", 6);
+    RIGHT(t) = newTreeNode(b2);
 
-    switch (type)
+    IDB(b3) = 3;
+    TEXTB(b3) = StringToEntry("Balas3", 6);
+    RIGHT(RIGHT(t)) = newTreeNode(b3);
+
+    printf("Preorder: ");
+    printPreorder(t);
+    printf("\n");
+
+    printf("Inorder: ");
+    printInorder(t);
+    printf("\n");
+
+    printf("Postorder: ");
+    printPostorder(t);
+    printf("\n");
+
+    t2 = searchTree(t, 3);
+    if (t2 != NULL)
     {
-    case 1:
-        // Test CreateFoo
-        scanf("%d", &bar);
-        CreateFoo(&foo, bar);
-
-        printf("%d\n", Bar(foo));
-        break;
-
-    case 2:
-        // Test TambahBar
-        scanf("%d", &bar);
-        CreateFoo(&foo, bar);
-
-        scanf("%d", &bar);
-        TambahBar(&foo, bar);
-
-        printf("%d\n", Bar(foo));
-        break;
-
-    case 3:
-        // Test KurangBar
-        scanf("%d", &bar);
-        CreateFoo(&foo, bar);
-
-        scanf("%d", &bar);
-        KurangBar(&foo, bar);
-
-        printf("%d\n", Bar(foo));
-        break;
-
-    case 4:
-        // Test TulisFoo
-        scanf("%d", &bar);
-        CreateFoo(&foo, bar);
-
-        TulisFoo(foo);
-
-        break;
+        printf("Found node with IDBalas = 3\n");
+        printf("Text: ");
+        printEntry(TEXTB(ROOT(t2)));
+        printf("\n");
     }
+    else
+    {
+        printf("Node with IDBalas = 3 not found\n");
+    }
+
+    dealloc(t);
 
     return 0;
 }

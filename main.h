@@ -10,6 +10,7 @@
 #include "ADT/Graf/graf.h"
 #include "ADT/ListDinLLTweet/listdintweet.h"
 #include "ADT/ListDin/listdin.h"
+#include "Inisialisasi/inisialisasi.h"
 
 #endif
 
