@@ -45,7 +45,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-
+                
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -166,6 +166,10 @@ int main()
             else if (isSame(input, StringToEntry("KELOMPOK_TEMAN", 14)))
             {
                 findFriends(&dsu,Pertemanan,ListProfil,CurrentUser);
+            }
+            else if (isSame(input, StringToEntry("SIMPAN", 6)))
+            {
+                SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {

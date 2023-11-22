@@ -1,23 +1,34 @@
 #include "save.h"
 
+void entrytofile(FILE *f, Entry n){
+    for(int i=0;i<n.Length;i++){
+        fprintf(f,"%c",n.TabEntry[i]);
+    }
+}
+
+void datetimetofile(FILE *f, DATETIME D){
+    fprintf(f,"%d/%d/%d %02d:%02d:%02d", Day(D), Month(D), Year(D), Hour(Time(D)), Minute(Time(D)), Second(Time(D)));
+}
+
 void SimpanPengguna(Graf Pertemanan, ListStatik ListProfil){
+    FILE *f = fopen("pengguna.config","w");
     int n = NEFFLS(ListProfil),i,j,k;
     int req[400][3],reqeff=0;
 
-    printf("%d\n",n);
+    fprintf(f,"%d\n",n);
     for(i=0;i<n;i++){
         Profil p = ELMTLS(ListProfil,i);
-        printEntry(Nama(p)); printf("\n");
-        printEntry(Password(p)); printf("\n");
-        printEntry(Bio(p)); printf("\n");
-        printEntry(Nomor(p)); printf("\n");
-        printEntry(Weton(p)); printf("\n");
-        (Jenis(p)) ? printf("Privat\n") : printf("Publik\n");
+        entrytofile(f,Nama(p)); fprintf(f,"\n");
+        entrytofile(f,Password(p)); fprintf(f,"\n");
+        entrytofile(f,Bio(p)); fprintf(f,"\n");
+        entrytofile(f,Nomor(p)); fprintf(f,"\n");
+        entrytofile(f,Weton(p)); fprintf(f,"\n");
+        (Jenis(p)) ? fprintf(f,"Privat\n") : fprintf(f,"Publik\n");
         for(j=0;j<5;j++){
             for(k=0;k<10;k++){
-                printf("%c ",ELMT(Foto(p),j,k));
+                fprintf(f,"%c ",ELMT(Foto(p),j,k));
             }
-            printf("\n");
+            fprintf(f,"\n");
         }
 
         while(!isEmptyQueue(PermintaanPertemanan(p))){
@@ -31,31 +42,57 @@ void SimpanPengguna(Graf Pertemanan, ListStatik ListProfil){
 
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
-            printf("%d ", Busur(Pertemanan,i,j));
+            fprintf(f,"%d ", Busur(Pertemanan,i,j));
         }
-        printf("\n");
+        fprintf(f,"\n");
     }
 
-    printf("%d\n",reqeff);
+    fprintf(f,"%d\n",reqeff);
     for(i=0;i<reqeff;i++){
-        printf("%d %d %d\n",req[i][0],req[i][1],req[i][2]);
+        fprintf(f,"%d %d %d\n",req[i][0],req[i][1],req[i][2]);
     }
+    fclose(f);
 }
 
 void SimpanKicauan(ListDinT KicauGlobal){
+    FILE *f = fopen("kicau.config","w");
     long long int n = NEFFT(KicauGlobal),i;
-    printf("%lld\n",n);
+    fprintf(f,"%lld\n",n);
     for(i=0;i<n;i++){
         Kicau k = ELMTT(KicauGlobal,i);
-        printf("%lld\n",ID(k));
-        printEntry(TEXT(k)); printf("\n");
-        printf("%lld\n",LIKE(k));
-        printEntry(AUTHOR(k)); printf("\n");
-        TulisDATETIME(WAKTU(k)); printf("\n");
+        fprintf(f,"%lld\n",ID(k));
+        entrytofile(f,TEXT(k)); fprintf(f,"\n");
+        fprintf(f,"%lld\n",LIKE(k));
+        entrytofile(f,AUTHOR(k)); fprintf(f,"\n");
+        datetimetofile(f,WAKTU(k)); fprintf(f,"\n");
+    }
+    fclose(f);
+}
+
+long long int TrueParent(BinTree p){
+    while(PARENT(p) != NULL && RIGHT(PARENT(p)) == p){
+        p = PARENT(p);
+    }
+    if(PARENT(p) == NULL){
+        return -1;
+    } else {
+        return IDB(ROOT(PARENT(p)));
+    }
+}
+
+void PrintAllBalasan(FILE *f, BinTree p){
+    if(!isTreeEmpty(p)){
+        fprintf(f,"%lld %lld\n",TrueParent(p),IDB(ROOT(p)));
+        entrytofile(f,TEXTB(ROOT(p))); fprintf(f,"\n");
+        entrytofile(f,AUTHORB(ROOT(p))); fprintf(f,"\n");
+        datetimetofile(f,WAKTUB(ROOT(p))); fprintf(f,"\n");
+        PrintAllBalasan(f,RIGHT(p));
+        PrintAllBalasan(f,LEFT(p));
     }
 }
 
 void SimpanBalasan(ListDinT KicauGlobal){
+    FILE *f = fopen("balasan.config","w");
     long long int n = NEFFT(KicauGlobal),i;
     long long int balasan[10000], balasaneff = 0;
     for(i=0;i<n;i++){
@@ -64,15 +101,17 @@ void SimpanBalasan(ListDinT KicauGlobal){
             balasaneff++;
         }
     }
-    printf("%lld\n",balasaneff);
+    fprintf(f,"%lld\n",balasaneff);
     for(i=0;i<balasaneff;i++){
         BinTree t = BALASAN(ELMTT(KicauGlobal,balasan[i]));
-        printf("%lld\n%d\n",balasan[i]+1,BanyakNode(t));
-        PrintAllBalasan(t);
+        fprintf(f,"%lld\n%d\n",balasan[i]+1,BanyakNode(t));
+        PrintAllBalasan(f,t);
     }
+    fclose(f);
 }
 
 void SimpanDraf(ListStatik ListProfil){
+    FILE *f = fopen("draf.config","w");
     int i,drafeff=0,listdraf[20];
     for(i=0;i<NEFFLS(ListProfil);i++){
         if(!isEmptyS(DRAF(ELMTLS(ListProfil,i)))){
@@ -80,32 +119,35 @@ void SimpanDraf(ListStatik ListProfil){
             drafeff++;
         }
     }
-    printf("%d\n",drafeff);
+    fprintf(f,"%d\n",drafeff);
     for(i=0;i<drafeff;i++){
         Profil p = ELMTLS(ListProfil,listdraf[i]);
-        printEntry(Nama(p)); printf(" %d\n",lengthS(DRAF(p)));
+        entrytofile(f,Nama(p)); fprintf(f," %d\n",lengthS(DRAF(p)));
         while(!isEmptyS(DRAF(p))){
-            printEntry(TEXTS(TOP(DRAF(p)))); printf("\n");
-            TulisDATETIME(WAKTUS(TOP(DRAF(p)))); printf("\n");
+            entrytofile(f,TEXTS(TOP(DRAF(p)))); fprintf(f,"\n");
+            datetimetofile(f,WAKTUS(TOP(DRAF(p)))); fprintf(f,"\n");
             ADDR_TOP(DRAF(p)) = NEXTS(ADDR_TOP(DRAF(p)));
         }
     }
+    fclose(f);
 }
 
 void SimpanUtas(ListDinT KicauGlobal, ListDin UtasGlobal){
+    FILE *f = fopen("utas.config","w");
     long long int i;
-    printf("%d\n",NEFFLDI(UtasGlobal));
+    fprintf(f,"%d\n",NEFFLDI(UtasGlobal));
     for(i=0;i<NEFFLDI(UtasGlobal);i++){
-        printf("%d\n%d\n",ELMTLDI(UtasGlobal,i)+1,getLastIdxUtas(UTASAN(ELMTT(KicauGlobal,ELMTLDI(UtasGlobal,i)))));
+        fprintf(f,"%d\n%d\n",ELMTLDI(UtasGlobal,i)+1,getLastIdxUtas(UTASAN(ELMTT(KicauGlobal,ELMTLDI(UtasGlobal,i)))));
         Address p;
         p = FIRSTUTAS(UTASAN(ELMTT(KicauGlobal,ELMTLDI(UtasGlobal,i))));
         while (p != NULL){
-            printEntry(TEXTUTAS(INFOUTAS(p))); printf("\n");
-            printEntry(AUTHOR(ELMTT(KicauGlobal,ELMTLDI(UtasGlobal,i)))); printf("\n");
-            TulisDATETIME(TIME(INFOUTAS(p))); printf("\n");
+            entrytofile(f,TEXTUTAS(INFOUTAS(p))); fprintf(f,"\n");
+            entrytofile(f,AUTHOR(ELMTT(KicauGlobal,ELMTLDI(UtasGlobal,i)))); fprintf(f,"\n");
+            datetimetofile(f,TIME(INFOUTAS(p))); fprintf(f,"\n");
             p = NEXT(p);
         }
     }
+    fclose(f);
 }
 
 void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, ListDin UtasGlobal){

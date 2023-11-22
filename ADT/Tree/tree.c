@@ -106,27 +106,7 @@ int BanyakNode(BinTree p){
     }
 }
 
-long long int TrueParent(BinTree p){
-    while(PARENT(p) != NULL && RIGHT(PARENT(p)) == p){
-        p = PARENT(p);
-    }
-    if(PARENT(p) == NULL){
-        return -1;
-    } else {
-        return IDB(ROOT(PARENT(p)));
-    }
-}
 
-void PrintAllBalasan(BinTree p){
-    if(!isTreeEmpty(p)){
-        printf("%lld %lld\n",TrueParent(p),IDB(ROOT(p)));
-        printEntry(TEXTB(ROOT(p))); printf("\n");
-        printEntry(AUTHORB(ROOT(p))); printf("\n");
-        TulisDATETIME(WAKTUB(ROOT(p))); printf("\n");
-        PrintAllBalasan(RIGHT(p));
-        PrintAllBalasan(LEFT(p));
-    }
-}
 
 // int main(){
 //     BalasanB b;

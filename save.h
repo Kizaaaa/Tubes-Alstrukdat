@@ -11,6 +11,7 @@
 #include "ADT/ListDinLLTweet/listdintweet.h"
 #include "ADT/ListDin/listdin.h"
 #include "ADT/DSU/dsu.h"
+#include "sys/stat.h"
 
 void SimpanPengguna(Graf Pertemanan, ListStatik ListProfil);
 

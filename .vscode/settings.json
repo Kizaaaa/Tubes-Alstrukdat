@@ -57,6 +57,8 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "listdintweet.h": "c"
+    "listdintweet.h": "c",
+    "stdio.h": "c",
+    "tree.h": "c"
   }
 }
