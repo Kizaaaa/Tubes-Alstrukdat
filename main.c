@@ -13,13 +13,13 @@ int main()
     Graf Pertemanan;
     ListDinT ListTweets;
     ListDin ListUtas;
-    DisjointSet dsu;
+    // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
     CreateListDinT(&ListTweets,10);
     CreateListDin(&ListUtas,10);
-    initializeSet(&dsu);
+    // initializeSet(&dsu);
 
     while (!exit)
     {
@@ -45,7 +45,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-                
+                MuatBatch(&Pertemanan,&ListProfil,&ListTweets,&ListUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -165,11 +165,15 @@ int main()
             }
             else if (isSame(input, StringToEntry("KELOMPOK_TEMAN", 14)))
             {
-                findFriends(&dsu,Pertemanan,ListProfil,CurrentUser);
+                // findFriends(&dsu,Pertemanan,ListProfil,CurrentUser);
             }
             else if (isSame(input, StringToEntry("SIMPAN", 6)))
             {
                 SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
+            }
+            else if (isSame(input, StringToEntry("MUAT", 4)))
+            {
+                printf("Anda harus keluar terlebih dahulu untuk melakukan pemuatan.\n");
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
