@@ -1,49 +1,62 @@
 #include <stdio.h>
 #include "stack.h"
 
-Addresss newNode(Entry x){
-    Addresss p = (Addresss) malloc (sizeof(Nodes));
+Addresss newNode(Entry x)
+{
+    Addresss p = (Addresss)malloc(sizeof(Nodes));
     TEXTS(INFOS(p)) = x;
     WAKTUS(INFOS(p)) = GetLocalTime();
     NEXTS(p) = NULL;
     return p;
 }
 
-boolean isEmptyS(Stack s){
+boolean isEmptyS(Stack s)
+{
     return ADDR_TOP(s) == NULL;
 }
 
-int lengthS(Stack s){
+int lengthS(Stack s)
+{
     int ans = 0;
-    while(ADDR_TOP(s) != NULL){
+    while (ADDR_TOP(s) != NULL)
+    {
         ans++;
         ADDR_TOP(s) = NEXTS(ADDR_TOP(s));
     }
     return ans;
 }
 
-void CreateStack(Stack *s){
+void CreateStack(Stack *s)
+{
     ADDR_TOP(*s) = NULL;
 }
 
-void push(Stack *s, Entry x){
-    if(isEmptyS(*s)){
+void push(Stack *s, Entry x)
+{
+    if (isEmptyS(*s))
+    {
         Addresss p = newNode(x);
         ADDR_TOP(*s) = p;
-    } else {
+    }
+    else
+    {
         Addresss p = newNode(x);
         NEXTS(p) = ADDR_TOP(*s);
         ADDR_TOP(*s) = p;
     }
 }
 
-void pop(Stack *s, Eltypes *x){
+void pop(Stack *s, Eltypes *x)
+{
     *x = TOP(*s);
-    if(NEXTS(ADDR_TOP(*s)) == NULL){
+    if (NEXTS(ADDR_TOP(*s)) == NULL)
+    {
         Addresss p = ADDR_TOP(*s);
         free(p);
         ADDR_TOP(*s) = NULL;
-    } else {
+    }
+    else
+    {
         Addresss p = ADDR_TOP(*s);
         ADDR_TOP(*s) = NEXTS(ADDR_TOP(*s));
         free(p);

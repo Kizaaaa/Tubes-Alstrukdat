@@ -14,6 +14,12 @@ void DisplayKicau(Kicau k)
     printf("| ");
     printEntry(TEXT(k));
     printf("\n");
+    if (TAGAR(k).Length != 0)
+    {
+        printf("| #");
+        printEntry(TAGAR(k));
+        printf("\n");
+    }
     printf("| Disukai = %lld\n", LIKE(k));
 }
 
@@ -34,7 +40,8 @@ void displayUtas(UTAS u, Kicau Twt)
 void displayLinkedUtas(Kicau Twt)
 { // Display SELURUH LINKEDUTAS, asumsi pada main sudah diambilkan Linkedutas dengan id_utas masukan
     // print kicauan utama dulu
-    DisplayKicau(Twt); printf("\n");
+    DisplayKicau(Twt);
+    printf("\n");
 
     Address p;
     p = FIRSTUTAS(UTASAN(Twt));
