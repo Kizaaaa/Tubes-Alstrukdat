@@ -59,6 +59,12 @@
   "files.associations": {
     "listdintweet.h": "c",
     "stdio.h": "c",
-    "tree.h": "c"
+    "tree.h": "c",
+    "saveandload.h": "c",
+    "boolean.h": "c",
+    "stat.h": "c",
+    "entrymachine.h": "c",
+    "listdin.h": "c",
+    "inisialisasi.h": "c"
   }
 }

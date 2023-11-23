@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include "main.h"
 
+void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets, ListDin *ListUtas, long long int *IDUtas, Entry namaFile)
+{
+    CreateListStatik(ListProfil);
+    CreateGraf(Pertemanan);
+    CreateListDinT(ListTweets, 10);
+    CreateListDin(ListUtas, 10);
+
+    // Load
+    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas, IDUtas);
+}
+
 int main()
 {
     boolean exit = false;
@@ -17,26 +28,25 @@ int main()
 
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
-    CreateListDinT(&ListTweets,10);
-    CreateListDin(&ListUtas,10);
+    CreateListDinT(&ListTweets, 10);
+    CreateListDin(&ListUtas, 10);
     // initializeSet(&dsu);
+
+    printf(".______    __    __  .______      .______    __  .______\n");
+    printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
+    printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
+    printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
+    printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
+    printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
+
+    printf("Selamat datang di BurBir.\n");
+    printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
+    printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
+    Entry namaFile = cleansedEntry(currentEntry);
+    inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
 
     while (!exit)
     {
-        printf(".______    __    __  .______      .______    __  .______\n");
-        printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
-        printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
-        printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
-        printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
-        printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
-
-        printf("Selamat datang di BurBir.\n");
-        printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
-        printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
-        Entry namaFile = cleansedEntry(currentEntry);
-        inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
-        printf("\n");
-        
 
         printf("\n>> ");
         STARTENTRY();
@@ -55,17 +65,11 @@ int main()
             }
             else if (isSame(input, StringToEntry("SIMPAN", 6)))
             {
-<<<<<<< HEAD
+                SimpanBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-=======
-                SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
-            }
-            else if (isSame(input, StringToEntry("MUAT", 4)))
-            {
-                MuatBatch(&Pertemanan,&ListProfil,&ListTweets,&ListUtas,&IDUtas);
->>>>>>> a7c5049969c7b17a056b0712310c52a77412a526
+                MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas, &IDUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -189,7 +193,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("SIMPAN", 6)))
             {
-                SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
+                SimpanBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
