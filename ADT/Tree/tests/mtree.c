@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../tree.h"
 
-iint main()
+int main()
 {
     BalasanB b1, b2, b3;
     IDB(b1) = 1;

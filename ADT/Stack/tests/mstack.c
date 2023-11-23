@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../Foo/foo.h"
+#include "../stack.h"
 
 int main()
 {

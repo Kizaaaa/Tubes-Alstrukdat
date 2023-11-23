@@ -65,6 +65,7 @@
     "stat.h": "c",
     "entrymachine.h": "c",
     "listdin.h": "c",
-    "inisialisasi.h": "c"
+    "inisialisasi.h": "c",
+    "stdlib.h": "c"
   }
 }
