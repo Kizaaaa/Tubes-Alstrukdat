@@ -164,7 +164,7 @@ void readUtas(LINKEDUTAS *l)
 // ID_UTAS asumsi sudah valid
 void sambungUtas(LINKEDUTAS *l, ElType idx)
 {
-    if (idx > getLastIdxUtas(*l))
+    if (idx > getLastIdxUtas(*l) + 1)
     {
         printf("Index terlalu tinggi!\n");
     }
@@ -187,7 +187,11 @@ void sambungUtas(LINKEDUTAS *l, ElType idx)
             }
         }
         createUtas(&val, idx, text, GetLocalTime());
-        insertUtasAt(l, idx, val);
+        if(idx == getLastIdxUtas(*l) + 1){
+            insertLastUtas(l,val);
+        } else {
+            insertUtasAt(l, idx, val);
+        }
     }
 }
 

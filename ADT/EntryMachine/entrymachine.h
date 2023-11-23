@@ -11,8 +11,8 @@
 
 typedef struct
 {
-   char TabEntry[NMax]; /* container penyimpan entry, indeks yang dipakai [0..NMax-1] */
-   int Length;
+    char TabEntry[NMax]; /* container penyimpan entry, indeks yang dipakai [0..NMax-1] */
+    int Length;
 } Entry;
 
 /* State Mesin Entry */

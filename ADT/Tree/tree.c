@@ -49,36 +49,6 @@ boolean isBinary(BinTree p){
     return !isTreeEmpty(p) && (LEFT(p) != NULL && RIGHT(p) != NULL);
 }
 
-void printPreorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printf("%d",ROOT(p));
-        printPreorder(LEFT(p));
-        printPreorder(RIGHT(p));
-    }
-    printf(")");
-}
-
-void printInorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printInorder(LEFT(p));
-        printf("%d",ROOT(p));
-        printInorder(RIGHT(p));
-    }
-    printf(")");
-}
-
-void printPostorder(BinTree p){
-    printf("(");
-    if(!isTreeEmpty(p)){
-        printPostorder(LEFT(p));
-        printPostorder(RIGHT(p));
-        printf("%d",ROOT(p));
-    }
-    printf(")");
-}
-
 void dealloc(BinTree p){
     if(isOneElmt(p)){
         deallocTreeNode(p);
@@ -106,6 +76,15 @@ void addRight(BinTree *p, BalasanB b)
     }
 }
 
+void addChild(BinTree *p, BalasanB b){
+    if(LEFT(*p) == NULL){
+        LEFT(*p) = newTreeNode(b);
+        PARENT(LEFT(*p)) = *p;
+    } else {
+        addRight(&LEFT(*p),b);
+    }
+}
+
 BinTree searchTree(BinTree p, long long int IDBalas){
     if(p == NULL || IDB(ROOT(p)) == IDBalas){
         return p;
@@ -119,6 +98,20 @@ BinTree searchTree(BinTree p, long long int IDBalas){
     }
 }
 
+int BanyakNode(BinTree p){
+    if(isOneElmt(p)){
+        return 1;
+    } else if(isUnerLeft(p)){
+        return 1 + BanyakNode(LEFT(p));
+    } else if(isUnerRight(p)){
+        return 1 + BanyakNode(RIGHT(p));
+    } else {
+        return 1 + BanyakNode(LEFT(p)) + BanyakNode(RIGHT(p));
+    }
+}
+
+
+
 // int main(){
 //     BalasanB b;
 //     IDB(b) = 1;
@@ -127,17 +120,18 @@ BinTree searchTree(BinTree p, long long int IDBalas){
 //     WAKTUB(b) = GetLocalTime();
 
 //     BinTree t = newTreeNode(b),t2;
+//     PARENT(t) = NULL;
 //     IDB(b) = 2;
 //     TEXTB(b) = StringToEntry("Balas2",6);
 //     RIGHT(t) = newTreeNode(b);
+//     PARENT(RIGHT(t)) = t;
 
 //     IDB(b) = 3;
 //     TEXTB(b) = StringToEntry("Balas3",6);
 //     RIGHT(RIGHT(t)) = newTreeNode(b);
+//     PARENT(RIGHT(RIGHT(t))) = RIGHT(t);
 
-//     printf("Masuk sini\n");
-//     t2 = searchTree(t,3);
-//     printEntry(TEXTB(ROOT(t2)));
+//     printf("%lld",TrueParent(RIGHT(RIGHT(t))));
 //     return 0;
 // }
 /*

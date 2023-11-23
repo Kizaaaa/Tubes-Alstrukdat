@@ -13,11 +13,13 @@ int main()
     Graf Pertemanan;
     ListDinT ListTweets;
     ListDin ListUtas;
+    // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
     CreateListDinT(&ListTweets,10);
     CreateListDin(&ListUtas,10);
+    // initializeSet(&dsu);
 
     while (!exit)
     {
@@ -39,11 +41,11 @@ int main()
             }
             else if (isSame(input, StringToEntry("SIMPAN", 6)))
             {
-                
+                SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-
+                MuatBatch(&Pertemanan,&ListProfil,&ListTweets,&ListUtas,&IDUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -161,6 +163,18 @@ int main()
                 printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n");
                 isMasuk = false;
             }
+            else if (isSame(input, StringToEntry("KELOMPOK_TEMAN", 14)))
+            {
+                // findFriends(&dsu,Pertemanan,ListProfil,CurrentUser);
+            }
+            else if (isSame(input, StringToEntry("SIMPAN", 6)))
+            {
+                SimpanBatch(Pertemanan,ListProfil,ListTweets,ListUtas);
+            }
+            else if (isSame(input, StringToEntry("MUAT", 4)))
+            {
+                printf("Anda harus keluar terlebih dahulu untuk melakukan pemuatan.\n");
+            }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
                 exit = true;
@@ -168,6 +182,7 @@ int main()
         }
     }
 
+    dealocateListDin(&ListUtas);
     dealocateListDinT(&ListTweets);
     printf("Anda telah keluar dari program BurBir. Sampai jumpa di penjelajahan berikutnya.\n");
     return 0;
