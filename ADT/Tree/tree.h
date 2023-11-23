@@ -90,4 +90,6 @@ void addChild(BinTree *p, BalasanB b);
 
 BinTree searchTree(BinTree p, long long int IDBalas);
 
+int BanyakNode(BinTree p);
+
 #endif

@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "listdintweet.h": "c",
-    "entrymachine.h": "c"
+    "stdio.h": "c",
+    "tree.h": "c"
   }
 }
