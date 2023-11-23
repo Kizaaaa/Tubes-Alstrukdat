@@ -77,8 +77,12 @@ void addRight(BinTree *p, BalasanB b)
 }
 
 void addChild(BinTree *p, BalasanB b){
-    LEFT(*p) = newTreeNode(b);
-    PARENT(LEFT(*p)) = *p;
+    if(LEFT(*p) == NULL){
+        LEFT(*p) = newTreeNode(b);
+        PARENT(LEFT(*p)) = *p;
+    } else {
+        addRight(&LEFT(*p),b);
+    }
 }
 
 BinTree searchTree(BinTree p, long long int IDBalas){

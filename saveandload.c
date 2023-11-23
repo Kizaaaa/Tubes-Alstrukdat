@@ -253,13 +253,16 @@ void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, L
     }
     if (S_ISDIR(info.st_mode)) {
         printf("Anda akan melakukan penyimpanan di "); printEntry(currentEntry); printf(".\n\n");
-        printf("Mohon tunggu...\n1...\n2...\n3...\n\n");
+        printf("Mohon tunggu...\n");
 
         SimpanPengguna(path, Pertemanan,ListProfil); *folder = '\0';
+        printf("1...\n");
         SimpanKicauan(path, KicauGlobal); *folder = '\0';
         SimpanBalasan(path, KicauGlobal); *folder = '\0';
+        printf("2...\n");
         SimpanDraf(path, ListProfil); *folder = '\0';
         SimpanUtas(path, KicauGlobal,UtasGlobal); *folder = '\0';
+        printf("3...\n\n");
 
         printf("Penyimpanan telah berhasil dilakukan!\n");
     } else {
@@ -271,13 +274,16 @@ void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, L
         if (status == 0) {
             printEntry(currentEntry); printf(" sudah berhasil dibuat.\n\n");
             printf("Anda akan melakukan penyimpanan di "); printEntry(currentEntry); printf(".\n\n");
-            printf("Mohon tunggu...\n1...\n2...\n3...\n\n");
+            printf("Mohon tunggu...\n");
 
             SimpanPengguna(path, Pertemanan,ListProfil); *folder = '\0';
+            printf("1...\n");
             SimpanKicauan(path, KicauGlobal); *folder = '\0';
             SimpanBalasan(path, KicauGlobal); *folder = '\0';
+            printf("2...\n");
             SimpanDraf(path, ListProfil); *folder = '\0';
             SimpanUtas(path, KicauGlobal,UtasGlobal); *folder = '\0';
+            printf("3...\n\n");
 
             printf("Penyimpanan telah berhasil dilakukan!\n");
         } else {
@@ -327,13 +333,7 @@ void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, 
     struct stat info;
     if (stat(path, &info) != 0) {
         printf("Tidak ada folder yang dimaksud!\n");
-    }
-    if (S_ISDIR(info.st_mode)) {
-        printf("Anda akan melakukan penyimpanan di "); printEntry(currentEntry); printf(".\n\n");
-        printf("Mohon tunggu...\n1...\n2...\n3...\n\n");
-
-        printf("Penyimpanan telah berhasil dilakukan!\n");
     } else {
-
+        printf("Anda akan melakukan pemuatan dari folder "); printEntry(currentEntry); printf(".\n\n");
     }
 }

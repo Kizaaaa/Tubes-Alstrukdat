@@ -45,7 +45,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-                MuatBatch(&Pertemanan,&ListProfil,&ListTweets,&ListUtas);
+                MuatBatch(&Pertemanan,&ListProfil,&ListTweets,&ListUtas,&IDUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -182,6 +182,7 @@ int main()
         }
     }
 
+    dealocateListDin(&ListUtas);
     dealocateListDinT(&ListTweets);
     printf("Anda telah keluar dari program BurBir. Sampai jumpa di penjelajahan berikutnya.\n");
     return 0;
