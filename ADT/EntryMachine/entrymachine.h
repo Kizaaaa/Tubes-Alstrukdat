@@ -107,4 +107,8 @@ void ADVLINE();
 
 long long int EntryToInt(Entry n);
 
+Entry GetNameFromDraf(Entry p);
+
+int GetNumFromDraf(Entry p);
+
 #endif

@@ -549,7 +549,7 @@ void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author)
         }
         else if (isSame(currentEntry, StringToEntry("SIMPAN", 6)))
         {
-            push(&*S, CurrentDraf);
+            push(&*S, CurrentDraf, GetLocalTime());
             printf("Draf telah berhasil disimpan!\n");
         }
         else if (isSame(currentEntry, StringToEntry("TERBIT", 7)))

@@ -67,6 +67,8 @@
     "listprofil.h": "c",
     "kicau.h": "c",
     "utas.h": "c",
-    "hashmap.h": "c"
+    "hashmap.h": "c",
+    "stack.h": "c",
+    "main.h": "c"
   }
 }

@@ -38,7 +38,7 @@ typedef struct
 #define TOP(s) (s).addrTop->infos
 
 /* Prototype manajemen memori */
-Addresss newNode(Entry x);
+Addresss newNode(Entry x, DATETIME d);
 /* Mengembalikan alamat sebuah Node hasil alokasi dengan info = x,
    atau
    NULL jika alokasi gagal */
@@ -54,7 +54,7 @@ void CreateStack(Stack *s);
 /* I.S. sembarang */
 /* F.S. Membuat sebuah stack s yang kosong */
 
-void push(Stack *s, Entry x);
+void push(Stack *s, Entry x, DATETIME d);
 /* Menambahkan x sebagai elemen Stack s */
 /* I.S. s mungkin kosong, x terdefinisi */
 /* F.S. x menjadi Top yang baru jika alokasi x berhasil, */

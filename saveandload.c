@@ -603,12 +603,29 @@ void MuatDraf(char* Path, ListStatik *ListProfil){
         folder++;
     }
     *folder = '\0';
-    printf("%s",path);
     STARTFILEWORD(path);
     long long int n = EntryToInt(currentEntry);
     ADVLINE();
     while(n--){
-
+        Stack temps;
+        CreateStack(&temps);
+        Entry user = GetNameFromDraf(currentEntry);
+        int idUser = indexNama(*ListProfil,user);
+        int t = GetNumFromDraf(currentEntry);
+        ADVLINE();
+        while(t--){
+            Eltypes ns;
+            printEntry(currentEntry); printf("\n");
+            TEXTS(ns) = currentEntry; ADVLINE();
+            printEntry(currentEntry); printf("\n");
+            WAKTUS(ns) = entryToDateTime(currentEntry); ADVLINE();
+            push(&temps,TEXTS(ns),WAKTUS(ns));
+        }
+        while(!isEmptyS(temps)){
+            Eltypes eltemps;
+            pop(&temps,&eltemps);
+            push(&DRAF(ELMTLS(*ListProfil,idUser)),TEXTS(eltemps),WAKTUS(eltemps));
+        }
     }
 }
 

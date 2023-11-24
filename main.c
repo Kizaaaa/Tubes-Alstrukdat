@@ -9,7 +9,7 @@ void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets
     CreateListDin(ListUtas, 10);
 
     // Load
-    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas, IDUtas);
+    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
 }
 
 int main()

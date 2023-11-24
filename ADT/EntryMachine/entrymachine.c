@@ -414,34 +414,27 @@ long long int EntryToInt(Entry p){
     return ret;
 }
 
+Entry GetNameFromDraf(Entry p){
+    int i=0,cut;
+    while(i<p.Length){
+        if(p.TabEntry[i] == BLANK){
+            cut = i;
+        }
+        i++;
+    }
+    return cutBeforeEntry(p,cut);
+}
 
-
-/* USAGE */
-/*
-    Tweet:
-    STARTENTRY();
-    CLOSEENTRY();
-    if (CHECKVALIDTWEET(currentENTRY))
-    {
-        // proses jika tweet valid
+int GetNumFromDraf(Entry p){
+    int i=0,cut;
+    while(i<p.Length){
+        if(p.TabEntry[i] == BLANK){
+            cut = i;
+        }
+        i++;
     }
-    else
-    {
-        // proses jika tweet tidak valid
-    }
-
-    Username and Password:
-    STARTENTRY();
-    CLOSEENTRY();
-    if (CHECKVALIDUNP(currentENTRY))
-    {
-        // proses jika UnP valid
-    }
-    else
-    {
-        // proses jika UnP tidak valid
-    }
-*/
+    return EntryToInt(cutAfterEntry(p,cut));
+}
 
 /*
 gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
@@ -449,9 +442,6 @@ gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
 
 // int main(){
 //     STARTENTRY();
-//     currentEntry = cleansedEntry(currentEntry);
-//     printEntry(cutBeforeEntry(currentEntry,12));
-//     printf("\n");
-//     printEntry(cutAfterEntry(currentEntry,12));
+//     printEntry(GetNameFromDraf(currentEntry)); printf("\n%d",GetNumFromDraf(currentEntry));
 //     return 0;
 // }
