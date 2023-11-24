@@ -1,17 +1,6 @@
 #include <stdio.h>
 #include "main.h"
 
-void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets, ListDin *ListUtas, long long int *IDUtas, Entry namaFile)
-{
-    CreateListStatik(ListProfil);
-    CreateGraf(Pertemanan);
-    CreateListDinT(ListTweets, 10);
-    CreateListDin(ListUtas, 10);
-
-    // Load
-    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
-}
-
 int main()
 {
     boolean exit = false;
@@ -24,26 +13,49 @@ int main()
     ListDinT ListTweets;
     ListDin ListUtas;
     HashMap MapTagar, MTemp;
-    // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
     CreateListDinT(&ListTweets, 10);
     CreateListDin(&ListUtas, 10);
-    // initializeSet(&dsu);
 
-    // printf(".______    __    __  .______      .______    __  .______\n");
-    // printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
-    // printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
-    // printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
-    // printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
-    // printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
+    printf("                          /(((((((                          \n");
+    printf("                  (((((((((((((((((((((((((                 \n");
+    printf("             ((((((((((((((((((((((((((((((((((             \n");
+    printf("          ((((((((((((((((((((((((((((((((((((((((,         \n");
+    printf("        (((((((((((((((((((((((((((((((((((((((((((((       \n");
+    printf("      (((((((((((((((((((((((((((((((((((((((((((((((((     \n");
+    printf("    (((((((((((((((((((((((((((((((((((((((((((((((((((((   \n");
+    printf("   ((((((((((((@((((((((((((((((@@@@@@@@@@/#@@#(((((((((((  \n");
+    printf("  ((((((((((((@@@@#((((((((((($@@@@@@@@@@@@@$@@/((((((((((( \n");
+    printf(" ((((((((((((($@@@@@@@#(((((((@@@@@@@@@@@@@@@(((((((((((((((\n");
+    printf(" ((((((((((((((/@@@@@@@@@@@@@@@@@@@@@@@@@@@@#(((((((((((((((\n");
+    printf("((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@((((((((((((((((\n");
+    printf("(((((((((((((((#@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((((((((((((((\n");
+    printf("((((((((((((((((((#@@@@@@@@@@@@@@@@@@@@@@@#(((((((((((((((((\n");
+    printf(" ((((((((((((((((/@@@@@@@@@@@@@@@@@@@@@@@(((((((((((((((((((\n");
+    printf(" ((((((((((((((((((((@@@@@@@@@@@@@@@@@@/((((((((((((((((((((\n");
+    printf("  ((((((((((((((((((@@@@@@@@@@@@@@@@&(((((((((((((((((((((( \n");
+    printf("   (((((((((((($@@@@@@@@@@@@@@@@$(((((((((((((((((((((((((  \n");
+    printf("    ((((((((((((((((((((((((((((((((((((((((((((((((((((/   \n");
+    printf("      (((((((((((((((((((((((((((((((((((((((((((((((((     \n");
+    printf("        (((((((((((((((((((((((((((((((((((((((((((((       \n");
+    printf("          ((((((((((((((((((((((((((((((((((((((((          \n");
+    printf("              (((((((((((((((((((((((((((((((((             \n");
+    printf("                 ((((((((((((((((((((((((((                \n");
+    printf("                          /(((((((                          \n");
 
-    // printf("Selamat datang di BurBir.\n");
-    // printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
-    // printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
-    // Entry namaFile = cleansedEntry(currentEntry);
-    // inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
+    printf(".______    __    __  .______      .______    __  .______\n");
+    printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
+    printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
+    printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
+    printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
+    printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
+
+    printf("Selamat datang di BurBir.\n");
+    printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
+    printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
+    Entry namaFile = cleansedEntry(currentEntry);
 
     while (!exit)
     {
