@@ -63,6 +63,7 @@ void getndisplayHM(HashMap *M, ListDinT *L, Entry tg)
         printf("================\n");
         DisplayKicau(HASHVALUE(NHINFO(cur)));
         cur = NHNEXT(cur);
+        // printf("%d\n", counter);
     }
 
     if (counter == 0)
@@ -71,19 +72,19 @@ void getndisplayHM(HashMap *M, ListDinT *L, Entry tg)
     }
 }
 
-int main()
-{
-    ListDinT L;
-    HashMap M;
-    Entry author;
-    CreateListDinT(&L, 100);
-    Kicau a, b, c;
-    STARTENTRY();
-    author = cleansedEntry(currentEntry);
-    CreateKicau(&L, author);
-    CreateKicau(&L, author);
-    CreateKicau(&L, author);
+// int main()
+// {
+//     ListDinT L;
+//     HashMap M;
+//     Entry author;
+//     CreateListDinT(&L, 100);
+//     Kicau a, b, c;
+//     STARTENTRY();
+//     author = cleansedEntry(currentEntry);
+//     CreateKicau(&L, author);
+//     CreateKicau(&L, author);
+//     CreateKicau(&L, author);
 
-    STARTENTRY();
-    getndisplayHM(&M, &L, cleansedEntry(currentEntry));
-}
+//     STARTENTRY();
+//     getndisplayHM(&M, &L, cleansedEntry(currentEntry));
+// }

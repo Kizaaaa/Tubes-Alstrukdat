@@ -24,7 +24,7 @@ int main()
     Graf Pertemanan;
     ListDinT ListTweets;
     ListDin ListUtas;
-    HashMap MapTagar;
+    HashMap MapTagar, MTemp;
     // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
@@ -191,6 +191,8 @@ int main()
             else if (isSame(cutBeforeEntry(input, 12), StringToEntry("CARI_KICAUAN", 12)))
             {
                 Entry tg = cutAfterEntry(input, 12);
+                CreateHashMap(&MTemp);
+                MapTagar = MTemp;
                 getndisplayHM(&MapTagar, &ListTweets, tg);
             }
             else if (isSame(input, StringToEntry("KELOMPOK_TEMAN", 14)))
