@@ -17,9 +17,9 @@
 /* Definisi elemen dan koleksi objek */
 typedef struct
 {
-    int *bufferldi; /* memori tempat penyimpan elemen (container) */
-    int nEffldi;       /* >=0, banyaknya elemen efektif */
-    int capacityldi;   /* ukuran elemen */
+   int *bufferldi;  /* memori tempat penyimpan elemen (container) */
+   int nEffldi;     /* >=0, banyaknya elemen efektif */
+   int capacityldi; /* ukuran elemen */
 } ListDin;
 /* Indeks yang digunakan [0..capacity-1] */
 /* Jika l adalah : ListDin, cara deklarasi dan akses: */

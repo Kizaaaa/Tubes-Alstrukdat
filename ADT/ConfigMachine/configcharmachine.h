@@ -9,7 +9,7 @@
 #define CONFIGMARK '\n'
 /* State Mesin */
 extern char currentConfChar;
-extern boolean EOP;
+// extern boolean EOP;
 
 void STARTCC();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.

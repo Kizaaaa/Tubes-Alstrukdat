@@ -17,6 +17,7 @@ typedef struct kicau
     boolean IsUtas;
     DATETIME Waktu;
     BinTree Balasan;
+    Entry Tagar;
 } Kicau;
 
 /* ********** SELEKTOR ********** */
@@ -29,6 +30,7 @@ typedef struct kicau
 #define ISUTAS(k) (k).IsUtas
 #define WAKTU(k) (k).Waktu
 #define BALASAN(k) (k).Balasan
+#define TAGAR(k) (k).Tagar
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create Tweet */
