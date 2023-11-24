@@ -34,30 +34,56 @@ AddressHash newNodeHash(Kicau k)
 
 void getndisplayHM(HashMap *M, ListDinT *L, Entry tg)
 {
+    int counter = 0;
     for (int i = 0; i < NEFFT(*L); i++)
     {
         if (TAGAR(ELMTT(*L, i)).Length != 0)
         {
             AddressHash new = newNodeHash(ELMTT(*L, i));
             int Cidx = generateHash(TAGAR(ELMTT(*L, i)));
-            while (HEHASHELMT(*M, Cidx) != NULL)
+            boolean loop = false;
+            while (THEHASHELMT(*M, Cidx) != NULL)
             {
                 Cidx++;
+                loop = true;
+                // NHNEXT(THEHASHELMT(*M, Cidx - 1)) = new;
+            }
+            if (loop)
+            {
+                NHNEXT(THEHASHELMT(*M, Cidx - 1)) = new;
             }
             THEHASHELMT(*M, Cidx) = new;
         }
     }
 
-    AddressHash cur = THEHASHELMT(*M, generateHash(tg));
+    AddressHash cur = THEHASHELMT(*M, generateHash(cleansedEntry(tg)));
     while (cur != NULL)
     {
+        counter += 1;
+        printf("================\n");
         DisplayKicau(HASHVALUE(NHINFO(cur)));
         cur = NHNEXT(cur);
+    }
+
+    if (counter == 0)
+    {
+        printf("Tidak terdapat kicauan dengan tagar tersebut!\n");
     }
 }
 
 int main()
 {
+    ListDinT L;
+    HashMap M;
+    Entry author;
+    CreateListDinT(&L, 100);
+    Kicau a, b, c;
     STARTENTRY();
-    printf("%d\n", generateHash(cleansedEntry(currentEntry)));
+    author = cleansedEntry(currentEntry);
+    CreateKicau(&L, author);
+    CreateKicau(&L, author);
+    CreateKicau(&L, author);
+
+    STARTENTRY();
+    getndisplayHM(&M, &L, cleansedEntry(currentEntry));
 }
