@@ -117,7 +117,7 @@ void DaftarTeman(Graf G, ListStatik ListProfil, int CurrentUser)
         printEntry(Nama(ELMTLS(ListProfil,CurrentUser))); printf(" memiliki %d teman\n", JumlahTeman(ELMTLS(ListProfil,CurrentUser)));
         printf("Daftar Teman "); printEntry(Nama(ELMTLS(ListProfil,CurrentUser))); printf("\n");
         for(int i=0;i<MAX_PENGGUNA;i++){
-            if(Busur(G, CurrentUser, i) == 1){
+            if((Busur(G, CurrentUser, i) == 1) && (!isSame(Nama(ELMTLS(ListProfil,i)), Nama(ELMTLS(ListProfil,CurrentUser))))){
                 printf("| "); printEntry(Nama(ELMTLS(ListProfil,i))); printf("\n");
             }
         }

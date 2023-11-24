@@ -1,4 +1,4 @@
-# BNMO : Becoming The Foodbender
+# BURBIR!
 
 <p align = "justify"> <b>BURBIR</b> adalah aplikasi sosial media tempat berbagi cerita dengan teman dan publik. Pada aplikasi ini, pengguna perlu mendaftarkan dirinya atau masuk ke akun masing-masing sebelum dapat menggunakan aplikasi BurBir. Aplikasi BurBir menyediakan berbagai fitur, yakni sebagai berikut.
 </p>
