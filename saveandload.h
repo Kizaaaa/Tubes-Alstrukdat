@@ -11,6 +11,7 @@
 #include "ADT/Graf/graf.h"
 #include "ADT/ListDinLLTweet/listdintweet.h"
 #include "ADT/ListDin/listdin.h"
+#include "ADT/Hashmap/hashmap.h"
 // #include "ADT/DSU/dsu.h"
 
 void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, ListDin UtasGlobal);
