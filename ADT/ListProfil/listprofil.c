@@ -113,8 +113,7 @@ void Daftar(ListStatik *ListProfil)
         Password(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = currentEntry;
 
         Foto(ELMTLS(*ListProfil, NEFFLS(*ListProfil))) = FotoDefault();
-        NEFFLS(*ListProfil)
-        ++;
+        NEFFLS(*ListProfil)++;
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 }

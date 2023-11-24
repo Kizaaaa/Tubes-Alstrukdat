@@ -10,7 +10,24 @@ void entrytofile(FILE *f, Entry n)
 
 void datetimetofile(FILE *f, DATETIME D)
 {
-    fprintf(f, "%d/%d/%d %02d:%02d:%02d", Day(D), Month(D), Year(D), Hour(Time(D)), Minute(Time(D)), Second(Time(D)));
+    fprintf(f, "%02d/%02d/%04d %02d:%02d:%02d", Day(D), Month(D), Year(D), Hour(Time(D)), Minute(Time(D)), Second(Time(D)));
+}
+
+DATETIME entryToDateTime(Entry n){
+    DATETIME d;
+    Day(d) = EntryToInt(cutBeforeEntry(n,2));
+    n = cutAfterEntry(n,2);
+    Month(d) = EntryToInt(cutBeforeEntry(n,2));
+    n = cutAfterEntry(n,2);
+    Year(d) = EntryToInt(cutBeforeEntry(n,4));
+    n = cutAfterEntry(n,4);
+    Hour(Time(d)) = EntryToInt(cutBeforeEntry(n,2));
+    n = cutAfterEntry(n,2);
+    Minute(Time(d)) = EntryToInt(cutBeforeEntry(n,2));
+    n = cutAfterEntry(n,2);
+    Second(Time(d)) = EntryToInt(cutBeforeEntry(n,2));
+    n = cutAfterEntry(n,2);
+    return d;
 }
 
 void SimpanPengguna(char *Path, Graf Pertemanan, ListStatik ListProfil)
@@ -117,6 +134,8 @@ void SimpanKicauan(char *Path, ListDinT KicauGlobal)
         fprintf(f, "%lld\n", ID(k));
         entrytofile(f, TEXT(k));
         fprintf(f, "\n");
+        entrytofile(f, TAGAR(k));
+        fprintf(f, "\n");
         fprintf(f, "%lld\n", LIKE(k));
         entrytofile(f, AUTHOR(k));
         fprintf(f, "\n");
@@ -162,7 +181,7 @@ void SimpanBalasan(char *Path, ListDinT KicauGlobal)
 {
     char path[300];
     char *folder = Path;
-    char *balas = "/balas.config";
+    char *balas = "/balasan.config";
     long long int i = 0;
 
     while (*folder)
@@ -378,45 +397,253 @@ void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, L
     }
 }
 
-void MuatPengguna(Graf *Pertemanan, ListStatik *ListProfil)
-{
+void MuatPengguna(char* Path, Graf *Pertemanan, ListStatik *ListProfil){
+    char path[365];
+    long long int i = 0;
+    currentEntry = StringToEntry("/pengguna.config",16);
+
+    while (*Path != '\r')
+    {
+        path[i] = *Path;
+        Path++;
+        i++;
+    }
+    char *folder = path;
+    while(*folder){
+        folder++;
+    }
+    for (i = 0; i < currentEntry.Length; i++)
+    {
+        *folder = currentEntry.TabEntry[i];
+        folder++;
+    }
+    *folder = '\0';
+    STARTFILEWORD(path);
+    NEFFLS(*ListProfil) = EntryToInt(currentEntry);
+    ADVLINE();
+    for(int i=0;i<NEFFLS(*ListProfil);i++){
+        Profil p;
+        Nama(p) = currentEntry; ADVLINE();
+        Password(p) = currentEntry; ADVLINE();
+        Bio(p) = currentEntry; ADVLINE();
+        Nomor(p) = currentEntry; ADVLINE();
+        Weton(p) = currentEntry; ADVLINE();
+        CreateQueue(&PermintaanPertemanan(p));
+        CreateStack(&DRAF(p));
+        if(isSame(currentEntry,StringToEntry("Publik",6))){
+            Jenis(p) = 0;
+        } else {
+            Jenis(p) = 1;
+        }
+        ADVLINE();
+        for(int j=0;j<5;j++){
+            for(int k=0;k<10;k++){
+                ELMT(Foto(p),j,k) = currentEntry.TabEntry[2*k];
+            }
+            ADVLINE();
+        }
+        ELMTLS(*ListProfil,i) = p;
+    }
+
+    int x;
+    for(int i=0;i<NEFFLS(*ListProfil);i++){
+        x = 0;
+        for(int j=0;j<NEFFLS(*ListProfil);j++){
+            Busur(*Pertemanan,i,j) = currentEntry.TabEntry[2*j] - '0';
+            if(Busur(*Pertemanan,i,j) == 1){
+                x++;
+            }
+        }
+        JumlahTeman(ELMTLS(*ListProfil,i)) = x-1;
+        ADVLINE();
+    }
+
+    int n = EntryToInt(currentEntry),meminta,diminta,banyakteman;
+    ADVLINE();
+    for(int i=0;i<n;i++){
+        meminta = firstNum(currentEntry);
+        diminta = firstNumParam(currentEntry);
+        banyakteman = secondNumParam(currentEntry);
+        Elmtqueue eq;
+        Info(eq) = Nama(ELMTLS(*ListProfil,meminta));
+        Prio(eq) = banyakteman;
+        Enqueue(&PermintaanPertemanan(ELMTLS(*ListProfil,diminta)),eq);
+        ADVLINE();
+    }
 }
 
-void MuatKicauan(ListDinT *KicauGlobal)
-{
+void MuatKicauan(char* Path, ListDinT *KicauGlobal){
+    char path[365];
+    long long int i = 0;
+    currentEntry = StringToEntry("/kicau.config",13);
+
+    while (*Path != '\r')
+    {
+        path[i] = *Path;
+        Path++;
+        i++;
+    }
+    char *folder = path;
+    while(*folder){
+        folder++;
+    }
+    for (i = 0; i < currentEntry.Length; i++)
+    {
+        *folder = currentEntry.TabEntry[i];
+        folder++;
+    }
+    *folder = '\0';
+    STARTFILEWORD(path);
+    NEFFT(*KicauGlobal) = EntryToInt(currentEntry); ADVLINE();
+    long long int n = NEFFT(*KicauGlobal);
+    expandListDinT(KicauGlobal,n);
+    for(i=0;i<n;i++){
+        Kicau k;
+        ID(k) = EntryToInt(currentEntry); ADVLINE();
+        TEXT(k) = currentEntry; ADVLINE();
+        TAGAR(k) = currentEntry; ADVLINE();
+        LIKE(k) = EntryToInt(currentEntry); ADVLINE();
+        AUTHOR(k) = currentEntry; ADVLINE();
+        WAKTU(k) = entryToDateTime(currentEntry); ADVLINE();
+        UTASAN(k) = NULL;
+        BALASAN(k) = NULL;
+        IDBALASAN(k) = 0;
+        ISUTAS(k) = false;
+        ELMTT(*KicauGlobal,i) = k;
+    }
 }
 
-void MuatBalasan(ListDinT *KicauGlobal)
-{
+void MuatBalasan(char* Path, ListDinT *KicauGlobal){
+    char path[365];
+    long long int i = 0;
+    currentEntry = StringToEntry("/balasan.config",15);
+
+    while (*Path != '\r')
+    {
+        path[i] = *Path;
+        Path++;
+        i++;
+    }
+    char *folder = path;
+    while(*folder){
+        folder++;
+    }
+    for (i = 0; i < currentEntry.Length; i++)
+    {
+        *folder = currentEntry.TabEntry[i];
+        folder++;
+    }
+    *folder = '\0';
+    // printf("%s",path);
+    STARTFILEWORD(path);
+    long long int n = EntryToInt(currentEntry),IDKicauan,t,IDParent,IDBalas;
+    // printf("banyak kicauan yang memiliki balasan :"); printEntry(currentEntry); printf("\n");
+    ADVLINE();
+    while(n--){
+        // printf("ID kicauan :"); printEntry(currentEntry); printf("\n");
+        IDKicauan = EntryToInt(currentEntry); ADVLINE();
+        // printf("Memiliki "); printEntry(currentEntry); printf(" Balasan\n");
+        t = EntryToInt(currentEntry); ADVLINE();
+        Kicau k = ELMTT(*KicauGlobal,IDKicauan);
+        IDBALASAN(k) = t;
+        while(t--){
+            BinTree bt = BALASAN(k),bs;
+            if(currentEntry.TabEntry[0] == '-'){
+                IDParent = -1;
+            } else {
+                IDParent = firstNum(currentEntry);
+            }
+            IDBalas = firstNumParam(currentEntry);
+            // printf("Balasan dengan ID ke %d memiliki parent balasan ID ke %d\n", IDBalas, IDParent);
+            ADVLINE();
+            BalasanB b;
+            TEXTB(b) = currentEntry; ADVLINE();
+            AUTHORB(b) = currentEntry; ADVLINE();
+            WAKTUB(b) = entryToDateTime(currentEntry); ADVLINE();
+            IDB(b) = IDBalas;
+            // printf("| ID = %lld\n", IDB(b));
+            // printf("| "); printEntry(AUTHORB(b)); printf("\n");
+            // printf("| "); TulisDATETIME(WAKTUB(b)); printf("\n");
+            // printf("| "); printEntry(TEXTB(b)); printf("\n\n");
+
+            if(isTreeEmpty(bt)){
+                bt = newTreeNode(b);
+                BALASAN(ELMTT(*KicauGlobal,IDKicauan)) = bt;
+            } else if(IDParent == -1){
+                addRight(&bt,b);
+                BALASAN(ELMTT(*KicauGlobal,IDKicauan)) = bt;
+            } else {
+                bs = bt;
+                bs = searchTree(bs,IDParent);
+                addChild(&bs,b);
+                BALASAN(ELMTT(*KicauGlobal,IDKicauan)) = bt;
+            }
+        }
+    }
 }
 
-void MuatDraf(ListStatik *ListProfil)
-{
+void MuatDraf(char* Path, ListStatik *ListProfil){
+    char path[365];
+    long long int i = 0;
+    currentEntry = StringToEntry("/draf.config",12);
+
+    while (*Path != '\r')
+    {
+        path[i] = *Path;
+        Path++;
+        i++;
+    }
+    char *folder = path;
+    while(*folder){
+        folder++;
+    }
+    for (i = 0; i < currentEntry.Length; i++)
+    {
+        *folder = currentEntry.TabEntry[i];
+        folder++;
+    }
+    *folder = '\0';
+    STARTFILEWORD(path);
+    long long int n = EntryToInt(currentEntry);
+    ADVLINE();
+    while(n--){
+        Stack temps;
+        CreateStack(&temps);
+        Entry user = GetNameFromDraf(currentEntry);
+        int idUser = indexNama(*ListProfil,user);
+        int t = GetNumFromDraf(currentEntry);
+        ADVLINE();
+        while(t--){
+            Eltypes ns;
+            printEntry(currentEntry); printf("\n");
+            TEXTS(ns) = currentEntry; ADVLINE();
+            printEntry(currentEntry); printf("\n");
+            WAKTUS(ns) = entryToDateTime(currentEntry); ADVLINE();
+            push(&temps,TEXTS(ns),WAKTUS(ns));
+        }
+        while(!isEmptyS(temps)){
+            Eltypes eltemps;
+            pop(&temps,&eltemps);
+            push(&DRAF(ELMTLS(*ListProfil,idUser)),TEXTS(eltemps),WAKTUS(eltemps));
+        }
+    }
 }
 
-void MuatUtas(ListDinT *KicauGlobal, ListDin *UtasGlobal)
-{
+void MuatUtas(char* path, ListDinT *KicauGlobal, ListDin *UtasGlobal){
+
 }
 
-void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, ListDin *UtasGlobal, long long int *IDUtas)
+void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, ListDin *UtasGlobal)
 {
     printf("Masukkan nama folder yang hendak dimuat:\n");
     STARTENTRY();
     currentEntry = cleansedEntry(currentEntry);
 
     char path[265] = "Config/";
-    char *folder = path;
-
-    while (*folder)
-    {
-        folder++;
-    }
     for (int i = 0; i < currentEntry.Length; i++)
     {
-        *folder = currentEntry.TabEntry[i];
-        folder++;
+        path[i+7] = currentEntry.TabEntry[i];
     }
-    *folder = '\0';
 
     struct stat info;
     if (stat(path, &info) != 0)
@@ -428,5 +655,9 @@ void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, 
         printf("Anda akan melakukan pemuatan dari folder ");
         printEntry(currentEntry);
         printf(".\n");
+        MuatPengguna(path,Pertemanan,ListProfil);
+        MuatKicauan(path,KicauGlobal);
+        MuatBalasan(path,KicauGlobal);
+        MuatDraf(path,ListProfil);
     }
 }

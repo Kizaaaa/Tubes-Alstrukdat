@@ -341,13 +341,14 @@ void Balas(Graf G, ListDinT *KicauGlobal, ListStatik ListProfil, int CurrentUser
             BinTree bi = BALASAN(k);
             if (IDBalas == -1)
             {
-                authorowner = Nama(ELMTLS(ListProfil, CurrentUser));
+                authorowner = AUTHOR(k);
             }
             else
             {
                 authorowner = AUTHORB(ROOT(searchTree(BALASAN(k), IDBalas)));
             }
             int idAuthorOwner = indexNama(ListProfil, authorowner);
+
             if (!isBerteman(G, CurrentUser, indexNama(ListProfil, authorowner)) && Jenis(ELMTLS(ListProfil, idAuthorOwner)))
             {
                 printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
@@ -548,7 +549,7 @@ void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author)
         }
         else if (isSame(currentEntry, StringToEntry("SIMPAN", 6)))
         {
-            push(&*S, CurrentDraf);
+            push(&*S, CurrentDraf, GetLocalTime());
             printf("Draf telah berhasil disimpan!\n");
         }
         else if (isSame(currentEntry, StringToEntry("TERBIT", 7)))
@@ -677,7 +678,7 @@ void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author)
     }
 }
 
-void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int *IDUtas, long long int IDCreate)
+void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int IDCreate)
 {
     if (IDCreate < 1 || IDCreate > NEFFT(*KicauGlobal))
     {
@@ -693,10 +694,10 @@ void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long lo
     }
     else
     {
-        ELMTLDI(*UtasGlobal, *IDUtas - 1) = IDCreate - 1;
+        ELMTLDI(*UtasGlobal, NEFFLDI(*UtasGlobal)) = IDCreate - 1;
         NEFFLDI(*UtasGlobal) = NEFFLDI(*UtasGlobal) + 1;
         ISUTAS(ELMTT(*KicauGlobal, IDCreate - 1)) = true;
-        *IDUtas = *IDUtas + 1;
+        NEFFLDI(*UtasGlobal) = NEFFLDI(*UtasGlobal) + 1;
         readUtas(&UTASAN(ELMTT(*KicauGlobal, IDCreate - 1)));
     }
 }

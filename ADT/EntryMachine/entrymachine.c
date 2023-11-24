@@ -257,6 +257,15 @@ Entry cutAfterEntry(Entry n, int k)
     return m;
 }
 
+int firstNum(Entry n){
+    int i=0;
+    while(n.TabEntry[i] != 32){
+        i++;
+    }
+    n = PotongEntry(n,i);
+    return EntryToInt(n);
+}
+
 int firstNumParam(Entry n)
 /*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
     e.g.
@@ -351,32 +360,81 @@ int secondNumParam(Entry n)
     }
 }
 
-/* USAGE */
-/*
-    Tweet:
-    STARTENTRY();
-    CLOSEENTRY();
-    if (CHECKVALIDTWEET(currentENTRY))
+void CopyLine()
+/* Mengakuisisi kata, menyimpan dalam currentWord
+   I.S. : currentChar adalah karakter pertama dari kata
+   F.S. : currentWord berisi kumpulan kata pada baris yang sudah diakuisisi;
+          currentChar = ENTER atau retval = EOF;
+          currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+{
+    int i = 0;
+    while ((currentChar != '\n') && (retval != EOF))
     {
-        // proses jika tweet valid
+        if(currentChar != '\r'){
+            currentEntry.TabEntry[i] = currentChar;
+        }
+        ADV();
+        i++;
     }
-    else
-    {
-        // proses jika tweet tidak valid
-    }
+    currentEntry.Length = i;
+}
 
-    Username and Password:
-    STARTENTRY();
-    CLOSEENTRY();
-    if (CHECKVALIDUNP(currentENTRY))
-    {
-        // proses jika UnP valid
+void STARTFILEWORD(char* dir)
+/* I.S. : currentChar sembarang
+   F.S. : retval = EOF dan mesin berhenti;
+          atau retval != EOF, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah kata terakhir kata */
+{
+   STARTFILE(dir);
+   CopyLine();
+}
+
+void IgnoreEnters(){
+    while (currentChar != '\n'){
+        ADV();
     }
-    else
+    ADV();
+}
+
+void ADVLINE(){
+    IgnoreBlanks();
+    IgnoreEnters();
+    CopyLine();
+}
+
+long long int EntryToInt(Entry p){
+    int i=0,k,ret=0;
+    while (i < p.Length)
     {
-        // proses jika UnP tidak valid
+        k = p.TabEntry[i] - '0';
+        ret += k * powerDifferentiated(10, p.Length - (i + 1));
+        i++;
     }
-*/
+    return ret;
+}
+
+Entry GetNameFromDraf(Entry p){
+    int i=0,cut;
+    while(i<p.Length){
+        if(p.TabEntry[i] == BLANK){
+            cut = i;
+        }
+        i++;
+    }
+    return cutBeforeEntry(p,cut);
+}
+
+int GetNumFromDraf(Entry p){
+    int i=0,cut;
+    while(i<p.Length){
+        if(p.TabEntry[i] == BLANK){
+            cut = i;
+        }
+        i++;
+    }
+    return EntryToInt(cutAfterEntry(p,cut));
+}
 
 /*
 gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
@@ -384,9 +442,6 @@ gcc -o tes2 ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c
 
 // int main(){
 //     STARTENTRY();
-//     currentEntry = cleansedEntry(currentEntry);
-//     printEntry(cutBeforeEntry(currentEntry,12));
-//     printf("\n");
-//     printEntry(cutAfterEntry(currentEntry,12));
+//     printEntry(GetNameFromDraf(currentEntry)); printf("\n%d",GetNumFromDraf(currentEntry));
 //     return 0;
 // }

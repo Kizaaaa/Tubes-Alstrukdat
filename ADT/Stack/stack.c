@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "stack.h"
 
-Addresss newNode(Entry x)
+Addresss newNode(Entry x, DATETIME d)
 {
     Addresss p = (Addresss)malloc(sizeof(Nodes));
     TEXTS(INFOS(p)) = x;
-    WAKTUS(INFOS(p)) = GetLocalTime();
+    WAKTUS(INFOS(p)) = d;
     NEXTS(p) = NULL;
     return p;
 }
@@ -31,16 +31,16 @@ void CreateStack(Stack *s)
     ADDR_TOP(*s) = NULL;
 }
 
-void push(Stack *s, Entry x)
+void push(Stack *s, Entry x, DATETIME d)
 {
     if (isEmptyS(*s))
     {
-        Addresss p = newNode(x);
+        Addresss p = newNode(x,d);
         ADDR_TOP(*s) = p;
     }
     else
     {
-        Addresss p = newNode(x);
+        Addresss p = newNode(x,d);
         NEXTS(p) = ADDR_TOP(*s);
         ADDR_TOP(*s) = p;
     }

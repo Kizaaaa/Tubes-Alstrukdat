@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include "main.h"
 
-void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets, ListDin *ListUtas, long long int *IDUtas, Entry namaFile)
+void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets, ListDin *ListUtas)
 {
+    // Profil
     CreateListStatik(ListProfil);
     CreateGraf(Pertemanan);
     CreateListDinT(ListTweets, 10);
     CreateListDin(ListUtas, 10);
 
-    // Load
-    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas, IDUtas);
+    // Muat
+    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
 }
 
 int main()
 {
     boolean exit = false;
     boolean isMasuk = false;
-    long long int IDUtas = 1;
     int CurrentUser;
 
     // ADT
@@ -25,15 +25,11 @@ int main()
     ListDinT ListTweets;
     ListDin ListUtas;
     HashMap MapTagar, MTemp;
-    // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
     CreateListDinT(&ListTweets, 10);
     CreateListDin(&ListUtas, 10);
-    // initializeSet(&dsu);
-
-#include <stdio.h>
 
     printf("                          /(((((((                          \n");
     printf("                  (((((((((((((((((((((((((                 \n");
@@ -72,7 +68,7 @@ int main()
     printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
     printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
     Entry namaFile = cleansedEntry(currentEntry);
-    inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
+    inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas);
 
     while (!exit)
     {
@@ -98,7 +94,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-                MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas, &IDUtas);
+                MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -197,7 +193,7 @@ int main()
             }
             else if (isSame(cutBeforeEntry(input, 4), StringToEntry("UTAS", 4)))
             {
-                Utas(&ListTweets, &ListUtas, Nama(ELMTLS(ListProfil, CurrentUser)), &IDUtas, firstNumParam(input));
+                Utas(&ListTweets, &ListUtas, Nama(ELMTLS(ListProfil, CurrentUser)), firstNumParam(input));
             }
             else if (isSame(cutBeforeEntry(input, 12), StringToEntry("SAMBUNG_UTAS", 12)))
             {

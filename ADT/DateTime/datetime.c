@@ -106,7 +106,7 @@ void TulisDATETIME(DATETIME D)
        tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/
 
     /*ALGORITMA*/
-    printf("%d/%d/%d ", Day(D), Month(D), Year(D));
+    printf("%02d/%02d/%04d ", Day(D), Month(D), Year(D));
     TulisTIME(Time(D));
 }
 

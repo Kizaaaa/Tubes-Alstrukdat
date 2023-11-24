@@ -16,6 +16,6 @@
 
 void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, ListDin UtasGlobal);
 
-void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, ListDin *UtasGlobal, long long int *IDUtas);
+void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, ListDin *UtasGlobal);
 
 #endif
