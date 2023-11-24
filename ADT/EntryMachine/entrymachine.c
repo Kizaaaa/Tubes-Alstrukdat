@@ -373,9 +373,9 @@ void CopyLine()
     {
         if(currentChar != '\r'){
             currentEntry.TabEntry[i] = currentChar;
+            i++;
         }
         ADV();
-        i++;
     }
     currentEntry.Length = i;
 }
