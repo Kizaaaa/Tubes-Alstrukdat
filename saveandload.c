@@ -126,6 +126,7 @@ void SimpanKicauan(char *Path, ListDinT KicauGlobal)
     }
     *folder = '\0';
 
+    printf("%s\n",path);
     FILE *f = fopen(Path, "w");
     long long int n = NEFFT(KicauGlobal);
     fprintf(f, "%lld\n", n);
@@ -339,6 +340,7 @@ void SimpanBatch(Graf Pertemanan, ListStatik ListProfil, ListDinT KicauGlobal, L
         printf(".\n\n");
         printf("Mohon tunggu...\n");
 
+        // printf("%s\n",path);
         SimpanPengguna(path, Pertemanan, ListProfil);
         *folder = '\0';
         printf("1...\n");
