@@ -1,44 +1,57 @@
 # BNMO : Becoming The Foodbender
 
-<p align = "justify"> <b>BNMO : Becoming The Foodbender</b> is a CLI <i>(command-line interface)</i> based cooking simulation program, written in C using Abstract Data Types. This program simulates cooking where the simulator can do some commands: BUY to buy ingredients, MOVE to move accross map, FRY/CHOP/BOIL/MIX to proccess food, COOKBOOK for recipes, INVENTORY for owned food, DELIVERY for food on the delivery and WAIT for time mechanism. This program is made as one of the requirements of Algorithm and Data Structure Course. </p>
+<p align = "justify"> <b>BURBIR</b> adalah aplikasi sosial media tempat berbagi cerita dengan teman dan publik. Pada aplikasi ini, pengguna perlu mendaftarkan dirinya atau masuk ke akun masing-masing sebelum dapat menggunakan aplikasi BurBir. Aplikasi BurBir menyediakan berbagai fitur, yakni sebagai berikut.
+</p>
+<ul>
+<li>Pengaturan Profil</li>
+<li>Pertemanan</li>
+<li>Kicauan dan Balasan</li>
+<li>Draf Kicauan</li>
+<li>Utas</li>
+<li>Tagar</li>
+<li>Kelompok Teman</li>
+<li>Simpan dan Muat</li>
+</ul>
 
 ## Creators
 
-| NIM      | Nama                        | Pembagian Tugas                                                                                                                                                                                                       |
-| -------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 13320041 | Azhar Ikhtiarudin           | ADT: List Statik, Tree, List Dinamis <br> Command: COOKBOOK, CATALOG, FRY, BOIL, CHOP, MIX <br> Lain-lain: Colored output, config loader <br>                                                                         |
-| 13522012 | Thea Josephine Halim        | ADT: Teks, Mesin Karakter Input/File, Mesin Kata Input <br> /File, Mesin Baris Input/File, Makanan, FoodQueue,<br> Food Set, Notification<br> Command: REKOMENDASI, BUY, INVENTORY, DELIVERY Lain-lain: config loader |
-| 13522030 | Imam Hanif Mulyarahman      | ADT: Matriks, Point, Stack, Simulator Command: MOVE, WAIT, UNDO, REDO Lain-lain: Config loader                                                                                                                        |
-| 13522042 | Amalia Putri                | ADT: Waktu Lain-lain: Config peta, config makanan, config resep, splash screen                                                                                                                                        |
-| 13522043 | Daniel Mulia Putra Manurung | ADT: Kulkas, Aksi Lokasi Command: KULKAS Lain-lain : main program                                                                                                                                                     |
-| 13522059 | Dzaky Satrio Nugroho        | ADT: List Statik, Tree, List Dinamis <br> Command: COOKBOOK, CATALOG, FRY, BOIL, CHOP, MIX <br> Lain-lain: Colored output, config loader <br>                                                                         |
+| NIM      | Nama                        | Pembagian Tugas                                                 |
+| -------- | --------------------------- | --------------------------------------------------------------- |
+| 13320041 | Azhar Ikhtiarudin           | ADT tree, MakeFile                                              |
+| 13522012 | Thea Josephine Halim        | ADT ListDin, ADT Queue, ADT utas                                |
+| 13522030 | Imam Hanif Mulyarahman      | ADT Stack, ADT Liststatik, ADT ListProfil                       |
+| 13522042 | Amalia Putri                | ADT DateTime, MakeFile, ADT ListProfil, inisialisasi            |
+| 13522043 | Daniel Mulia Putra Manurung | ADT EntryMachine, ADT ListDinamisTweet, Program Draf, ADT stack |
+| 13522059 | Dzaky Satrio Nugroho        | Main, ADT DSU, ADT kicau, ADT ListProfil, simpan dan muat       |
+
+## Requirements
+
+1. Install `gcc` compiler.
+2. Install 'chocolatey'.
+3. Jika pengguna mengggunakan OS selain UNIX, disarankan untuk menginstall 'chocolatey' dan/atau 'windows subsystem for linux (WSL)' .
 
 ## How to Run
 
-1. Open terminal and clone this repo `git clone https://github.com/Fatih20/j-for-jadi.git`
-2. Compile the program. Windows: `./crun.bat`, Linux: `./crun.sh`
-3. Run the executable. Windows: `./main.exe`, Linux: `./main`
-4. Enter `start` to start the program
-5. Enter the directory of the config file to use. Usually it's in the `config` folder of this project. Example of the directory would be `config/tc1`.
+1. Buka terminal and clone repo `git clone https://github.com/Kizaaaa/Tubes-Alstrukdat.git`
+2. Compile program dengan cara, Windows: 'make mainw' / Linux: 'make mainl'
+3. Run program executable dengan cara, Windows: `./main.exe` / Linux: `./main`
+4. Masukkan folder nama folder untuk inisialisasi/muat, yakni dengan format '<nama folder>;', contoh: 'config-1;'
 
 ## FEATURES
 
-| FEATURE/COMMANDS           | STATUS                  |
-| -------------------------- | ----------------------- |
-| COMMAND PARSER             | <ul><li>- [x] </li><li> |
-| START                      | <ul><li>- [x] </li><li> |
-| EXIT                       | <ul><li>- [x] </li><li> |
-| SPLASH SCREEN              | <ul><li>- [x] </li><li> |
-| SIMULATOR                  | <ul><li>- [x] </li><li> |
-| PETA                       | <ul><li>- [x] </li><li> |
-| BUY                        | <ul><li>- [x] </li><li> |
-| MOVE                       | <ul><li>- [x] </li><li> |
-| WAIT                       | <ul><li>- [x] </li><li> |
-| DELIVERY                   | <ul><li>- [x] </li><li> |
-| INVENTORY                  | <ul><li>- [x] </li><li> |
-| COOKBOOK                   | <ul><li>- [x] </li><li> |
-| FRY/CHOP/BOIL/MIX          | <ul><li>- [x] </li><li> |
-| UNDO/REDO                  | <ul><li>- [x] </li><li> |
-| BONUS: KULKAS              | <ul><li>- [x] </li><li> |
-| BONUS: REKOMENDASI MAKANAN | <ul><li>- [x] </li><li> |
-| BONUS: WAKTU PENGOLAHAN    | <ul><li>- [x] </li><li> |
+| FEATURE               | STATUS                  |
+| --------------------- | ----------------------- |
+| INISIALISASI          | <ul><li>- [x] </li><li> |
+| PERINTAH              | <ul><li>- [x] </li><li> |
+| PENGGUNA              | <ul><li>- [x] </li><li> |
+| PROFIL                | <ul><li>- [x] </li><li> |
+| TEMAN                 | <ul><li>- [x] </li><li> |
+| PERMINTAAN PERTEMANAN | <ul><li>- [x] </li><li> |
+| KICAUAN               | <ul><li>- [x] </li><li> |
+| BALASAN               | <ul><li>- [x] </li><li> |
+| DRAF KICAUAN          | <ul><li>- [x] </li><li> |
+| UTAS                  | <ul><li>- [x] </li><li> |
+| SIMPAN DAN MUAT       | <ul><li>- [x] </li><li> |
+| BONUS: TAGAR          | <ul><li>- [x] </li><li> |
+| BONUS: KELOMPOK TEMAN | <ul><li>- [x] </li><li> |
+| BONUS: NOMOR HP       | <ul><li>- [x] </li><li> |

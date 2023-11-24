@@ -66,6 +66,9 @@
     "entrymachine.h": "c",
     "listdin.h": "c",
     "inisialisasi.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "listprofil.h": "c",
+    "kicau.h": "c",
+    "utas.h": "c"
   }
 }
