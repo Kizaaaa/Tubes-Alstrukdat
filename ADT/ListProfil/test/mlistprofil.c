@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "../listprofil.h"
 
+int main()
+{
+    printf("=========================== DRIVER LISTPROFIL ===========================\n");
 
-int main() {
     printf("DRIVER LIST PROFIL (List Statik dan Queue)\n");
     ListStatik l;
     Queue q;
@@ -10,7 +12,7 @@ int main() {
     CreateListStatik(&l);
     printf("\nMenambah user\n");
     Daftar(&l);
-    p = ELMTLS(l,0);
+    p = ELMTLS(l, 0);
     PrintProfil(p);
     printf("\nPenggunaan Queue untuk permintaan pertemanan\n");
     printf("\nTambah permintaan pertemanan\n");
@@ -22,9 +24,9 @@ int main() {
         STARTENTRY();
         tes = cleansedEntry(currentEntry);
         CLOSEENTRY();
-        Prio(elq) = 3-i;
+        Prio(elq) = 3 - i;
         Info(elq) = tes;
-        Enqueue(&q , elq);
+        Enqueue(&q, elq);
     }
     printf("Panjang queue permintaan pertemanan = %d\n", lengthQueue(q));
     PrintQueue(q);
@@ -33,8 +35,3 @@ int main() {
     PrintQueue(q);
     return 0;
 }
-
-/*
-how to run
-gcc -o test1 ADT/ListProfil/tests/mlistprofil.c ADT/ListProfil/listprofil.c ADT/EntryMachine/entrymachine.c ADT/EntryMachine/charmachine.c ADT/DateTime/datetime.c ADT/DateTime/time.c Program/Pcolor/pcolor.c ADT/Stack/stack.c
-*/

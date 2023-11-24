@@ -26,25 +26,6 @@ int main()
     ListDin ListUtas;
     // DisjointSet dsu;
 
-    printf("INI NGETES OUTPUT CONFIG: pengguna.config\n");
-    FILE *f = fopen("Config/halo/pengguna.config", "r");
-    if (f == NULL)
-    {
-        printf("File tidak ditemukan!\n");
-    }
-    else
-    {
-        printf("File ditemukan!\n");
-    }
-
-    // print isi file config
-    char c;
-    while ((c = fgetc(f)) != EOF)
-    {
-        printf("%c", c);
-    }
-    fclose(f);
-
     CreateListStatik(&ListProfil);
     CreateGraf(&Pertemanan);
     CreateListDinT(&ListTweets, 10);
