@@ -56,6 +56,7 @@ int main()
     printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
     printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
     Entry namaFile = cleansedEntry(currentEntry);
+    MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas);
 
     while (!exit)
     {

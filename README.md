@@ -53,4 +53,5 @@
 | UTAS                  | <ul><li>- [x] </li><li> |
 | SIMPAN DAN MUAT       | <ul><li>- [x] </li><li> |
 | BONUS: TAGAR          | <ul><li>- [x] </li><li> |
+| BONUS: KELOMPOK TEMAN | Baru ADT, 50%           |
 | BONUS: NOMOR HP       | <ul><li>- [x] </li><li> |
