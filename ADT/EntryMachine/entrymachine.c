@@ -257,6 +257,15 @@ Entry cutAfterEntry(Entry n, int k)
     return m;
 }
 
+int firstNum(Entry n){
+    int i=0;
+    while(n.TabEntry[i] != 32){
+        i++;
+    }
+    n = PotongEntry(n,i);
+    return EntryToInt(n);
+}
+
 int firstNumParam(Entry n)
 /*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
     e.g.
@@ -350,6 +359,62 @@ int secondNumParam(Entry n)
         return ret;
     }
 }
+
+void CopyLine()
+/* Mengakuisisi kata, menyimpan dalam currentWord
+   I.S. : currentChar adalah karakter pertama dari kata
+   F.S. : currentWord berisi kumpulan kata pada baris yang sudah diakuisisi;
+          currentChar = ENTER atau retval = EOF;
+          currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+{
+    int i = 0;
+    while ((currentChar != '\n') && (retval != EOF))
+    {
+        if(currentChar != '\r'){
+            currentEntry.TabEntry[i] = currentChar;
+        }
+        ADV();
+        i++;
+    }
+    currentEntry.Length = i;
+}
+
+void STARTFILEWORD(char* dir)
+/* I.S. : currentChar sembarang
+   F.S. : retval = EOF dan mesin berhenti;
+          atau retval != EOF, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah kata terakhir kata */
+{
+   STARTFILE(dir);
+   CopyLine();
+}
+
+void IgnoreEnters(){
+    while (currentChar != '\n'){
+        ADV();
+    }
+    ADV();
+}
+
+void ADVLINE(){
+    IgnoreBlanks();
+    IgnoreEnters();
+    CopyLine();
+}
+
+long long int EntryToInt(Entry p){
+    int i=0,k,ret=0;
+    while (i < p.Length)
+    {
+        k = p.TabEntry[i] - '0';
+        ret += k * powerDifferentiated(10, p.Length - (i + 1));
+        i++;
+    }
+    return ret;
+}
+
+
 
 /* USAGE */
 /*

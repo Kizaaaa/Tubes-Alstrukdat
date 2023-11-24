@@ -7,7 +7,7 @@
 char currentChar;
 
 static FILE *pita;
-static int retval;
+int retval;
 
 void START()
 {
@@ -33,4 +33,25 @@ void ADV()
 
     /* Algoritma */
     retval = fscanf(pita, "%c", &currentChar);
+}
+
+void STARTFILE(char* dir)
+/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
+   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
+   I.S. : dir terdefinisi, yaitu direktori file yang ingin dibaca.
+   F.S. : currentChar adalah karakter pertama pada pita
+   		 Jika retval != EOF maka mesin akan tetap berjalan
+   		 Jika retval = EOF maka mesin akan berhenti
+		    Jika file tidak bisa dibaca maka mesin akan berhenti dan file akan ditutup */
+{
+	pita = fopen(dir, "r");
+	if (pita == NULL)
+	{
+		printf("Pita tidak bisa dibaca.");
+		fclose(pita);
+	}
+	else
+	{
+		ADV();
+	}
 }

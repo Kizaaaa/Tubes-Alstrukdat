@@ -134,7 +134,7 @@ void BuatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
 
 void LihatDraf(ListDinT *KicauGlobal, Stack *S, Entry Author);
 
-void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int *IDUtas, long long int IDCreate);
+void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long long int IDCreate);
 
 void SambungUtas(ListDinT *KicauGlobal, ListDin UtasGlobal, Entry CurrentUser, long long int IDUtas, long long int Index);
 

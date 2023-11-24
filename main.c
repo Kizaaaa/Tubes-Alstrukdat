@@ -16,7 +16,6 @@ int main()
 {
     boolean exit = false;
     boolean isMasuk = false;
-    long long int IDUtas = 1;
     int CurrentUser;
 
     // ADT
@@ -33,18 +32,18 @@ int main()
     CreateListDin(&ListUtas, 10);
     // initializeSet(&dsu);
 
-    printf(".______    __    __  .______      .______    __  .______\n");
-    printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
-    printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
-    printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
-    printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
-    printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
+    // printf(".______    __    __  .______      .______    __  .______\n");
+    // printf("|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\\n");
+    // printf("|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |\n");
+    // printf("|   _  <  |  |  |  | |      /     |   _  <  |  | |      /\n");
+    // printf("|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n");
+    // printf("|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n");
 
-    printf("Selamat datang di BurBir.\n");
-    printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
-    printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
-    Entry namaFile = cleansedEntry(currentEntry);
-    inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
+    // printf("Selamat datang di BurBir.\n");
+    // printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
+    // printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
+    // Entry namaFile = cleansedEntry(currentEntry);
+    // inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas, &IDUtas, namaFile);
 
     while (!exit)
     {
@@ -70,7 +69,7 @@ int main()
             }
             else if (isSame(input, StringToEntry("MUAT", 4)))
             {
-                MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas, &IDUtas);
+                MuatBatch(&Pertemanan, &ListProfil, &ListTweets, &ListUtas);
             }
             else if (isSame(input, StringToEntry("TUTUP_PROGRAM", 13)))
             {
@@ -169,7 +168,7 @@ int main()
             }
             else if (isSame(cutBeforeEntry(input, 4), StringToEntry("UTAS", 4)))
             {
-                Utas(&ListTweets, &ListUtas, Nama(ELMTLS(ListProfil, CurrentUser)), &IDUtas, firstNumParam(input));
+                Utas(&ListTweets, &ListUtas, Nama(ELMTLS(ListProfil, CurrentUser)), firstNumParam(input));
             }
             else if (isSame(cutBeforeEntry(input, 12), StringToEntry("SAMBUNG_UTAS", 12)))
             {

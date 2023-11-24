@@ -75,6 +75,8 @@ Entry cutBeforeEntry(Entry n, int k);
 
 Entry cutAfterEntry(Entry n, int k);
 
+int firstNum(Entry n);
+
 int firstNumParam(Entry n);
 /*  Parameter Entry TIDAK PERLU dipotong menggunakan cutAfter atau cutBefore
     e.g.
@@ -98,5 +100,11 @@ int secondNumParam(Entry n);
     secondNumParam(currentEntry) akan mengembalikan nilai -1
     BALAS 76 -9;
     secondNumParam(currentEntry) akan mengembalikan nilai -1 */
+
+void STARTFILEWORD(char* dir);
+
+void ADVLINE();
+
+long long int EntryToInt(Entry n);
 
 #endif
