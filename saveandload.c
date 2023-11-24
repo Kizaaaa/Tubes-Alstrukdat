@@ -579,6 +579,7 @@ void MuatBalasan(char* Path, ListDinT *KicauGlobal){
                 BALASAN(ELMTT(*KicauGlobal,IDKicauan)) = bt;
             }
         }
+        ELMTT(*KicauGlobal,IDKicauan) = k;
     }
 }
 
@@ -629,8 +630,52 @@ void MuatDraf(char* Path, ListStatik *ListProfil){
     }
 }
 
-void MuatUtas(char* path, ListDinT *KicauGlobal, ListDin *UtasGlobal){
+void MuatUtas(char* Path, ListDinT *KicauGlobal, ListDin *UtasGlobal){
+    char path[365];
+    long long int i = 0;
+    currentEntry = StringToEntry("/utas.config",12);
 
+    while (*Path != '\r')
+    {
+        path[i] = *Path;
+        Path++;
+        i++;
+    }
+    char *folder = path;
+    while(*folder){
+        folder++;
+    }
+    for (i = 0; i < currentEntry.Length; i++)
+    {
+        *folder = currentEntry.TabEntry[i];
+        folder++;
+    }
+    *folder = '\0';
+    STARTFILEWORD(path);
+    long long int n = EntryToInt(currentEntry),IDKicau,t;
+    expandListDin(UtasGlobal,n);
+    ADVLINE();
+    while(n--){
+        IDKicau = EntryToInt(currentEntry);
+        insertLastListDin(UtasGlobal,IDKicau);
+        ADVLINE();
+        Kicau k = ELMTT(*KicauGlobal,IDKicau);
+        ISUTAS(ELMTT(*KicauGlobal,IDKicau)) = true;
+        t = EntryToInt(currentEntry); ADVLINE();
+        for(i=1;i<=t;i++){
+            UTAS u;
+            Entry textu = currentEntry; ADVLINE();
+            Entry authoru = currentEntry; ADVLINE();
+            DATETIME d = entryToDateTime(currentEntry); ADVLINE();
+            createUtas(&u,i,textu,d);
+            if(UTASAN(k) == NULL){
+                insertFirstUtas(&UTASAN(k),u);
+            } else {
+                insertLastUtas(&UTASAN(k),u);
+            }
+        }
+        UTASAN(ELMTT(*KicauGlobal,IDKicau)) = UTASAN(k);
+    }
 }
 
 void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, ListDin *UtasGlobal)
@@ -659,5 +704,6 @@ void MuatBatch(Graf *Pertemanan, ListStatik *ListProfil, ListDinT *KicauGlobal, 
         MuatKicauan(path,KicauGlobal);
         MuatBalasan(path,KicauGlobal);
         MuatDraf(path,ListProfil);
+        MuatUtas(path,KicauGlobal,UtasGlobal);
     }
 }
