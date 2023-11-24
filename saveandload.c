@@ -494,7 +494,7 @@ void MuatKicauan(char *Path, ListDinT *KicauGlobal)
 {
     char path[365];
     long long int i = 0;
-    currentEntry = StringToEntry("/kicauan.config", 13);
+    currentEntry = StringToEntry("/kicauan.config", 15);
 
     while (*Path != '\r' && i < sizeof(path) - 1)
     {
