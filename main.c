@@ -1,18 +1,6 @@
 #include <stdio.h>
 #include "main.h"
 
-void inisialisasi(ListStatik *ListProfil, Graf *Pertemanan, ListDinT *ListTweets, ListDin *ListUtas)
-{
-    // Profil
-    CreateListStatik(ListProfil);
-    CreateGraf(Pertemanan);
-    CreateListDinT(ListTweets, 10);
-    CreateListDin(ListUtas, 10);
-
-    // Muat
-    MuatBatch(Pertemanan, ListProfil, ListTweets, ListUtas);
-}
-
 int main()
 {
     boolean exit = false;
@@ -68,7 +56,6 @@ int main()
     printf("Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n\n");
     printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
     Entry namaFile = cleansedEntry(currentEntry);
-    inisialisasi(&ListProfil, &Pertemanan, &ListTweets, &ListUtas);
 
     while (!exit)
     {
