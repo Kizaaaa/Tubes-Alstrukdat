@@ -697,7 +697,6 @@ void Utas(ListDinT *KicauGlobal, ListDin *UtasGlobal, Entry CurrentUser, long lo
         ELMTLDI(*UtasGlobal, NEFFLDI(*UtasGlobal)) = IDCreate - 1;
         NEFFLDI(*UtasGlobal) = NEFFLDI(*UtasGlobal) + 1;
         ISUTAS(ELMTT(*KicauGlobal, IDCreate - 1)) = true;
-        NEFFLDI(*UtasGlobal) = NEFFLDI(*UtasGlobal) + 1;
         readUtas(&UTASAN(ELMTT(*KicauGlobal, IDCreate - 1)));
     }
 }
