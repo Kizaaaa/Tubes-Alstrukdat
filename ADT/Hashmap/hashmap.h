@@ -30,7 +30,7 @@ typedef struct nodeHash
 #define HMCAP 9971
 typedef struct
 {
-    AddressHash hashmapContents[HMCAP];
+    AddressHash hashmapContents[HMCAP * 2];
     int hashnEff;
 } HashMap;
 

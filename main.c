@@ -24,6 +24,7 @@ int main()
     Graf Pertemanan;
     ListDinT ListTweets;
     ListDin ListUtas;
+    HashMap MapTagar;
     // DisjointSet dsu;
 
     CreateListStatik(&ListProfil);
@@ -186,6 +187,11 @@ int main()
             {
                 printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n");
                 isMasuk = false;
+            }
+            else if (isSame(cutBeforeEntry(input, 12), StringToEntry("CARI_KICAUAN", 12)))
+            {
+                Entry tg = cutAfterEntry(input, 12);
+                getndisplayHM(&MapTagar, &ListTweets, tg);
             }
             else if (isSame(input, StringToEntry("KELOMPOK_TEMAN", 14)))
             {

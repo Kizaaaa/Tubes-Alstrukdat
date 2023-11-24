@@ -38,10 +38,7 @@
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp_Runner.linkerArgs": [],
   "C_Cpp_Runner.includePaths": [],
-  "C_Cpp_Runner.includeSearch": [
-    "*",
-    "**/*"
-  ],
+  "C_Cpp_Runner.includeSearch": ["*", "**/*"],
   "C_Cpp_Runner.excludeSearch": [
     "**/build",
     "**/build/**",
@@ -69,6 +66,7 @@
     "stdlib.h": "c",
     "listprofil.h": "c",
     "kicau.h": "c",
-    "utas.h": "c"
+    "utas.h": "c",
+    "hashmap.h": "c"
   }
 }
