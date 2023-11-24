@@ -110,7 +110,7 @@ void SimpanKicauan(char *Path, ListDinT KicauGlobal)
 {
     char path[300];
     char *folder = Path;
-    char *kicau = "/kicau.config";
+    char *kicau = "/kicauan.config";
     long long int i = 0;
 
     while (*folder)
@@ -494,7 +494,7 @@ void MuatKicauan(char *Path, ListDinT *KicauGlobal)
 {
     char path[365];
     long long int i = 0;
-    currentEntry = StringToEntry("/kicau.config", 13);
+    currentEntry = StringToEntry("/kicauan.config", 13);
 
     while (*Path != '\r' && i < sizeof(path) - 1)
     {
